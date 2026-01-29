@@ -1,0 +1,10 @@
+<h2>Available Exercises</h2>
+
+<ul>
+{% for exercise in exercises %}
+    <li>
+        <strong>{{ exercise.name }}</strong><br>
+        {{ exercise.description }}
+    </li>
+{% endfor %}
+</ul>
