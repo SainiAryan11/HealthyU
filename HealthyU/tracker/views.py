@@ -10,26 +10,44 @@ def home(request):
 
 def signup(request):
     if request.method == 'POST':
-        username = request.POST['username']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
         password = request.POST['password']
+        dob = request.POST['dob']  # stored later (ignore for now)
 
-        User.objects.create_user(username=username, password=password)
+        # Create user (email as username)
+        user = User.objects.create_user(
+            username=email,
+            email=email,
+            password=password
+        )
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()
+
         return redirect('login')
 
     return render(request, 'signup.html')
 
+
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST['username']
+        email = request.POST['email']
         password = request.POST['password']
 
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(
+            request,
+            username=email,
+            password=password
+        )
 
         if user is not None:
             login(request, user)
             return redirect('profile')
 
     return render(request, 'login.html')
+
 
 def logout_view(request):
     logout(request)
@@ -42,3 +60,5 @@ def profile(request):
     exercises = Exercise.objects.all()
     return render(request, 'profile.html', {'exercises': exercises})
 
+def streak(request):
+    return render(request, 'streak.html')
