@@ -18,3 +18,13 @@ class Exercise(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    points = models.IntegerField(default=0)
+    streak = models.IntegerField(default=0)
+    last_activity = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return self.user.username

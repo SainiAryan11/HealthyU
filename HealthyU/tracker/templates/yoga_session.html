@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .exercise-container {
+        max-width: 1000px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .exercise-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .progress-circle {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: 6px solid #007bff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+
+    .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .step-box {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .step-number {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .session-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+    }
+</style>
+
+<div class="exercise-container">
+
+    <!-- Header -->
+    <div class="exercise-header">
+        <div>
+            <h2>Yoga & Meditation</h2>
+            <p>Helps improve flexibility, focus, and mental calmness.</p>
+        </div>
+
+        <div class="progress-circle">
+            100%
+        </div>
+    </div>
+
+    <!-- Steps -->
+    <h4>Steps to Perform</h4>
+    <div class="steps-grid">
+        <div class="step-box">
+            <div class="step-number">1</div>
+            Sit in a comfortable position
+        </div>
+        <div class="step-box">
+            <div class="step-number">2</div>
+            Close your eyes and relax
+        </div>
+        <div class="step-box">
+            <div class="step-number">3</div>
+            Inhale deeply through your nose
+        </div>
+        <div class="step-box">
+            <div class="step-number">4</div>
+            Exhale slowly through your mouth
+        </div>
+        <div class="step-box">
+            <div class="step-number">5</div>
+            Focus on your breathing for 5 minutes
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="session-actions">
+        <div>
+            <button class="btn btn-secondary">Previous</button>
+        </div>
+
+        <div>
+            <a href="{% url 'session_report' %}" class="btn btn-success">
+                Show Session Report
+            </a>
+        </div>
+
+        <div>
+            <button class="btn btn-danger">End Session</button>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

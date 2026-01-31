@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from .utils import update_streak_and_points
+
 
 # Create your views here.
 
@@ -62,3 +64,20 @@ def profile(request):
 
 def streak(request):
     return render(request, 'streak.html')
+
+def start_exercise(request):
+    return render(request, 'start_exercise.html')
+
+def exercise_session(request):
+    return render(request, 'exercise_session.html')
+
+def yoga_session(request):
+    return render(request, 'yoga_session.html')
+
+def session_report(request):
+    return render(request, 'session_report.html')
+
+def complete_session(request):
+    profile = request.user.userprofile
+    update_streak_and_points(profile)
+    return redirect('profile')

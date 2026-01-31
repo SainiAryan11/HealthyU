@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .report-container {
+        max-width: 1100px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .report-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .report-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+
+    .report-box {
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .report-box h4 {
+        margin-bottom: 15px;
+    }
+
+    .report-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .completed {
+        color: green;
+        font-weight: bold;
+    }
+
+    .skipped {
+        color: red;
+        font-weight: bold;
+    }
+
+    .summary-box {
+        margin-top: 30px;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .summary-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .report-actions {
+        margin-top: 30px;
+        text-align: center;
+    }
+</style>
+
+<div class="report-container">
+
+    <div class="report-header">
+        <h2>Session Report</h2>
+        <p>Here is your workout summary</p>
+    </div>
+
+    <div class="report-grid">
+
+        <!-- Physical Exercises -->
+        <div class="report-box">
+            <h4>Physical Exercises</h4>
+
+            <div class="report-item">
+                <span>Push Ups (10)</span>
+                <span class="completed">Completed</span>
+            </div>
+
+            <div class="report-item">
+                <span>Squats (15)</span>
+                <span class="completed">Completed</span>
+            </div>
+
+            <div class="report-item">
+                <span>Jumping Jacks (20)</span>
+                <span class="skipped">Skipped</span>
+            </div>
+        </div>
+
+        <!-- Yoga & Meditation -->
+        <div class="report-box">
+            <h4>Yoga & Meditation</h4>
+
+            <div class="report-item">
+                <span>Breathing Exercise</span>
+                <span class="completed">Completed</span>
+            </div>
+
+            <div class="report-item">
+                <span>Mindfulness Meditation</span>
+                <span class="completed">Completed</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Summary -->
+    <div class="summary-box">
+        <div class="summary-item">
+            <span>Progress</span>
+            <span>100%</span>
+        </div>
+
+        <div class="summary-item">
+            <span>Time Taken</span>
+            <span>30 Minutes</span>
+        </div>
+
+        <div class="summary-item">
+            <span>Points Earned</span>
+            <span>+120 H Points</span>
+        </div>
+    </div>
+
+    <div class="report-actions">
+        <a href="{% url 'profile' %}" class="btn btn-primary">
+            Back to Profile
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}
