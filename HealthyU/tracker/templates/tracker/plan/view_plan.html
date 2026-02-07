@@ -1,0 +1,46 @@
+{% extends "tracker/base.html" %}
+{% block content %}
+
+<div class="container my-5">
+  <h3 class="mb-3">Your Exercise Plan</h3>
+
+  {% if not plan %}
+    <p class="text-muted">No plan created yet.</p>
+    <a href="{% url 'create_plan' %}" class="btn btn-success">Create Plan</a>
+  {% else %}
+
+    <div class="card mb-3">
+      <div class="card-body">
+        <p class="mb-0"><strong>Created:</strong> {{ plan.created_at }}</p>
+        <p class="text-muted mb-0">This plan cannot be edited. You can only delete it.</p>
+      </div>
+    </div>
+
+    <div class="list-group mb-4">
+      {% for item in plan.items.all %}
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <div class="fw-semibold">{{ item.name }}</div>
+            <small class="text-muted">{{ item.category }}</small>
+          </div>
+          <div>
+            {% if item.unit == "min" %}
+              {{ item.value }} min
+            {% else %}
+              {{ item.value }} x
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <form method="POST" action="{% url 'delete_plan' %}">
+      {% csrf_token %}
+      <button class="btn btn-danger">Delete Entire Plan</button>
+      <a href="{% url 'profile' %}" class="btn btn-secondary ms-2">Back</a>
+    </form>
+
+  {% endif %}
+</div>
+
+{% endblock %}

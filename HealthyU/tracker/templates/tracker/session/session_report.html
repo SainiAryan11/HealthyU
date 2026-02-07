@@ -1,0 +1,132 @@
+{% extends "tracker/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+  <h2 class="mb-4">Session Report</h2>
+
+  <div class="row g-3 mb-4">
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5>Progress</h5>
+          <h2 id="progressPct">0%</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5>Time Taken</h5>
+          <h2 id="timeTaken">0 min</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5>Points Earned</h5>
+          <h2 id="pointsEarned">0</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Physical -->
+  <div class="card mb-3">
+    <div class="card-body">
+      <h4 class="mb-3">Physical Exercises</h4>
+      <div id="physicalList" class="list-group"></div>
+    </div>
+  </div>
+
+  <!-- Yoga -->
+  <div class="card mb-3">
+    <div class="card-body">
+      <h4 class="mb-3">Yoga</h4>
+      <div id="yogaList" class="list-group"></div>
+    </div>
+  </div>
+
+  <!-- Meditation -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <h4 class="mb-3">Meditation</h4>
+      <p class="mb-1"><strong>Planned:</strong> <span id="medPlanned">0</span> min</p>
+      <p class="mb-0"><strong>Spent:</strong> <span id="medSpent">0</span> min</p>
+      <p class="mb-1"><strong>Status:</strong> <span id="medStatusBadge"></span></p>
+    </div>
+  </div>
+
+  <div class="d-flex gap-2">
+    <a href="{% url 'profile' %}" class="btn btn-secondary">Back to Profile</a>
+    <a href="{% url 'today_session' %}" class="btn btn-success">Start Again</a>
+  </div>
+</div>
+
+<script>
+  function badge(status){
+    if(status === "completed") return `<span class="badge bg-success">Completed</span>`;
+    if(status === "skipped") return `<span class="badge bg-warning text-dark">Skipped</span>`;
+    return `<span class="badge bg-secondary">Pending</span>`;
+  }
+
+  function addItems(containerId, items){
+    const box = document.getElementById(containerId);
+    box.innerHTML = "";
+
+    if(!items || items.length === 0){
+      box.innerHTML = `<div class="text-muted">No items</div>`;
+      return;
+    }
+
+    items.forEach(it => {
+      const valueText = it.unit === "min" ? `${it.value} min` : `${it.value}x`;
+      const row = document.createElement("div");
+      row.className = "list-group-item d-flex justify-content-between align-items-center";
+      row.innerHTML = `
+        <div>
+          <div class="fw-semibold">${it.name}</div>
+          <small class="text-muted">${valueText}</small>
+        </div>
+        ${badge(it.status)}
+      `;
+      box.appendChild(row);
+    });
+  }
+
+  // read report from sessionStorage
+  const raw = sessionStorage.getItem("sessionReport");
+  if(!raw){
+    // fallback
+    document.getElementById("progressPct").innerText = "0%";
+  } else {
+    const report = JSON.parse(raw);
+
+    document.getElementById("progressPct").innerText = (report.progress || 0) + "%";
+    document.getElementById("pointsEarned").innerText = report.points || 0;
+    document.getElementById("timeTaken").innerText = (report.time_minutes || 0) + " min";
+
+    document.getElementById("medPlanned").innerText = report.meditation_planned || 0;
+    document.getElementById("medSpent").innerText = report.meditation_spent || 0;
+
+    const ms = report.meditation_status || "skipped";
+
+    if (ms === "completed") {
+    document.getElementById("medStatusBadge").innerHTML =
+        `<span class="badge bg-success">Completed</span>`;
+    } else if (ms === "partial") {
+    document.getElementById("medStatusBadge").innerHTML =
+        `<span class="badge bg-info">Partial</span>`;
+    } else {
+    document.getElementById("medStatusBadge").innerHTML =
+        `<span class="badge bg-warning text-dark">Skipped</span>`;
+    }
+
+    addItems("physicalList", report.physical || []);
+    addItems("yogaList", report.yoga || []);
+  }
+</script>
+{% endblock %}

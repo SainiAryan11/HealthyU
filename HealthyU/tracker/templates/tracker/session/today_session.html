@@ -1,0 +1,434 @@
+{% extends "tracker/base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .exercise-container { max-width: 1000px; margin: auto; padding: 20px; }
+    .exercise-header { display: flex; justify-content: space-between; align-items: center; }
+    .progress-circle { width: 70px; height: 70px; border-radius: 50%; border: 6px solid #28a745;
+        display: flex; align-items: center; justify-content: center; font-weight: bold; }
+    .steps-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; margin-top: 20px; }
+    .step-box { border: 1px solid #ccc; padding: 10px; border-radius: 8px; text-align: center; }
+    .step-number { font-size: 20px; font-weight: bold; margin-bottom: 5px; }
+    .session-actions { display: flex; justify-content: space-between; margin-top: 30px; flex-wrap: wrap; gap: 10px; }
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; }
+    .modal-box { background: white; padding: 25px; border-radius: 10px; text-align: center; width: 420px; }
+    .modal-actions { display: flex; justify-content: space-between; margin-top: 20px; gap: 10px; }
+</style>
+
+
+<div class="exercise-container">
+
+    <!-- Header -->
+    <div class="exercise-header">
+        <div>
+            <h2 id="exName">Loading...</h2>
+            <p id="exDesc"></p>
+        </div>
+
+        <div class="progress-circle">
+            <span id="progressText">0%</span>
+        </div>
+    </div>
+
+    <!-- Steps -->
+    <h4>Steps to Perform</h4>
+    <div class="steps-grid" id="stepsGrid">
+        <!-- filled by JS -->
+    </div>
+
+    <!-- Buttons -->
+    <div class="session-actions">
+        <div>
+            <button class="btn btn-secondary" id="prevBtn">Previous</button>
+        </div>
+
+        <div>
+            <button class="btn btn-success" id="doBtn">
+                Do this exercise
+            </button>
+        </div>
+
+        <div class="d-flex gap-2">
+            <button class="btn btn-secondary" id="nextBtn">Next</button>
+            <button class="btn btn-warning" id="skipBtn">Skip</button>
+            <button class="btn btn-danger" id="endBtn">
+                End Session
+            </button>   
+
+        </div>
+    </div>
+
+</div>
+
+<!-- 50% Completion Modal -->
+<div id="halfCompleteModal" class="modal-overlay">
+    <div class="modal-box">
+        <h3 id="halfTitle">Your Exercises are Completed 🎉</h3>
+        <p id="halfText">Great job! Keep going.</p>
+
+        <div class="modal-actions">
+            <button class="btn btn-secondary" onclick="closeModal()">Back</button>
+
+            <button class="btn btn-success" id="startYogaBtn">Start Yoga</button>
+            <button class="btn btn-success" id="startMeditationBtn" style="display:none;">Start Meditation</button>
+            <a href="{% url 'complete_session' %}" class="btn btn-primary" id="finishSessionBtn" style="display:none;">
+                Finish Session
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+  const PHYSICAL = JSON.parse('{{ physical_json|escapejs }}');
+  const YOGA = JSON.parse('{{ yoga_json|escapejs }}');
+  const MEDITATION = JSON.parse('{{ meditation_json|escapejs }}');
+</script>
+
+
+<script>
+let phase = "physical"; // physical -> yoga -> meditation
+let i = 0;
+
+let completedPhysical = 0;
+let skippedPhysical = 0;
+
+let completedYoga = 0;
+let skippedYoga = 0;
+
+let meditationStarted = false;
+let medTotalSec = ((MEDITATION && MEDITATION.value) ? MEDITATION.value : 5) * 60;
+let medSpentSec = 0;
+let medTimer = null;
+
+const exName = document.getElementById("exName");
+const exDesc = document.getElementById("exDesc");
+const stepsGrid = document.getElementById("stepsGrid");
+const progressText = document.getElementById("progressText");
+const doBtn = document.getElementById("doBtn");
+
+const nextBtn = document.getElementById("nextBtn");
+const skipBtn = document.getElementById("skipBtn");
+const prevBtn = document.getElementById("prevBtn");
+const endBtn = document.getElementById("endBtn");
+
+const startYogaBtn = document.getElementById("startYogaBtn");
+const startMeditationBtn = document.getElementById("startMeditationBtn");
+const finishSessionBtn = document.getElementById("finishSessionBtn");
+
+
+function currentList() {
+  return phase === "physical" ? PHYSICAL : (phase === "yoga" ? YOGA : []);
+}
+
+function updateProgress() {
+  // Physical max 50, Yoga adds 25 => 75, Meditation adds 25 => 100
+  const pTotal = PHYSICAL.length || 1;
+  const yTotal = YOGA.length || 1;
+
+  const physicalProgress = Math.round((completedPhysical / pTotal) * 50);
+  const yogaProgress = Math.round((completedYoga / yTotal) * 25);
+
+  let medProgress = 0;
+  if (phase === "meditation" || meditationStarted) {
+    medProgress = Math.round(Math.min(medSpentSec / medTotalSec, 1) * 25);
+  }
+
+  const total = physicalProgress + yogaProgress + medProgress;
+  progressText.innerText = total + "%";
+}
+
+function renderExercise() {
+  // Meditation screen
+  if (phase === "meditation") {
+    renderMeditation();
+    return;
+  }
+
+  const list = currentList();
+
+  if (list.length === 0) {
+    if (phase === "physical") return finishPhysical();
+    if (phase === "yoga") return finishYoga();
+  }
+
+  const ex = list[i];
+  exName.innerText = ex.name;
+  exDesc.innerText = ex.description;
+
+  doBtn.innerText = (ex.unit === "freq")
+    ? `Do this exercise ${ex.value} times`
+    : `Do this for ${ex.value} min`;
+
+  stepsGrid.innerHTML = "";
+  ex.steps.forEach((s, idx) => {
+    const div = document.createElement("div");
+    div.className = "step-box";
+    div.innerHTML = `<div class="step-number">${idx+1}</div>${s}`;
+    stepsGrid.appendChild(div);
+  });
+
+  nextBtn.disabled = false;
+  prevBtn.disabled = false;
+  skipBtn.disabled = false;
+
+  updateProgress();
+}
+
+function openModal(title, text, showYoga, showMeditation, showFinish) {
+  document.getElementById("halfTitle").innerText = title;
+  document.getElementById("halfText").innerText = text;
+
+  startYogaBtn.style.display = showYoga ? "inline-block" : "none";
+  startMeditationBtn.style.display = showMeditation ? "inline-block" : "none";
+  finishSessionBtn.style.display = showFinish ? "inline-block" : "none";
+
+  document.getElementById("halfCompleteModal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("halfCompleteModal").style.display = "none";
+}
+
+function finishPhysical() {
+  const total = PHYSICAL.length || 1;
+  const achieved = Math.round((completedPhysical / total) * 50);
+  openModal(
+    `${achieved}% Physical Completed 🎉`,
+    `Skipped: ${skippedPhysical}. Without skipping, you would be at 50%.`,
+    true,  // Start Yoga
+    false,
+    false
+  );
+}
+
+function finishYoga() {
+  const yTotal = YOGA.length || 1;
+  const yogaPart = Math.round((completedYoga / yTotal) * 25);
+  const physicalPart = Math.round((completedPhysical / (PHYSICAL.length || 1)) * 50);
+  const achieved = physicalPart + yogaPart;
+
+  openModal(
+    `${achieved}% Physical + Yoga Completed 🎉`,
+    `Skipped (Yoga): ${skippedYoga}. Without skipping, you would be at 75%.`,
+    false,
+    true,   // Start Meditation
+    false
+  );
+}
+
+function saveReportAndGoToReport(finalProgress) {
+    // Build physical list with status
+    const physical = PHYSICAL.map((x, idx) => ({
+        name: x.name,
+        value: x.value,
+        unit: x.unit,
+        status: idx < completedPhysical ? "completed" : "skipped"
+    }));
+
+    const yoga = YOGA.map((x, idx) => {
+    if (idx < completedYoga) return { name: x.name, value: x.value, unit: x.unit, status: "completed" };
+    if (idx < completedYoga + skippedYoga) return { name: x.name, value: x.value, unit: x.unit, status: "skipped" };
+    return { name: x.name, value: x.value, unit: x.unit, status: "pending" };
+    });
+
+    const medSpentMin = Math.round(medSpentSec / 60);
+
+    // points (frontend estimate now)
+    // Physical + Yoga share 75 pts equally by completion ratio, Meditation up to 25 by time ratio
+    const physicalPts = Math.round((completedPhysical / (PHYSICAL.length || 1)) * 37.5);
+    const yogaPts = Math.round((completedYoga / (YOGA.length || 1)) * 37.5);
+    const medPts = Math.round(Math.min(medSpentSec / medTotalSec, 1) * 25);
+    const points = physicalPts + yogaPts + medPts;
+    const medRatio = medTotalSec ? (medSpentSec / medTotalSec) : 0;
+    const meditationStatus = (medRatio >= 0.95) ? "completed" : (medSpentSec > 0 ? "partial" : "skipped");
+    
+    const report = {
+        progress: finalProgress,
+        points: points,
+        time_minutes: 0, // we’ll add timer later
+        physical: physical,
+        yoga: yoga,
+        meditation_planned: (MEDITATION && MEDITATION.value) ? MEDITATION.value : 5,
+        meditation_status: meditationStatus,
+        meditation_spent: medSpentMin
+    };
+
+    sessionStorage.setItem("sessionReport", JSON.stringify(report));
+    window.location.href = "/session-report/";
+}
+
+function finishMeditation() {
+  updateProgress();
+  // compute final progress shown in UI
+  const shown = parseInt(progressText.innerText.replace("%","")) || 0;
+  saveReportAndGoToReport(shown);
+}
+
+function endSessionNow() {
+  // compute current progress shown
+  updateProgress();
+  const shownProgress = parseInt(progressText.innerText.replace("%", "")) || 0;
+
+  // stop meditation timer if running
+  if (medTimer) {
+    clearInterval(medTimer);
+    medTimer = null;
+  }
+
+  saveReportAndGoToReport(shownProgress);
+}
+
+
+// ---- Buttons (Next/Skip/Prev) ----
+nextBtn.onclick = () => {
+  if (phase === "meditation") return; // disabled anyway
+
+  const list = currentList();
+  if (phase === "physical") completedPhysical++;
+  else if (phase === "yoga") completedYoga++;
+
+  i++;
+
+  if (i >= list.length) {
+    if (phase === "physical") finishPhysical();
+    else if (phase === "yoga") finishYoga();
+    return;
+  }
+  renderExercise();
+};
+
+skipBtn.onclick = () => {
+  if (phase === "meditation") {
+    if (confirm("Do you want to skip meditation?")) {
+      clearInterval(medTimer);
+      medTimer = null;
+      // skipping meditation => no more progress from it
+      finishMeditation();
+    }
+    return;
+  }
+
+  const list = currentList();
+  if (phase === "physical") skippedPhysical++;
+  else if (phase === "yoga") skippedYoga++;
+
+  i++;
+
+  if (i >= list.length) {
+    if (phase === "physical") finishPhysical();
+    else if (phase === "yoga") finishYoga();
+    return;
+  }
+  renderExercise();
+};
+
+prevBtn.onclick = () => {
+  if (phase === "meditation") return;
+  if (i > 0) i--;
+  renderExercise();
+};
+
+// End Session confirmation
+endBtn.onclick = () => {
+  if (confirm("Do you want to end the session now?")) {
+    endSessionNow();
+  }
+};
+
+// ---- Modal buttons ----
+startYogaBtn.onclick = () => {
+  closeModal();
+  phase = "yoga";
+  i = 0;
+  renderExercise();
+};
+
+startMeditationBtn.onclick = () => {
+  closeModal();
+  phase = "meditation";
+  meditationStarted = true;
+
+  // reset timer for fresh start
+  medSpentSec = 0;
+  medTotalSec = ((MEDITATION && MEDITATION.value) ? MEDITATION.value : 5) * 60;
+  if (medTimer) { clearInterval(medTimer); medTimer = null; }
+
+  renderExercise();
+};
+
+
+// ---- Meditation Screen ----
+function renderMeditation() {
+  exName.innerText = MEDITATION.name;
+  exDesc.innerText = MEDITATION.description;
+
+  // Do button shows timer label
+  doBtn.innerText = `Meditate for ${MEDITATION.value} min`;
+
+  // Steps grid (same as physical/yoga)
+  stepsGrid.innerHTML = "";
+  (MEDITATION.steps || []).forEach((s, idx) => {
+    const div = document.createElement("div");
+    div.className = "step-box";
+    div.innerHTML = `<div class="step-number">${idx+1}</div>${s}`;
+    stepsGrid.appendChild(div);
+  });
+
+  // Add timer text row below steps (still on same page)
+  const timerRow = document.createElement("div");
+  timerRow.className = "step-box";
+  timerRow.style.gridColumn = "span 5";
+  timerRow.innerHTML = `
+    <div class="step-number" id="medTimerText">Starting...</div>
+    <div><strong>Planned:</strong> ${MEDITATION.value} minutes</div>
+    <div class="text-muted small">Next is disabled during meditation.</div>
+  `;
+  stepsGrid.appendChild(timerRow);
+
+  // Disable next/prev
+  nextBtn.disabled = true;
+  prevBtn.disabled = true;
+
+  // Skip & End allowed (with confirm)
+  skipBtn.disabled = false;
+
+  startMeditationTimer();
+  updateProgress();
+}
+
+
+// init
+renderExercise();
+
+function startMeditationTimer() {
+  if (medTimer) return;
+
+  const timerEl = document.getElementById("medTimerText");
+  if (!timerEl) return;
+
+  medTimer = setInterval(() => {
+    medSpentSec++;
+
+    const remaining = Math.max(medTotalSec - medSpentSec, 0);
+    const mm = String(Math.floor(remaining / 60)).padStart(2, "0");
+    const ss = String(remaining % 60).padStart(2, "0");
+
+    timerEl.innerText = `${mm}:${ss} remaining`;
+
+    updateProgress();
+
+    if (medSpentSec >= medTotalSec) {
+      clearInterval(medTimer);
+      medTimer = null;
+      finishMeditation();
+    }
+  }, 1000);
+}
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,11 @@
+# Python/Django ignores
+__pycache__/
+*.pyc
+*.pyo
+*.env
+*.sqlite3
+.env
+.vscode/
+.idea/
+env/
+HealthyU/db.sqlite3

@@ -1,0 +1,91 @@
+{% extends "tracker/base.html" %}
+
+{% block content %}
+
+<!-- TOP PROFILE INFO -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h4 class="card-title">Profile</h4>
+
+        <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+
+        <div class="d-flex gap-4 mt-3">
+            <div>
+                <h5>🔥 Streak</h5>
+                <h3>{{ user.userprofile.streak }}</h3>
+            </div>
+
+            <div>
+                <h5>⭐ Points</h5>
+                <h3>{{ user.userprofile.points }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ACTION OPTIONS -->
+<div class="row text-center">
+
+    <!-- Create Plan -->
+    <div class="col-md-4 mb-3">
+        <div class="card h-100">
+            <div class="card-body">
+                {% if plan %}
+                    <h5>View Your Existing Plan</h5>
+                    <p>View Your Existing Plan</p>
+                    <a href="{% url 'view_plan' %}" class="btn btn-primary">View Plan</a>
+                {% else %}
+                    <h5>Create Your Own Exercise Plan</h5>
+                    <p>Create a daily workout plan</p>
+                    <a href="{% url 'create_plan' %}" class="btn btn-success">Create Plan</a>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+    <div class="card h-100">
+        <div class="card-body">
+            <h5>Start Today’s Session</h5>
+            <p>Begin your workout session for today</p>
+
+            {% if plan %}
+                <p class="text-success small mb-2">
+                    Custom plan ready
+                </p>
+            {% else %}
+                <p class="text-muted small mb-2">
+                    Default plan will be used
+                </p>
+            {% endif %}
+
+            <a href="{% url 'today_session' %}" class="btn btn-success">
+                Start Today’s Session
+            </a>
+
+        </div>
+    </div>
+</div>
+
+
+    <!-- Progress -->
+    <div class="col-md-4 mb-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5>Show Progress</h5>
+                <p>View daily / weekly progress</p>
+                <button class="btn btn-success">View Progress</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- LOGOUT -->
+<div class="text-center mt-4">
+    <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+</div>
+
+{% endblock %}
