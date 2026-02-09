@@ -34,5 +34,6 @@ urlpatterns = [
 
     path("today-session/", views.today_session, name="today_session"),
 
+    path("submit-session/", views.submit_session, name="submit_session"),
 
 ]

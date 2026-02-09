@@ -25,6 +25,8 @@ class UserProfile(models.Model):
     points = models.IntegerField(default=0)
     streak = models.IntegerField(default=0)
     last_activity = models.DateField(null=True, blank=True)
+    last_session_date = models.DateField(null=True, blank=True)
+    last_session_report = models.JSONField(null=True, blank=True)
 
     def __str__(self):
         return self.user.username
