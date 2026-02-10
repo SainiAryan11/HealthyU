@@ -72,13 +72,19 @@ if(report){
   document.getElementById("pointsEarned").innerText = cappedPoints;
   document.getElementById("timeTaken").innerText = cappedTime + " min";
 
-  document.getElementById("medPlanned").innerText = report.meditation_planned || 0;
-  document.getElementById("medSpent").innerText   = report.meditation_spent || 0;
+  // Handle meditation data
+  document.getElementById("medPlanned").innerText = report.meditation_planned_total || 0;
+  
+  const completedMedCount = report.meditation_completed_count || 0;
+  const totalMedCount = report.meditation_total_count || 0;
+  document.getElementById("medSpent").innerText = completedMedCount + " of " + totalMedCount;
+  
   document.getElementById("medStatusBadge").innerHTML =
     badge(report.meditation_status || "skipped");
 
   addItems("physicalList", report.physical || []);
   addItems("yogaList", report.yoga || []);
+  addItems("meditationList", report.meditation || []);
 }
 
 // ------------------ SAVE SESSION ------------------
@@ -104,7 +110,7 @@ document.getElementById("saveSessionBtn").onclick = async () => {
     const data = await res.json().catch(() => ({}));
 
     if(!res.ok){
-      alert(data.message || "Session already saved today.");
+      alert(data.message || "Error saving session.");
       return;
     }
 
@@ -117,3 +123,37 @@ document.getElementById("saveSessionBtn").onclick = async () => {
     alert("Network/JS error saving session.");
   }
 };
+
+// ---- DELETE SESSION ----
+document.getElementById("deleteSessionBtn").onclick = async () => {
+  if(!confirm("Are you sure you want to delete this session? Points will be removed.")) {
+    return;
+  }
+
+  try {
+    const res = await fetch("/delete-session/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken")
+      }
+    });
+
+    const data = await res.json().catch(() => ({}));
+
+    if(!res.ok){
+      alert(data.message || "Error deleting session.");
+      return;
+    }
+
+    alert("Session deleted successfully!");
+    sessionStorage.removeItem("sessionReport");
+    window.location.href = "/profile/";
+
+  } catch(err){
+    console.error(err);
+    alert("Network/JS error deleting session.");
+  }
+};
+
+
