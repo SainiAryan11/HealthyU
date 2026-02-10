@@ -1,44 +1,88 @@
 {% extends "tracker/base.html" %}
-{% block content %}
+{% load static %}
 
-<div class="container my-5">
-  <h3 class="mb-3">Your Exercise Plan</h3>
+{% block extra_css %}
+<style>
+@keyframes bg-shift { 0% { background: linear-gradient(135deg, #fff 0%, rgba(37,99,235,0.03) 50%, #fff 100%); } 50% { background: linear-gradient(135deg, #fff 0%, rgba(220,38,38,0.03) 50%, #fff 100%); } 100% { background: linear-gradient(135deg, #fff 0%, rgba(37,99,235,0.03) 50%, #fff 100%); } }
+.view-plan-wrap { background: #fff; position: relative; border-radius: 12px; padding: 2rem; animation: bg-shift 8s ease-in-out infinite; }
+.view-plan-wrap h2 { color: #000 !important; }
+.view-plan-wrap .category-section h3 { color: #000 !important; border-bottom-color: #2563eb !important; }
+.view-plan-wrap .level-section h4 { color: #000 !important; background: rgba(37,99,235,0.08) !important; }
+.view-plan-wrap .exercise-card { border-color: rgba(0,0,0,0.1) !important; transition: box-shadow 0.3s ease, border-color 0.3s ease; }
+.view-plan-wrap .exercise-card:hover { box-shadow: 0 4px 20px rgba(37,99,235,0.15) !important; border-color: rgba(37,99,235,0.3) !important; }
+.view-plan-wrap .exercise-card h6 { color: #000 !important; }
+.view-plan-wrap .exercise-card small { color: #333 !important; }
+.view-plan-wrap .plan-info { background: rgba(37,99,235,0.05) !important; border-left: 4px solid #2563eb !important; }
+.view-plan-wrap .plan-info p { color: #333 !important; }
+.view-plan-wrap #deletePlanBtn { background: #dc2626 !important; border-color: #dc2626 !important; color: #fff !important; transition: all 0.2s ease; font-weight: 500; }
+.view-plan-wrap #deletePlanBtn:hover { background: #b91c1c !important; border-color: #b91c1c !important; }
+.view-plan-wrap #backBtn { background: #6b7280 !important; border-color: #000 !important; color: #fff !important; transition: all 0.2s ease; font-weight: 500; }
+.view-plan-wrap #backBtn:hover { background: #4b5563 !important; }
+.view-plan-wrap .no-plan-container { text-align: center; padding: 2rem; }
+.view-plan-wrap .no-plan-container p { color: #666 !important; font-size: 1.1rem; }
+.view-plan-wrap .no-plan-container .btn-primary { background: #2563eb !important; border-color: #2563eb !important; transition: all 0.2s ease; }
+.view-plan-wrap .no-plan-container .btn-primary:hover { background: #1d4ed8 !important; border-color: #1d4ed8 !important; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5 py-4 view-plan-wrap">
 
   {% if not plan %}
-    <p class="text-muted">No plan created yet.</p>
-    <a href="{% url 'create_plan' %}" class="btn btn-success">Create Plan</a>
+    <div class="no-plan-container">
+      <h2 class="mb-4 fw-bold display-5" style="letter-spacing: -0.02em;">Your Exercise Plan</h2>
+      <p class="text-muted mb-4">No plan created yet. Start by creating your first exercise plan!</p>
+      <a href="{% url 'create_plan' %}" class="btn btn-primary btn-lg rounded-2 px-5">Create Your Plan</a>
+    </div>
   {% else %}
 
-    <div class="card mb-3">
-      <div class="card-body">
-        <p class="mb-0"><strong>Created:</strong> {{ plan.created_at }}</p>
-        <p class="text-muted mb-0">This plan cannot be edited. You can only delete it.</p>
+    <h2 class="mb-5 text-center fw-bold display-5" style="letter-spacing: -0.02em;">Your Exercise Plan</h2>
+
+    <div class="card plan-info mb-4 shadow-sm" style="border: none; border-left: 4px solid #2563eb;">
+      <div class="card-body py-3">
+        <p class="mb-2" style="color: #333;"><strong>Created:</strong> {{ plan.created_at|date:"F d, Y" }}</p>
+        <p class="mb-0 text-muted" style="color: #666; font-size: 0.95rem;">This plan cannot be edited. You can delete it and create a new one.</p>
       </div>
     </div>
 
-    <div class="list-group mb-4">
-      {% for item in plan.items.all %}
-        <div class="list-group-item d-flex justify-content-between align-items-center">
-          <div>
-            <div class="fw-semibold">{{ item.name }}</div>
-            <small class="text-muted">{{ item.category }}</small>
-          </div>
-          <div>
-            {% if item.unit == "min" %}
-              {{ item.value }} min
-            {% else %}
-              {{ item.value }} x
-            {% endif %}
+    {% regroup plan.items.all by category as items_by_category %}
+
+    {% for category in items_by_category %}
+    <section class="category-section mb-5" style="padding: 1.5rem 0;">
+      <h3 class="mb-4 fw-semibold" style="color: #000 !important; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">{{ category.grouper }}</h3>
+
+      <div class="exercise-list">
+        {% for item in category.list %}
+        <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1);">
+          <div class="card-body py-3 px-4">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h6 class="fw-semibold mb-1" style="color: #000;">{{ item.name }}</h6>
+                <small class="text-muted" style="font-size: 0.8rem; color: #333;">{{ item.category }}</small>
+              </div>
+
+              <div class="d-flex align-items-center gap-2">
+                {% if item.unit == "min" %}
+                  <span class="badge bg-info rounded-pill" style="background: rgba(37,99,235,0.2) !important; color: #2563eb !important; font-size: 0.85rem; padding: 0.4rem 0.8rem;">{{ item.value }} min</span>
+                {% else %}
+                  <span class="badge bg-info rounded-pill" style="background: rgba(37,99,235,0.2) !important; color: #2563eb !important; font-size: 0.85rem; padding: 0.4rem 0.8rem;">{{ item.value }} x</span>
+                {% endif %}
+              </div>
+            </div>
           </div>
         </div>
-      {% endfor %}
-    </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endfor %}
 
-    <form method="POST" action="{% url 'delete_plan' %}">
-      {% csrf_token %}
-      <button class="btn btn-danger">Delete Entire Plan</button>
-      <a href="{% url 'profile' %}" class="btn btn-secondary ms-2">Back</a>
-    </form>
+    <div class="action-buttons mt-5 d-flex gap-2">
+      <form method="POST" action="{% url 'delete_plan' %}" style="flex: 1;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-lg w-100 rounded-pill px-4 py-2" id="deletePlanBtn" style="border: none;">Delete Entire Plan</button>
+      </form>
+      <a href="{% url 'profile' %}" class="btn btn-secondary btn-lg rounded-pill px-4 py-2" id="backBtn" style="border: none;">Back</a>
+    </div>
 
   {% endif %}
 </div>
