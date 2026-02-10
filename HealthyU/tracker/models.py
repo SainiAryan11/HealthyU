@@ -24,12 +24,29 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     points = models.IntegerField(default=0)
     streak = models.IntegerField(default=0)
-    last_activity = models.DateField(null=True, blank=True)
+    last_activity = models.DateTimeField(null=True, blank=True)
     last_session_date = models.DateField(null=True, blank=True)
     last_session_report = models.JSONField(null=True, blank=True)
+    session_completed_today = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
+
+
+class SessionRecord(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="session_records")
+    date = models.DateField()
+    report = models.JSONField()
+    points_earned = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.date}"
+    
+    class Meta:
+        unique_together = ('user', 'date')
+        ordering = ['-date']
 
 from django.db import models
 from django.contrib.auth.models import User

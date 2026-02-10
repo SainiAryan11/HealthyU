@@ -1,5 +1,5 @@
 import json
-from datetime import timedelta
+import datetime
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -10,7 +10,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.core.serializers.json import DjangoJSONEncoder
 
-from .models import UserProfile, ExercisePlan, PlanItem
+from .models import UserProfile, ExercisePlan, PlanItem, SessionRecord
 
 
 # ---------------- HOME ----------------
@@ -141,7 +141,7 @@ def delete_plan(request):
 # ---------------- SESSION PAGES ----------------
 @login_required(login_url="login")
 def today_session(request):
-    # ✅ Block restarting session if already completed today
+    # ✅ Block starting session if already completed today
     profile = UserProfile.objects.get(user=request.user)
     today = timezone.now().date()
 
@@ -156,12 +156,12 @@ def today_session(request):
 
     physical_items = plan.items.filter(category="Physical Exercise").order_by("id")
     yoga_items = plan.items.filter(category="Yoga").order_by("id")
-    med_item = plan.items.filter(category__iexact="Meditation").order_by("id").first()
+    med_items = plan.items.filter(category__iexact="Meditation").order_by("id")
 
     # ✅ Flags for dynamic progress / phase logic
     has_physical = physical_items.exists()
     has_yoga = yoga_items.exists()
-    has_meditation = (med_item is not None)
+    has_meditation = med_items.exists()
 
     # ✅ If user selected nothing at all → go back
     if (not has_physical) and (not has_yoga) and (not has_meditation):
@@ -206,22 +206,21 @@ def today_session(request):
         yoga_steps
     )
 
-    # ✅ Meditation: ONLY if selected (no default)
-    meditation_data = None
-    if med_item:
-        meditation_data = {
-            "name": med_item.name,
-            "description": f"{med_item.name} helps calm your mind. Sit comfortably and focus on your breath.",
-            "value": med_item.value,   # minutes
-            "unit": "min",
-            "steps": [
-                "Sit comfortably with a straight back",
-                "Close your eyes and relax your shoulders",
-                "Breathe slowly in and out through the nose",
-                "Bring attention back when the mind wanders",
-                "Finish gently and open your eyes slowly"
-            ]
-        }
+    # ✅ Meditation: Build array of meditations (not just one)
+    meditation_data = []
+    if med_items.exists():
+        meditation_steps = [
+            "Sit comfortably with a straight back",
+            "Close your eyes and relax your shoulders",
+            "Breathe slowly in and out through the nose",
+            "Bring attention back when the mind wanders",
+            "Finish gently and open your eyes slowly"
+        ]
+        meditation_data = build_list(
+            med_items,
+            "{name} helps calm your mind. Sit comfortably and focus on your breath.",
+            meditation_steps
+        )
 
     return render(request, "tracker/session/today_session.html", {
         "physical_json": json.dumps(physical_data, cls=DjangoJSONEncoder),
@@ -248,41 +247,76 @@ def submit_session(request):
     profile = UserProfile.objects.get(user=request.user)
     today = timezone.now().date()
 
-    # ✅ if already completed today: no extra reward
-    if profile.last_session_date == today:
-        return JsonResponse({
-            "status": "error",
-            "message": "Session already completed today. Points cannot exceed 100 for today."
-        }, status=400)
+    # ✅ Check if session already completed today
+    is_restart = profile.last_session_date == today
+    
+    # If restart, subtract previously earned points
+    if is_restart:
+        old_session = SessionRecord.objects.filter(user=request.user, date=today).first()
+        if old_session:
+            profile.points -= old_session.points_earned
 
-    # ---- STREAK LOGIC ----
-    if profile.last_activity:
-        if profile.last_activity == today:
-            pass
-        elif profile.last_activity == today - timedelta(days=1):
-            profile.streak += 1
+    # ---- STREAK LOGIC (24-hour rule) ----
+    # Only increment streak if this is NOT a restart (first completion today)
+    if not is_restart:
+        last_act = profile.last_activity
+        now = timezone.now()
+        if last_act:
+            # If last_activity is a date (old rows), convert to aware datetime at midnight
+            if isinstance(last_act, datetime.datetime):
+                last_dt = last_act
+            else:
+                # last_act is likely a date; combine with midnight in current timezone
+                last_dt = timezone.make_aware(datetime.datetime.combine(last_act, datetime.time.min))
+
+            delta = now - last_dt
+            if delta <= datetime.timedelta(hours=24):
+                profile.streak += 1
+            else:
+                profile.streak = 1
         else:
+            # First ever activity
             profile.streak = 1
-    else:
-        profile.streak = 1
 
     # ---- POINTS ----
     profile.points += earned_points
-    profile.last_activity = today
-    profile.last_session_date = today  # ✅ lock for the day
+    profile.last_activity = timezone.now()
+    profile.last_session_date = today
+    profile.session_completed_today = True  # ✅ Mark session as completed today
     profile.save()
 
-    return JsonResponse({"status": "ok", "points_added": earned_points, "streak": profile.streak})
+    # ---- SAVE SESSION RECORD ----
+    SessionRecord.objects.update_or_create(
+        user=request.user,
+        date=today,
+        defaults={
+            "report": data.get("report", {}),
+            "points_earned": earned_points
+        }
+    )
+
+    return JsonResponse({
+        "status": "ok",
+        "points_added": earned_points,
+        "streak": profile.streak,
+        "is_restart": is_restart
+    })
 
 @login_required(login_url="login")
 def complete_session(request):
     profile = UserProfile.objects.get(user=request.user)
     today = timezone.now().date()
+    # Use 24-hour rule for streaks
+    last_act = profile.last_activity
+    now = timezone.now()
+    if last_act:
+        if isinstance(last_act, datetime.datetime):
+            last_dt = last_act
+        else:
+            last_dt = timezone.make_aware(datetime.datetime.combine(last_act, datetime.time.min))
 
-    if profile.last_activity:
-        if profile.last_activity == today:
-            pass
-        elif profile.last_activity == today - timedelta(days=1):
+        delta = now - last_dt
+        if delta <= datetime.timedelta(hours=24):
             profile.streak += 1
         else:
             profile.streak = 1
@@ -290,7 +324,36 @@ def complete_session(request):
         profile.streak = 1
 
     profile.points += 10
-    profile.last_activity = today
+    profile.last_activity = timezone.now()
+    profile.last_session_date = today
+    profile.session_completed_today = True
     profile.save()
 
     return redirect("profile")
+
+
+# ---- NEW: DELETE SESSION ----
+@require_POST
+@login_required(login_url="login")
+def delete_session(request):
+    profile = UserProfile.objects.get(user=request.user)
+    today = timezone.now().date()
+
+    # ✅ Get the session record and subtract points
+    session_record = SessionRecord.objects.filter(user=request.user, date=today).first()
+    if session_record:
+        profile.points -= session_record.points_earned
+        session_record.delete()
+
+    # ✅ Reduce streak by 1
+    if profile.streak > 0:
+        profile.streak -= 1
+
+    # ✅ Reset session date and completed_today flag to allow restart
+    profile.last_session_date = None
+    profile.session_completed_today = False
+    profile.save()
+
+    return JsonResponse({"status": "ok", "message": "Session deleted successfully"})
+
+

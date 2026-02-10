@@ -22,6 +22,7 @@ urlpatterns = [
 
     # Exercise Flow
     path("session-report/", views.session_report, name="session_report"),
+    path("delete-session/", views.delete_session, name="delete_session"),
 
     # Session Completion (points + streak)
     path("complete-session/", views.complete_session, name="complete_session"),
