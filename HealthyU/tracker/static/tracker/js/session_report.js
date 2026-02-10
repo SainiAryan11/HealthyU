@@ -104,12 +104,17 @@ document.getElementById("saveSessionBtn").onclick = async () => {
     const data = await res.json().catch(() => ({}));
 
     if(!res.ok){
-      alert(data.message || "Session already saved today.");
+      alert(data.message || "Unable to save session.");
       return;
     }
 
-    alert(data.message || "Session saved! Points & streak updated.");
-    // ✅ DO NOT remove sessionReport if you want the report to stay visible
+    // ✅ show backend message (includes streak info)
+    alert(data.message || "Saved!");
+
+    // ✅ disable save button so user cannot spam
+    document.getElementById("saveSessionBtn").disabled = true;
+
+    // ✅ optional: redirect to profile after ok
     window.location.href = "/profile/";
 
   } catch(err){

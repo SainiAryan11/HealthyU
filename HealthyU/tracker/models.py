@@ -27,6 +27,7 @@ class UserProfile(models.Model):
     last_activity = models.DateField(null=True, blank=True)
     last_session_date = models.DateField(null=True, blank=True)
     last_session_report = models.JSONField(null=True, blank=True)
+    session_saved_today = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
@@ -57,3 +58,18 @@ class PlanItem(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.category})"
+    
+
+class DailyProgress(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField()
+    progress = models.IntegerField(default=0)   # 0-100
+    points = models.IntegerField(default=0)     # points earned that day
+
+    class Meta:
+        unique_together = ("user", "date")
+        ordering = ["date"]
+
+    def __str__(self):
+        return f"{self.user.username} - {self.date} ({self.progress}%)"
+

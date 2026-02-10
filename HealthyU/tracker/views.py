@@ -67,19 +67,25 @@ def logout_view(request):
 # ---------------- PROFILE ----------------
 @login_required(login_url="login")
 def profile(request):
-    try:
-        plan = ExercisePlan.objects.prefetch_related("items").get(user=request.user)
-    except ExercisePlan.DoesNotExist:
-        plan = None
+    plan = ExercisePlan.objects.prefetch_related("items").filter(user=request.user).first()
 
     profile_obj = UserProfile.objects.get(user=request.user)
     today = timezone.now().date()
-    session_done_today = (profile_obj.last_session_date == today)
+
+    # ✅ Reset daily flag if it's a new day
+    if profile_obj.last_activity != today and profile_obj.session_saved_today:
+        profile_obj.session_saved_today = False
+        profile_obj.save(update_fields=["session_saved_today"])
+
+    # ✅ This controls whether button shows "Start" or "View Report"
+    session_done_today = (profile_obj.session_saved_today and profile_obj.last_activity == today)
 
     return render(request, "tracker/profile/profile.html", {
         "plan": plan,
-        "session_done_today": session_done_today
+        "session_done_today": session_done_today,
+        "profile_obj": profile_obj
     })
+
 
 # ---------------- STREAK / LEADERBOARD ----------------
 def streak(request):
@@ -238,41 +244,59 @@ def session_report(request):
 
 
 # ---------------- SAVE SESSION (POINTS + STREAK) ----------------
-@require_POST
 @login_required(login_url="login")
+@require_POST
 def submit_session(request):
     data = json.loads(request.body)
-    earned_points = int(data.get("points", 0))
-    earned_points = min(earned_points, 100)  # ✅ cap
+
+    report = data.get("report", {})
+    progress = min(int(report.get("progress", 0)), 100)
+    points = min(int(data.get("points", 0)), 100)
 
     profile = UserProfile.objects.get(user=request.user)
     today = timezone.now().date()
 
-    # ✅ if already completed today: no extra reward
-    if profile.last_session_date == today:
+    # ✅ Cannot save if progress < 50%
+    if progress < 50:
         return JsonResponse({
             "status": "error",
-            "message": "Session already completed today. Points cannot exceed 100 for today."
+            "message": "Session not saved. Complete at least 50% to save.",
+            "reason": "progress_too_low"
         }, status=400)
 
-    # ---- STREAK LOGIC ----
+    # ✅ Only 1 save per day
+    if profile.session_saved_today and profile.last_activity == today:
+        return JsonResponse({
+            "status": "error",
+            "message": "Session already saved today. Come back tomorrow!",
+            "reason": "already_saved"
+        }, status=400)
+
+    # ✅ Streak logic (only happens when session is saved)
     if profile.last_activity:
-        if profile.last_activity == today:
-            pass
-        elif profile.last_activity == today - timedelta(days=1):
+        if profile.last_activity == today - timedelta(days=1):
             profile.streak += 1
-        else:
+        elif profile.last_activity != today:
             profile.streak = 1
     else:
         profile.streak = 1
 
-    # ---- POINTS ----
-    profile.points += earned_points
+    # ✅ Points
+    profile.points += points
+
+    # ✅ Mark saved today (controls profile button)
     profile.last_activity = today
-    profile.last_session_date = today  # ✅ lock for the day
+    profile.session_saved_today = True
     profile.save()
 
-    return JsonResponse({"status": "ok", "points_added": earned_points, "streak": profile.streak})
+    return JsonResponse({
+        "status": "ok",
+        "message": "Session saved successfully!",
+        "progress": progress,
+        "points_added": points,
+        "new_streak": profile.streak,
+        "total_points": profile.points
+    })
 
 @login_required(login_url="login")
 def complete_session(request):
