@@ -26,7 +26,7 @@ const modalFinishBtn = document.getElementById("modalFinishBtn");
 const activeCategories = [];
 if (HAS_PHYSICAL && PHYSICAL.length) activeCategories.push("physical");
 if (HAS_YOGA && YOGA.length) activeCategories.push("yoga");
-if (HAS_MEDITATION && MEDITATION) activeCategories.push("meditation");
+if (HAS_MEDITATION && MEDITATION_LIST.length) activeCategories.push("meditation");
 
 const CATEGORY_WEIGHT = 100 / (activeCategories.length || 1);
 const CATEGORY_POINTS = 100 / (activeCategories.length || 1);
@@ -38,6 +38,9 @@ let phase = phaseOrder[phaseIndex] || "physical";
 
 let i = 0;
 
+// ✅ Session start time tracking
+const sessionStartTime = Date.now();
+
 // counters (derived from status arrays)
 let completedPhysical = 0, skippedPhysical = 0;
 let completedYoga = 0, skippedYoga = 0;
@@ -45,6 +48,7 @@ let completedYoga = 0, skippedYoga = 0;
 // Track status per exercise: "pending" | "completed" | "skipped"
 const physicalStatus = new Array(PHYSICAL.length).fill("pending");
 const yogaStatus = new Array(YOGA.length).fill("pending");
+const meditationStatus = new Array(MEDITATION_LIST.length).fill("pending");
 
 function recalcCounts() {
   completedPhysical = physicalStatus.filter(s => s === "completed").length;
@@ -55,8 +59,10 @@ function recalcCounts() {
 }
 
 // meditation timer
-let medTotalSec = (MEDITATION && MEDITATION.value ? parseInt(MEDITATION.value) : 0) * 60;
-let medSpentSec = 0;
+let medList = []; // will hold meditation items during meditation phase
+let medIndex = 0; // current meditation item
+let medTotalSec = 0; // total seconds for current meditation
+let medSpentSec = 0; // seconds spent on current meditation
 let medTimer = null;
 
 // skip limit (Physical + Yoga only)
@@ -97,6 +103,7 @@ function updateProgress() {
 
   const pTotal = PHYSICAL.length || 1;
   const yTotal = YOGA.length || 1;
+  const mTotal = MEDITATION_LIST.length || 1;
 
   let pProg = 0, yProg = 0, mProg = 0;
 
@@ -106,9 +113,9 @@ function updateProgress() {
   if (HAS_YOGA && YOGA.length) {
     yProg = (completedYoga / yTotal) * CATEGORY_WEIGHT;
   }
-  if (HAS_MEDITATION && MEDITATION) {
-    const ratio = medTotalSec ? Math.min(medSpentSec / medTotalSec, 1) : 0;
-    mProg = ratio * CATEGORY_WEIGHT;
+  if (HAS_MEDITATION && MEDITATION_LIST.length) {
+    const completedMed = meditationStatus.filter(s => s === "completed").length;
+    mProg = (completedMed / mTotal) * CATEGORY_WEIGHT;
   }
 
   const total = Math.min(Math.round(pProg + yProg + mProg), 100);
@@ -168,7 +175,7 @@ function gotoNextAvailablePhaseOrFinish() {
     const candidate = phaseOrder[nextIdx];
 
     if (candidate === "meditation") {
-      if (HAS_MEDITATION && MEDITATION) {
+      if (HAS_MEDITATION && MEDITATION_LIST.length) {
         phaseIndex = nextIdx;
         phase = candidate;
         i = 0;
@@ -247,8 +254,24 @@ nextBtn.onclick = () => {
 
 skipBtn.onclick = () => {
   if (phase === "meditation") {
-    if (confirm("Do you want to skip meditation?")) {
-      endSessionNow();
+    if (confirm("Do you want to skip this meditation?")) {
+      // ✅ Mark current meditation as skipped
+      meditationStatus[medIndex] = "skipped";
+      medIndex++;
+      
+      // Clear timer if running
+      if (medTimer) {
+        clearInterval(medTimer);
+        medTimer = null;
+      }
+      
+      // ✅ If more meditations exist, show next one
+      if (medIndex < medList.length) {
+        renderMeditation();
+      } else {
+        // All meditations processed, move to next phase or end
+        gotoNextAvailablePhaseOrFinish();
+      }
     }
     return;
   }
@@ -340,18 +363,34 @@ modalFinishBtn.onclick = () => {
 
 // -------------------- MEDITATION --------------------
 function renderMeditation() {
-  if (!HAS_MEDITATION || !MEDITATION) {
+  if (!HAS_MEDITATION || !MEDITATION_LIST || MEDITATION_LIST.length === 0) {
     endSessionNow();
     return;
   }
 
-  exName.innerText = MEDITATION.name;
-  exDesc.innerText = MEDITATION.description || "";
+  // Set up meditation list if not already done
+  if (medList.length === 0) {
+    medList = MEDITATION_LIST;
+    medIndex = 0;
+  }
 
-  doBtn.innerText = `Meditate for ${MEDITATION.value} min`;
+  // Clamp index
+  if (medIndex < 0) medIndex = 0;
+  if (medIndex >= medList.length) {
+    // All meditations done, move to next phase
+    gotoNextAvailablePhaseOrFinish();
+    return;
+  }
+
+  const currentMed = medList[medIndex];
+
+  exName.innerText = currentMed.name;
+  exDesc.innerText = currentMed.description || "";
+
+  doBtn.innerText = `Meditate for ${currentMed.value} min`;
 
   stepsGrid.innerHTML = "";
-  (MEDITATION.steps || []).forEach((s, idx) => {
+  (currentMed.steps || []).forEach((s, idx) => {
     const div = document.createElement("div");
     div.className = "step-box";
     div.innerHTML = `<div class="step-number">${idx + 1}</div>${s}`;
@@ -363,7 +402,8 @@ function renderMeditation() {
   timerRow.style.gridColumn = "span 5";
   timerRow.innerHTML = `
     <div class="step-number" id="medTimerText">Starting...</div>
-    <div><strong>Planned:</strong> ${MEDITATION.value} minutes</div>
+    <div><strong>Planned:</strong> ${currentMed.value} minutes</div>
+    <div class="small-note mb-0" id="medProgress">Meditation ${medIndex + 1} of ${medList.length}</div>
     <div class="text-muted small">Next is disabled during meditation.</div>
   `;
   stepsGrid.appendChild(timerRow);
@@ -372,7 +412,7 @@ function renderMeditation() {
   prevBtn.disabled = true;
 
   medSpentSec = 0;
-  medTotalSec = (parseInt(MEDITATION.value || 0) || 1) * 60;
+  medTotalSec = (parseInt(currentMed.value || 0) || 1) * 60;
 
   startMeditationTimer();
   updateProgress();
@@ -397,7 +437,17 @@ function startMeditationTimer() {
     if (medSpentSec >= medTotalSec) {
       clearInterval(medTimer);
       medTimer = null;
-      endSessionNow();
+      // ✅ Mark current meditation as completed
+      meditationStatus[medIndex] = "completed";
+      medIndex++;
+      
+      // ✅ If more meditations exist, show next one
+      if (medIndex < medList.length) {
+        renderMeditation();
+      } else {
+        // All meditations done, move to next phase or end
+        gotoNextAvailablePhaseOrFinish();
+      }
     }
   }, 1000);
 }
@@ -408,6 +458,11 @@ function saveReportAndGoToReport(finalProgress) {
   const finalProg = Math.min(parseInt(finalProgress || 0), 100);
 
   updateProgress(); // ensure counts updated
+
+  // ✅ Calculate elapsed time in minutes
+  const sessionEndTime = Date.now();
+  const elapsedMilliseconds = sessionEndTime - sessionStartTime;
+  const elapsedMinutes = Math.round(elapsedMilliseconds / 60000); // Convert to minutes
 
   const physical = PHYSICAL.map((x, idx) => ({
     name: x.name,
@@ -423,23 +478,27 @@ function saveReportAndGoToReport(finalProgress) {
     status: yogaStatus[idx] || "pending",
   }));
 
-  const hasMed = (HAS_MEDITATION && MEDITATION);
-  const plannedMin = hasMed ? parseInt(MEDITATION.value || 0) : 0;
-  const spentMin = Math.round((medSpentSec || 0) / 60);
+  const meditation = MEDITATION_LIST.map((x, idx) => ({
+    name: x.name,
+    value: x.value,
+    unit: x.unit,
+    status: meditationStatus[idx] || "pending",
+  }));
 
-  const medRatio = (hasMed && medTotalSec)
-    ? Math.min((medSpentSec || 0) / medTotalSec, 1)
+  const hasMed = (HAS_MEDITATION && MEDITATION_LIST.length);
+  
+  const totalPlannedMin = hasMed 
+    ? MEDITATION_LIST.reduce((sum, m) => sum + parseInt(m.value || 0), 0)
     : 0;
 
-  let meditationStatus = "skipped";
+  let medPts = 0;
+  
   if (hasMed) {
-    meditationStatus =
-      (medRatio >= 0.95) ? "completed" :
-      (medSpentSec > 0) ? "partial" :
-      "skipped";
+    const completedMed = meditationStatus.filter(s => s === "completed").length;
+    medPts = (completedMed / (MEDITATION_LIST.length || 1)) * CATEGORY_POINTS;
   }
 
-  let physicalPts = 0, yogaPts = 0, medPts = 0;
+  let physicalPts = 0, yogaPts = 0;
 
   if (HAS_PHYSICAL && PHYSICAL.length) {
     physicalPts = (completedPhysical / (PHYSICAL.length || 1)) * CATEGORY_POINTS;
@@ -447,21 +506,25 @@ function saveReportAndGoToReport(finalProgress) {
   if (HAS_YOGA && YOGA.length) {
     yogaPts = (completedYoga / (YOGA.length || 1)) * CATEGORY_POINTS;
   }
-  if (hasMed) {
-    medPts = medRatio * CATEGORY_POINTS;
-  }
 
   const points = Math.min(Math.round(physicalPts + yogaPts + medPts), 100);
+
+  const completedMed = meditationStatus.filter(s => s === "completed").length;
+  const medStatus = (completedMed === MEDITATION_LIST.length) ? "completed" : 
+                   (completedMed > 0) ? "partial" : 
+                   "skipped";
 
   const report = {
     progress: finalProg,
     points: points,
-    time_minutes: 0,
+    time_minutes: elapsedMinutes,
     physical: physical,
     yoga: yoga,
-    meditation_planned: plannedMin,
-    meditation_spent: spentMin,
-    meditation_status: meditationStatus
+    meditation: meditation,
+    meditation_planned_total: totalPlannedMin,
+    meditation_completed_count: completedMed,
+    meditation_total_count: MEDITATION_LIST.length,
+    meditation_status: medStatus
   };
 
   sessionStorage.setItem("sessionReport", JSON.stringify(report));

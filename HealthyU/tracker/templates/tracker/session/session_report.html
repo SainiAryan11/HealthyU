@@ -77,9 +77,10 @@
     <h3 class="mb-4 fw-semibold" style="color: #000; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">Meditation</h3>
     <div class="meditation-info">
       <p class="mb-2"><strong>Planned:</strong> <span id="medPlanned">0</span> min</p>
-      <p class="mb-2"><strong>Spent:</strong> <span id="medSpent">0</span> min</p>
+      <p class="mb-2"><strong>Completed:</strong> <span id="medSpent">0</span></p>
       <p class="mb-0"><strong>Status:</strong> <span id="medStatusBadge"></span></p>
     </div>
+    <div id="meditationList" class="list-group mt-3"></div>
   </section>
 
   <div id="saveMsg" class="alert alert-info d-none"></div>
@@ -89,6 +90,9 @@
     <a href="{% url 'profile' %}" class="btn btn-secondary back-btn px-5 py-2">Back to Profile</a>
     <button class="btn btn-primary" id="saveSessionBtn" style="flex: 1;" type="button">
       Save Session (Update Points & Streak)
+    </button>
+    <button class="btn btn-danger" id="deleteSessionBtn" style="flex: 1;" type="button">
+      Delete Session
     </button>
   </div>
 </div>
