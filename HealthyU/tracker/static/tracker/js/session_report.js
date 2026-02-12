@@ -17,7 +17,9 @@ function badge(status){
   if(status === "completed") return `<span class="badge bg-success">Completed</span>`;
   if(status === "partial") return `<span class="badge bg-info">Partial</span>`;
   if(status === "skipped") return `<span class="badge bg-warning text-dark">Skipped</span>`;
-  return `<span class="badge bg-secondary">Pending</span>`;
+  if(status === "not_planned") return `<span class="badge bg-light text-dark border">Not in plan</span>`;
+    return `<span class="badge bg-secondary">Pending</span>`;
+
 }
 
 function addItems(containerId, items){
@@ -67,24 +69,42 @@ if(report){
   const cappedPoints   = Math.min(parseInt(report.points || 0), 100);
   const cappedTime     = Math.max(parseInt(report.time_minutes || 0), 0);
 
+  const saveBtn = document.getElementById("saveSessionBtn");
+
+  if (cappedProgress <= 50) {
+    saveBtn.disabled = true;
+    const msg = document.getElementById("saveBlockMsg");
+    if (msg) {
+      msg.innerText = "Saving is blocked because progress must be > 50%. You can still view the report.";
+      msg.style.display = "block";
+    }
+  } else {
+    saveBtn.disabled = false;
+  }
+
   // DISPLAY
   document.getElementById("progressPct").innerText = cappedProgress + "%";
   document.getElementById("pointsEarned").innerText = cappedPoints;
   document.getElementById("timeTaken").innerText = cappedTime + " min";
 
   // Handle meditation data
-  document.getElementById("medPlanned").innerText = report.meditation_planned_total || 0;
   
   const completedMedCount = report.meditation_completed_count || 0;
   const totalMedCount = report.meditation_total_count || 0;
-  document.getElementById("medSpent").innerText = completedMedCount + " of " + totalMedCount;
-  
-  document.getElementById("medStatusBadge").innerHTML =
-    badge(report.meditation_status || "skipped");
+
+  const med = report.meditation || { planned_minutes: 0, spent_minutes: 0, status: "not_planned" };
+
+  document.getElementById("medPlanned").innerText = med.planned_minutes || 0;
+  document.getElementById("medSpent").innerText = (med.spent_minutes || 0) + " min";
+
+  document.getElementById("medStatusBadge").innerHTML = badge(med.status || "not_planned");
+
+  // detailed list (optional)
+  addItems("meditationList", report.meditation_items || []);
 
   addItems("physicalList", report.physical || []);
   addItems("yogaList", report.yoga || []);
-  addItems("meditationList", report.meditation || []);
+
 }
 
 // ------------------ SAVE SESSION ------------------
@@ -101,10 +121,7 @@ document.getElementById("saveSessionBtn").onclick = async () => {
         "Content-Type": "application/json",
         "X-CSRFToken": getCookie("csrftoken")
       },
-      body: JSON.stringify({
-        points: Math.min(parseInt(report.points || 0), 100),
-        report: report
-      })
+      body: JSON.stringify({ report })
     });
 
     const data = await res.json().catch(() => ({}));
@@ -121,44 +138,11 @@ document.getElementById("saveSessionBtn").onclick = async () => {
     document.getElementById("saveSessionBtn").disabled = true;
 
     // ✅ optional: redirect to profile after ok
-    window.location.href = "/profile/";
+    window.location.replace("/profile/");
 
   } catch(err){
     console.error(err);
     alert("Network/JS error saving session.");
   }
 };
-
-// ---- DELETE SESSION ----
-document.getElementById("deleteSessionBtn").onclick = async () => {
-  if(!confirm("Are you sure you want to delete this session? Points will be removed.")) {
-    return;
-  }
-
-  try {
-    const res = await fetch("/delete-session/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": getCookie("csrftoken")
-      }
-    });
-
-    const data = await res.json().catch(() => ({}));
-
-    if(!res.ok){
-      alert(data.message || "Error deleting session.");
-      return;
-    }
-
-    alert("Session deleted successfully!");
-    sessionStorage.removeItem("sessionReport");
-    window.location.href = "/profile/";
-
-  } catch(err){
-    console.error(err);
-    alert("Network/JS error deleting session.");
-  }
-};
-
 

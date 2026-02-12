@@ -1,0 +1,53 @@
+{% extends "tracker/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5 py-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="fw-bold mb-1">📊 Show Progress</h2>
+      <p class="text-muted mb-0">Daily, weekly, and monthly performance from saved sessions.</p>
+    </div>
+    <a href="{% url 'profile' %}" class="btn btn-outline-secondary">Back</a>
+  </div>
+
+  {% if not plan %}
+    <div class="alert alert-warning">
+      You don’t have an exercise plan yet. Create a plan to start tracking progress.
+    </div>
+  {% endif %}
+
+  <div class="row g-3">
+    <div class="col-12">
+      <div class="card p-3">
+        <h5 class="mb-3">Daily Progress (Last 30 Days)</h5>
+        <div id="dailyChart" style="height: 360px;"></div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card p-3">
+        <h5 class="mb-3">Weekly Average Progress (Last 12 Weeks)</h5>
+        <div id="weeklyChart" style="height: 360px;"></div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card p-3">
+        <h5 class="mb-3">Monthly Average Progress (Last 12 Months)</h5>
+        <div id="monthlyChart" style="height: 360px;"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const PROGRESS_DATA_URL = "{% url 'progress_data' %}";
+</script>
+
+<!-- Plotly CDN -->
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script src="{% static 'tracker/js/show_progress.js' %}"></script>
+{% endblock %}

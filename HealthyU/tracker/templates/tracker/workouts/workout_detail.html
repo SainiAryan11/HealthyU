@@ -1,0 +1,76 @@
+{% extends "tracker/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'tracker/css/detail_page.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="detail-page">
+    <!-- Back Button -->
+    <a href="{% url 'home' %}" class="back-button">
+        <span class="back-icon">←</span> Back to Home
+    </a>
+
+    <!-- Hero Section -->
+    <div class="detail-hero workout-hero-gradient">
+        <div class="detail-hero-content">
+            <span class="detail-badge workout-badge">Workout</span>
+            <h1 class="detail-title">{{ workout.name }}</h1>
+            <div class="detail-meta">
+                <span class="meta-item">{{ workout.duration }} min</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Description Section -->
+    <div class="detail-section">
+        <h2 class="section-title">About This Exercise</h2>
+        <p class="section-text">{{ workout.description }}</p>
+    </div>
+
+    <!-- Benefits Section -->
+    <div class="detail-section">
+        <h2 class="section-title">Benefits</h2>
+        <div class="benefits-grid">
+            {% for benefit in workout.benefits %}
+            <div class="benefit-card">
+                <span class="benefit-icon checkmark-benefit"></span>
+                <p class="benefit-text">{{ benefit }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Step-by-Step Guide -->
+    <div class="detail-section">
+        <h2 class="section-title">How to Perform</h2>
+        <div class="steps-container">
+            {% for step in workout.steps %}
+            <div class="step-card">
+                <div class="step-number">{{ forloop.counter }}</div>
+                <div class="step-content">
+                    <h3 class="step-title">{{ step.title }}</h3>
+                    <p class="step-description">{{ step.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Tips Section -->
+    <div class="detail-section">
+        <h2 class="section-title">Important Tips</h2>
+        <div class="tips-container">
+            {% for tip in workout.tips %}
+            <div class="tip-card">
+                <span class="tip-icon lightbulb-icon"></span>
+                <p class="tip-text">{{ tip }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

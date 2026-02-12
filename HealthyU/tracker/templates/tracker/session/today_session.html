@@ -47,7 +47,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container my-5 py-4 today-session-wrap">
+<div class="container my-5 py-4 today-session-wrap" data-session-active="true">
 
   <!-- Exercise Header -->
   <div class="exercise-header">
@@ -55,6 +55,9 @@
       <h2 id="exName">Loading...</h2>
       <p id="exDesc" class="mb-1"></p>
       <div class="phase-text" id="phaseText"></div>
+
+      <!-- ✅ Meditation timer text (shown only during meditation) -->
+      <div class="phase-text" id="medTimerText" style="display:none;"></div>
     </div>
 
     <div class="progress-circle">
@@ -105,10 +108,9 @@
 
 <!-- DATA FROM DJANGO -->
 <script>
-  const PHYSICAL = JSON.parse('{{ physical_json|escapejs }}');
-  const YOGA = JSON.parse('{{ yoga_json|escapejs }}');
-
-  const MEDITATION_LIST = JSON.parse('{{ meditation_json|escapejs }}');
+  const PHYSICAL = JSON.parse('{{ physical_json|default:"[]"|escapejs }}');
+  const YOGA = JSON.parse('{{ yoga_json|default:"[]"|escapejs }}');
+  const MEDITATION_LIST = JSON.parse('{{ meditation_json|default:"[]"|escapejs }}');
 
   const HAS_PHYSICAL = {{ has_physical|yesno:"true,false" }};
   const HAS_YOGA = {{ has_yoga|yesno:"true,false" }};

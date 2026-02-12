@@ -1,331 +1,333 @@
-  {% extends 'tracker/base.html' %}
+{% extends 'tracker/base.html' %}
 
-  {% block extra_css %}
-  <style>
-  body {
-      background: #ffffff;
-      position: relative;
-      overflow-x: hidden;
-  }
+{% block extra_css %}
+<style>
+body {
+    background: #ffffff;
+    position: relative;
+    overflow-x: hidden;
+}
 
-  body::before,
-  body::after {
-      content: "";
-      position: fixed;
-      border-radius: 50%;
-      background: rgba(37, 99, 235, 0.12);
-      animation: floatBubble 12s ease-in-out infinite;
-      z-index: 0;
-  }
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    border-radius: 50%;
+    background: rgba(37, 99, 235, 0.12);
+    animation: floatBubble 12s ease-in-out infinite;
+    z-index: 0;
+}
 
-  body::before {
-      width: 320px;
-      height: 320px;
-      top: -100px;
-      left: -100px;
-  }
+body::before {
+    width: 320px;
+    height: 320px;
+    top: -100px;
+    left: -100px;
+}
 
-  body::after {
-      width: 420px;
-      height: 420px;
-      bottom: -150px;
-      right: -150px;
-      animation-delay: 3s;
-  }
+body::after {
+    width: 420px;
+    height: 420px;
+    bottom: -150px;
+    right: -150px;
+    animation-delay: 3s;
+}
 
-  @keyframes floatBubble {
-      0% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-40px) scale(1.05); }
-      100% { transform: translateY(0) scale(1); }
-  }
+@keyframes floatBubble {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-40px) scale(1.05); }
+    100% { transform: translateY(0) scale(1); }
+}
 
-  .profile-container {
-      position: relative;
-      z-index: 1;
-  }
+.profile-container {
+    position: relative;
+    z-index: 1;
+}
 
-  .profile-header {
-      background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
-      color: white;
-      border-radius: 16px;
-      padding: 3rem 2rem;
-      margin-bottom: 3rem;
-      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
-  }
+.profile-header {
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    color: white;
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+}
 
-  .profile-header h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      color: white !important;
-  }
+.profile-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: white !important;
+}
 
-  .profile-info {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 1rem;
-  }
+.profile-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
 
-  .info-item {
-      background: rgba(255, 255, 255, 0.15);
-      padding: 1.2rem;
-      border-radius: 12px;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-  }
+.info-item {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 1.2rem;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-  .info-item p {
-      font-size: 0.9rem;
-      opacity: 0.9;
-      margin-bottom: 0.5rem;
-  }
+.info-item p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 0.5rem;
+}
 
-  .info-item strong {
-      font-size: 1.3rem;
-      display: block;
-      color: white;
-  }
+.info-item strong {
+    font-size: 1.3rem;
+    display: block;
+    color: white;
+}
 
-  .stats-container {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      margin-top: 2rem;
-  }
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
 
-  .stat-badge {
-      background: rgba(255, 255, 255, 0.2);
-      padding: 1rem;
-      border-radius: 12px;
-      text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      transition: transform 0.3s ease;
-  }
+.stat-badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 1rem;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s ease;
+}
 
-  .stat-badge:hover {
-      transform: translateY(-5px);
-      background: rgba(255, 255, 255, 0.25);
-  }
+.stat-badge:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.25);
+}
 
-  .stat-label {
-      font-size: 0.9rem;
-      opacity: 0.9;
-      margin-bottom: 0.5rem;
-  }
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 0.5rem;
+}
 
-  .stat-value {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: white;
-  }
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+}
 
-  .action-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-bottom: 2rem;
-  }
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
 
-  .action-card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      transition: all 0.3s ease;
-      border: 1px solid rgba(37, 99, 235, 0.1);
-  }
+.action-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(37, 99, 235, 0.1);
+}
 
-  .action-card:hover {
-      box-shadow: 0 12px 40px rgba(37, 99, 235, 0.15);
-      transform: translateY(-5px);
-      border-color: #2563eb;
-  }
+.action-card:hover {
+    box-shadow: 0 12px 40px rgba(37, 99, 235, 0.15);
+    transform: translateY(-5px);
+    border-color: #2563eb;
+}
 
-  .action-card h5 {
-      color: #000 !important;
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-bottom: 0.8rem;
-  }
+.action-card h5 {
+    color: #000 !important;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+}
 
-  .action-card p {
-      color: #666 !important;
-      font-size: 0.95rem;
-      margin-bottom: 1.5rem;
-      line-height: 1.5;
-  }
+.action-card p {
+    color: #666 !important;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
 
-  .action-card .btn {
-      border-radius: 12px !important;
-      font-weight: 600;
-      padding: 0.7rem 1.5rem;
-      transition: all 0.3s ease;
-  }
+.action-card .btn {
+    border-radius: 12px !important;
+    font-weight: 600;
+    padding: 0.7rem 1.5rem;
+    transition: all 0.3s ease;
+}
 
-  .action-card .btn-primary {
-      background: #2563eb !important;
-      border-color: #2563eb !important;
-      color: #fff !important;
-  }
+.action-card .btn-primary {
+    background: #2563eb !important;
+    border-color: #2563eb !important;
+    color: #fff !important;
+}
 
-  .action-card .btn-primary:hover {
-      background: #1d4ed8 !important;
-      border-color: #1d4ed8 !important;
-      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
-  }
+.action-card .btn-primary:hover {
+    background: #1d4ed8 !important;
+    border-color: #1d4ed8 !important;
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+}
 
-  .action-card .btn-success {
-      background: #10b981 !important;
-      border-color: #10b981 !important;
-      color: #fff !important;
-  }
+.action-card .btn-success {
+    background: #10b981 !important;
+    border-color: #10b981 !important;
+    color: #fff !important;
+}
 
-  .action-card .btn-success:hover {
-      background: #059669 !important;
-      border-color: #059669 !important;
-      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
-  }
+.action-card .btn-success:hover {
+    background: #059669 !important;
+    border-color: #059669 !important;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+}
 
-  .action-card .btn-outline-primary {
-      color: #2563eb !important;
-      border-color: #2563eb !important;
-  }
+.action-card .btn-outline-primary {
+    color: #2563eb !important;
+    border-color: #2563eb !important;
+}
 
-  .action-card .btn-outline-primary:hover {
-      background: #2563eb !important;
-  }
+.action-card .btn-outline-primary:hover {
+    background: #2563eb !important;
+}
 
-  .status-badge {
-      display: inline-block;
-      padding: 0.4rem 1rem;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-  }
+.status-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
 
-  .status-badge.completed {
-      background: rgba(16, 185, 129, 0.15);
-      color: #059669;
-  }
+.status-badge.completed {
+    background: rgba(16, 185, 129, 0.15);
+    color: #059669;
+}
 
-  .status-badge.pending {
-      background: rgba(107, 114, 128, 0.15);
-      color: #4b5563;
-  }
+.status-badge.pending {
+    background: rgba(107, 114, 128, 0.15);
+    color: #4b5563;
+}
 
-  .footer-action {
-      text-align: center;
-      margin-top: 3rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(37, 99, 235, 0.1);
-  }
+.footer-action {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(37, 99, 235, 0.1);
+}
 
-  .logout-btn {
-      background: linear-gradient(135deg, #ef4444, #f87171) !important;
-      border-color: none !important;
-      color: #fff !important;
-      border-radius: 12px !important;
-      font-weight: 600;
-      padding: 0.8rem 2rem !important;
-      transition: all 0.3s ease;
-  }
+.logout-btn {
+    background: linear-gradient(135deg, #ef4444, #f87171) !important;
+    border-color: none !important;
+    color: #fff !important;
+    border-radius: 12px !important;
+    font-weight: 600;
+    padding: 0.8rem 2rem !important;
+    transition: all 0.3s ease;
+}
 
-  .logout-btn:hover {
-      background: linear-gradient(135deg, #dc2626, #ef4444) !important;
-      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
-      color: #fff !important;
-  }
-  </style>
-  {% endblock %}
+.logout-btn:hover {
+    background: linear-gradient(135deg, #dc2626, #ef4444) !important;
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+    color: #fff !important;
+}
+</style>
+{% endblock %}
 
-  {% block content %}
-  <div class="profile-container container my-5 py-4">
+{% block content %}
+<div class="profile-container container my-5 py-4">
 
-    <!-- PROFILE HEADER -->
-    <div class="profile-header">
-      <h2>Welcome, {{ user.first_name }}</h2>
-      
-      <div class="profile-info">
-        <div class="info-item">
-          <p>Name</p>
-          <strong>{{ user.first_name }} {{ user.last_name }}</strong>
-        </div>
-        <div class="info-item">
-          <p>Email</p>
-          <strong style="font-size: 1rem; word-break: break-all;">{{ user.email }}</strong>
-        </div>
+  <!-- PROFILE HEADER -->
+  <div class="profile-header">
+    <h2>Welcome, {{ user.first_name }}</h2>
+
+    <div class="profile-info">
+      <div class="info-item">
+        <p>Name</p>
+        <strong>{{ user.first_name }} {{ user.last_name }}</strong>
       </div>
-
-      <div class="stats-container">
-        <div class="stat-badge">
-          <div class="stat-label">🔥 Streak</div>
-          <div class="stat-value">{{ user.userprofile.streak }}</div>
-        </div>
-        <div class="stat-badge">
-          <div class="stat-label">⭐ Points</div>
-          <div class="stat-value">{{ user.userprofile.points }}</div>
-        </div>
+      <div class="info-item">
+        <p>Email</p>
+        <strong style="font-size: 1rem; word-break: break-all;">{{ user.email }}</strong>
       </div>
     </div>
 
-    <!-- ACTION OPTIONS -->
-    <div class="action-grid">
+    <div class="stats-container">
+      <div class="stat-badge">
+        <div class="stat-label">🔥 Streak</div>
+        <div class="stat-value">{{ user.userprofile.streak }}</div>
+      </div>
+      <div class="stat-badge">
+        <div class="stat-label">⭐ Points</div>
+        <div class="stat-value">{{ user.userprofile.points }}</div>
+      </div>
+    </div>
+  </div>
 
-      <!-- PLAN CARD -->
-      <div class="action-card">
-        <h5>📋 Exercise Plan</h5>
-        <p>View your created plan or create a new one to get started</p>
+  <!-- ACTION OPTIONS -->
+  <div class="action-grid">
 
-        {% if plan %}
+    <!-- PLAN CARD -->
+    <div class="action-card">
+      <h5>📋 Exercise Plan</h5>
+      <p>Once your plan is created, it cannot be edited. You can only view or delete it.</p>
+
+      {% if plan %}
+        <div class="d-flex gap-2 flex-wrap">
           <a href="{% url 'view_plan' %}" class="btn btn-primary">View Plan</a>
-        {% else %}
-          <a href="{% url 'create_plan' %}" class="btn btn-success">Create Plan</a>
-        {% endif %}
-      </div>
-
-      <!-- TODAY SESSION CARD -->
-      <div class="action-card">
-        <h5>💪 Today's Session</h5>
-        <p>Complete your daily workout and earn points</p>
-
-        {% if plan %}
-          {% if session_done_today %}
-            <div class="status-badge completed">✅ Session Completed</div>
-            <a href="{% url 'session_report' %}" class="btn btn-primary">
-              View Session Report
-            </a>
-          {% else %}
-            <div class="status-badge pending">⏳ Not Started</div>
-            <a href="{% url 'today_session' %}" class="btn btn-success">
-              Start Today's Session
-            </a>
-          {% endif %}
-        {% else %}
-          <div class="status-badge pending">⏳ No Plan</div>
-          <a href="{% url 'create_plan' %}" class="btn btn-primary">
-            Create Plan First
-          </a>
-        {% endif %}
-      </div>
-
-      <!-- PROGRESS CARD -->
-      <div class="action-card">
-        <h5>📊 Progress</h5>
-        <p>View your daily, weekly, and monthly progress</p>
-        <button class="btn btn-primary" disabled>Coming Soon 🚀</button>
-      </div>
-
+        </div>
+      {% else %}
+        <a href="{% url 'create_plan' %}" class="btn btn-success">Create Plan</a>
+      {% endif %}
     </div>
 
-    <!-- LOGOUT -->
-    <div class="footer-action">
-      <a href="{% url 'logout' %}" class="btn logout-btn">
-        Logout
-      </a>
+    <!-- TODAY SESSION CARD -->
+    <div class="action-card">
+      <h5>💪 Today's Session</h5>
+      <p>Only one session can be saved per day.</p>
+
+      {% if not plan %}
+        <div class="status-badge pending">⏳ No Plan</div>
+        <a href="{% url 'create_plan' %}" class="btn btn-primary">
+          Create Plan
+        </a>
+
+      {% elif session_done_today %}
+        <div class="status-badge completed">✅ Session Saved Today</div>
+        <a href="{% url 'session_report' %}" class="btn btn-primary">
+          View Session Report
+        </a>
+
+      {% else %}
+        <div class="status-badge pending">⏳ Not Started</div>
+        <a href="{% url 'today_session' %}" class="btn btn-success">
+          Start Today’s Session
+        </a>
+      {% endif %}
+    </div>
+
+
+    <!-- PROGRESS CARD -->
+    <div class="action-card">
+      <h5>📊 Progress</h5>
+      <p>View your daily, weekly, and monthly progress</p>
+      <a href="{% url 'show_progress' %}" class="btn btn-primary">Show Progress</a>
     </div>
 
   </div>
 
-  {% endblock %}
+  <!-- LOGOUT -->
+  <div class="footer-action">
+    <a href="{% url 'logout' %}" class="btn logout-btn">
+      Logout
+    </a>
+  </div>
+
+</div>
+{% endblock %}

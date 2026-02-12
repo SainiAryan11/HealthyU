@@ -22,10 +22,6 @@ urlpatterns = [
 
     # Exercise Flow
     path("session-report/", views.session_report, name="session_report"),
-    path("delete-session/", views.delete_session, name="delete_session"),
-
-    # Session Completion (points + streak)
-    path("complete-session/", views.complete_session, name="complete_session"),
 
     # View Your Plan
     path("view-plan/", views.view_plan, name="view_plan"),
@@ -36,5 +32,23 @@ urlpatterns = [
     path("today-session/", views.today_session, name="today_session"),
 
     path("submit-session/", views.submit_session, name="submit_session"),
+
+    path("progress/", views.show_progress, name="show_progress"),
+    path("progress/data/", views.progress_data, name="progress_data"),
+    # Challenges
+    path("challenges/", views.challenges, name="challenges"),
+    path("challenges/accept/<int:challenge_id>/", views.accept_challenge, name="accept_challenge"),
+
+    # Yoga
+    path("yoga/<str:yoga_type>/", views.yoga_detail, name="yoga_detail"),
+
+    # Meditation
+    path("meditation/<str:meditation_type>/", views.meditation_detail, name="meditation_detail"),
+
+    # Workout Plans
+    path("workout-plans/", views.workout_plans, name="workout_plans"),
+
+    # Workout Details
+    path("workout/<str:workout_type>/", views.workout_detail, name="workout_detail"),
 
 ]
