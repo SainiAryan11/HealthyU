@@ -22,6 +22,7 @@ urlpatterns = [
 
     # Exercise Flow
     path("session-report/", views.session_report, name="session_report"),
+    path("session-report/<str:day>/", views.session_report, name="session_report_by_day"),
 
     # View Your Plan
     path("view-plan/", views.view_plan, name="view_plan"),

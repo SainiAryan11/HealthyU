@@ -71,16 +71,19 @@ if(report){
 
   const saveBtn = document.getElementById("saveSessionBtn");
 
-  if (cappedProgress <= 50) {
-    saveBtn.disabled = true;
-    const msg = document.getElementById("saveBlockMsg");
-    if (msg) {
-      msg.innerText = "Saving is blocked because progress must be > 50%. You can still view the report.";
-      msg.style.display = "block";
+    if (cappedProgress < 50) {
+      saveBtn.disabled = true;
+      const msg = document.getElementById("saveBlockMsg");
+      if (msg) {
+        msg.innerText = "Saving is blocked because progress must be at least 50%. You can still view the report.";
+        msg.style.display = "block";
+      }
+    } else {
+      saveBtn.disabled = false;
+      const msg = document.getElementById("saveBlockMsg");
+      if (msg) msg.style.display = "none";
     }
-  } else {
-    saveBtn.disabled = false;
-  }
+
 
   // DISPLAY
   document.getElementById("progressPct").innerText = cappedProgress + "%";
@@ -95,7 +98,7 @@ if(report){
   const med = report.meditation || { planned_minutes: 0, spent_minutes: 0, status: "not_planned" };
 
   document.getElementById("medPlanned").innerText = med.planned_minutes || 0;
-  document.getElementById("medSpent").innerText = (med.spent_minutes || 0) + " min";
+  document.getElementById("medSpent").innerText = (med.spent_minutes || 0);
 
   document.getElementById("medStatusBadge").innerHTML = badge(med.status || "not_planned");
 

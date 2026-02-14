@@ -76,14 +76,15 @@ function closeModal() {
             </button>
 
             <div class="navbar-links" id="navbarLinks">
+                <a href="{% url 'home' %}" class="nav-link-custom session-nav-link">Home</a>
                 {% if user.is_authenticated %}
-                    <a href="{% url 'home' %}" class="nav-link-custom session-nav-link">Home</a>
-                    <span class="nav-link-custom nav-link-disabled">Points</span>
-                    <a href="{% url 'streak' %}" class="nav-link-custom session-nav-link">Streak</a>
-                    <a href="{% url 'profile' %}" class="nav-link-custom session-nav-link">Profile</a>
-                    <a href="{% url 'logout' %}" class="nav-link-custom logout-btn session-nav-link">Logout</a>
+                    🏆 <span class="badge bg-warning text-dark">{{ nav_points }}</span>
+                    </a>
+                    <a href="{% url 'streak' %}" class="nav-link">
+                    🔥 <span class="badge bg-danger">{{ nav_streak }}</span>
+                    </a>
+                    <a href="{% url 'profile' %}" class="nav-link-custom">Profile</a>
                 {% else %}
-                    <a href="{% url 'home' %}" class="nav-link-custom session-nav-link">Home</a>
                     <a href="{% url 'login' %}" class="nav-link-custom session-nav-link">Login</a>
                     <a href="{% url 'signup' %}" class="nav-link-custom signup-btn session-nav-link">Sign Up</a>
                 {% endif %}

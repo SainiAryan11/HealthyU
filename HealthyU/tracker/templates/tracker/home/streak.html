@@ -1,33 +1,27 @@
 {% extends "tracker/base.html" %}
 
 {% block content %}
-<h2>🔥 Streak Leaderboard</h2>
+<h3 class="fw-bold mt-4">🏆 Top 5 Streak Leaderboard</h3>
 
-<table class="table table-striped mt-3">
-    <thead>
-        <tr>
-            <th>Rank</th>
-            <th>User</th>
-            <th>Streak (days)</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Dummy data for now -->
-        <tr>
-            <td>1</td>
-            <td>Aryan</td>
-            <td>15</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>User2</td>
-            <td>12</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>User3</td>
-            <td>10</td>
-        </tr>
-    </tbody>
-</table>
+{% if top_users %}
+  <div class="list-group mt-3">
+    {% for p in top_users %}
+      <div class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <div class="fw-semibold">
+            {{ forloop.counter }}. {{ p.user.first_name }} {{ p.user.last_name }}
+          </div>
+          <small class="text-muted">{{ p.user.email }}</small>
+        </div>
+
+        <span class="badge bg-success rounded-pill">
+          🔥 {{ p.streak }}
+        </span>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="text-muted mt-3">No users found.</div>
+{% endif %}
+
 {% endblock %}

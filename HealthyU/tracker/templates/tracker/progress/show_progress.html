@@ -18,7 +18,32 @@
     </div>
   {% endif %}
 
-  <div class="row g-3">
+  <h3 class="mt-4">Daily Session Reports (Last 30 Days)</h3>
+
+  {% if records %}
+    <div class="list-group mt-3">
+      {% for r in records %}
+        <a href="{% url 'session_report_by_day' r.date|date:'Y-m-d' %}" class="list-group-item list-group-item-action">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <div class="fw-semibold">{{ r.date|date:"d M Y" }}</div>
+              <small class="text-muted">
+                Points: {{ r.points_earned }}
+                {% if r.report.progress %}
+                  • Progress: {{ r.report.progress }}%
+                {% endif %}
+              </small>
+            </div>
+            <span class="badge bg-primary">View</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="text-muted mt-3">No sessions found.</div>
+  {% endif %}
+
+  <div class="row g-3 mt-4">
     <div class="col-12">
       <div class="card p-3">
         <h5 class="mb-3">Daily Progress (Last 30 Days)</h5>
@@ -47,7 +72,6 @@
   const PROGRESS_DATA_URL = "{% url 'progress_data' %}";
 </script>
 
-<!-- Plotly CDN -->
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <script src="{% static 'tracker/js/show_progress.js' %}"></script>
 {% endblock %}

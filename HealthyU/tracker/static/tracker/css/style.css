@@ -1,3 +1,66 @@
-/* ==================== DARK BLUE THEME ==================== */
+/* ---------------- HOME ACTION SECTION ---------------- */
 
+.home-action-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.action-card {
+    text-align: center;
+    padding: 40px;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    max-width: 500px;
+    width: 100%;
+    transition: 0.3s ease;
+}
+
+.action-card h4 {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.action-card p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.action-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
+/* Buttons */
+.action-btn {
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    transition: 0.3s ease;
+}
+
+/* Colors */
+.green-btn {
+    background-color: #28a745;
+}
+.green-btn:hover {
+    background-color: #218838;
+}
+
+.blue-btn {
+    background-color: #007bff;
+}
+.blue-btn:hover {
+    background-color: #0069d9;
+}
+
+.orange-btn {
+    background-color: #ff9800;
+}
+.orange-btn:hover {
+    background-color: #e68900;
+}

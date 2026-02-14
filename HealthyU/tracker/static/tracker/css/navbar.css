@@ -1,5 +1,44 @@
 /* ==================== CUSTOM NAVBAR STYLES ==================== */
 
+/* -------- NAV STATS -------- */
+
+.nav-stats {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.stat-number {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffcc00;
+}
+
+/* spacing between nav items */
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+/* mobile responsiveness */
+@media (max-width: 768px) {
+    .nav-stats {
+        font-size: 14px;
+        padding: 5px 8px;
+    }
+
+    .stat-number {
+        font-size: 15px;
+    }
+}
+
 .navbar-custom {
     background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);

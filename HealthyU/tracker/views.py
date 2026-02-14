@@ -1,5 +1,4 @@
 import json
-import datetime
 from datetime import timedelta  # ✅ add this
 
 from django.shortcuts import render, redirect
@@ -56,7 +55,11 @@ def _compute_progress_points(plan, report):
 
     physical = _safe_list(report, "physical")
     yoga = _safe_list(report, "yoga")
-    meditation = report.get("meditation", {})
+
+    # ✅ meditation summary object from JS
+    meditation = report.get("meditation") or {}
+    if not isinstance(meditation, dict):
+        meditation = {}
 
     def ratio_done(lst):
         if not lst:
@@ -65,25 +68,62 @@ def _compute_progress_points(plan, report):
         return done / len(lst)
 
     prog = 0.0
+
+    # ✅ Physical: completed ratio
     if "physical" in active:
         prog += ratio_done(physical) * weight
+
+    # ✅ Yoga: completed ratio
     if "yoga" in active:
         prog += ratio_done(yoga) * weight
-    if "meditation" in active:
-        # meditation contributes fully only if completed
-        med_status = (meditation or {}).get("status", "pending")
-        prog += (1.0 if med_status == "completed" else 0.0) * weight
 
-    # cap + round cleanly
-    progress = min(int(round(prog)), 100)
-    points = progress  # spec: points split matches progress weighting; total max 100
+    # ✅ Meditation: time ratio (spent/planned)
+    if "meditation" in active:
+        planned = meditation.get("planned_minutes", 0) or 0
+        spent = meditation.get("spent_minutes", 0) or 0
+
+        try:
+            planned = float(planned)
+            spent = float(spent)
+        except Exception:
+            planned = 0.0
+            spent = 0.0
+
+        med_ratio = 0.0
+        if planned > 0:
+            med_ratio = min(max(spent / planned, 0.0), 1.0)
+
+        prog += med_ratio * weight
+
+    # ✅ IMPORTANT: DON’T round too aggressively
+    # Use floor to avoid showing 50 but saving as 49 after rounding noise
+    progress = int(prog + 1e-9)  # floor-like
+    progress = max(0, min(progress, 100))
+
+    points = progress  # your rule
 
     return progress, points
 
 
 # ---------------- HOME ----------------
+from django.utils import timezone
+from .models import ExercisePlan, SessionRecord, UserProfile
+
 def home(request):
-    return render(request, "tracker/home/home.html")
+    context = {}
+
+    if request.user.is_authenticated:
+        today = timezone.localdate()
+
+        plan = ExercisePlan.objects.filter(user=request.user).first()
+        session_done_today = SessionRecord.objects.filter(user=request.user, date=today).exists()
+
+        context.update({
+            "plan": plan,
+            "session_done_today": session_done_today,
+        })
+
+    return render(request, "tracker/home/home.html", context)
 
 
 # ---------------- AUTH ----------------
@@ -160,8 +200,21 @@ def profile(request):
 
 
 # ---------------- STREAK / LEADERBOARD ----------------
+from django.db.models import F
+from .models import UserProfile
+
 def streak(request):
-    return render(request, "tracker/home/streak.html")
+    top_users = (
+        UserProfile.objects
+        .select_related("user")
+        .filter(user__is_superuser=False)
+        .order_by("-streak", "-points")[:5]   # ✅ primary streak, secondary points
+    )
+
+    return render(request, "tracker/home/streak.html", {
+        "top_users": top_users
+    })
+
 
 
 # ---------------- PLAN ----------------
@@ -317,18 +370,42 @@ def today_session(request):
         "has_meditation": has_meditation,
     })
 
+import datetime
+from django.http import Http404
+from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+
 @login_required(login_url="login")
-def session_report(request):
-    today = timezone.localdate()
-    record = SessionRecord.objects.filter(user=request.user, date=today).first()
+def session_report(request, day=None):
+
+    if day:
+        try:
+            date_obj = datetime.datetime.strptime(day, "%Y-%m-%d").date()
+        except ValueError:
+            return redirect("show_progress")
+    else:
+        date_obj = timezone.localdate()
+
+    record = SessionRecord.objects.filter(
+        user=request.user,
+        date=date_obj
+    ).first()
 
     return render(request, "tracker/session/session_report.html", {
-        "record": record
+        "record": record,
+        "viewed_date": date_obj
     })
 
 
 
 # ---------------- SAVE SESSION (POINTS + STREAK) ----------------
+from datetime import timedelta
+from django.utils import timezone
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
+import json
+
 @login_required(login_url="login")
 @require_POST
 def submit_session(request):
@@ -352,14 +429,6 @@ def submit_session(request):
             "reason": "already_saved"
         }, status=400)
 
-    last_act_date = profile.last_activity.date() if profile.last_activity else None
-    if profile.session_saved_today and last_act_date == today:
-        return JsonResponse({
-            "status": "error",
-            "message": "Session already saved today. Come back tomorrow!",
-            "reason": "already_saved"
-        }, status=400)
-
     # ✅ Skip rule validation (Physical+Yoga only)
     ok, msg = _validate_skip_limit(report)
     if not ok:
@@ -368,22 +437,29 @@ def submit_session(request):
     # ✅ Compute progress + points on server
     progress, points = _compute_progress_points(plan, report)
 
-    # ✅ Save allowed only if progress > 50%
-    if progress <= 50:
+    # ✅ Save allowed only if progress >= 50%
+    if progress < 50:
         return JsonResponse({
             "status": "error",
-            "message": "Session not saved. Progress must be > 50% to save.",
+            "message": "Session not saved. Progress must be at least 50% to save.",
             "reason": "progress_too_low",
             "progress": progress
         }, status=400)
 
-    # ✅ Streak updates ONLY when saved
-    if last_act_date == (today - timedelta(days=1)):
-        profile.streak += 1
+    # ✅ STREAK: always use last_session_date (convert to date if needed)
+    last_session_date = profile.last_session_date
+    if hasattr(last_session_date, "date"):   # handles datetime accidentally stored
+        last_session_date = last_session_date.date()
+
+    yesterday = today - timedelta(days=1)
+
+    if last_session_date == yesterday:
+        profile.streak = (profile.streak or 0) + 1
     else:
         profile.streak = 1
 
-    profile.points += points
+    # ✅ POINTS
+    profile.points = (profile.points or 0) + int(points or 0)
 
     # ✅ Update profile daily status
     profile.last_activity = now
@@ -391,7 +467,6 @@ def submit_session(request):
     profile.last_session_report = report
     profile.session_saved_today = True
     profile.session_completed_today = (progress == 100)
-
     profile.save()
 
     # ✅ Store record for report + analytics
@@ -399,31 +474,41 @@ def submit_session(request):
         user=request.user,
         date=today,
         report=report,
-        points_earned=points
+        points_earned=int(points or 0)
     )
 
     return JsonResponse({
         "status": "ok",
         "message": "Session saved successfully!",
         "progress": progress,
-        "points_added": points,
+        "points_added": int(points or 0),
         "new_streak": profile.streak,
         "total_points": profile.points
     })
 
-from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 from datetime import timedelta
-from django.http import JsonResponse
 
 from .models import SessionRecord, ExercisePlan
 
 @login_required(login_url="login")
 def show_progress(request):
-    # ✅ Page-only view (charts will fetch data via JSON endpoint)
     plan = ExercisePlan.objects.filter(user=request.user).first()
-    return render(request, "tracker/progress/show_progress.html", {"plan": plan})
+    today = timezone.localdate()
+    start = today - timedelta(days=30)
 
+    records = (
+        SessionRecord.objects
+        .filter(user=request.user, date__gte=start, date__lte=today)
+        .order_by("-date")
+    )
+
+    return render(request, "tracker/progress/show_progress.html", {
+        "plan": plan,
+        "records": records,
+    })
 
 @login_required(login_url="login")
 def progress_data(request):
@@ -1286,3 +1371,20 @@ def workout_detail(request, workout_type):
     
     workout = WORKOUT_DATA[workout_type]
     return render(request, "tracker/workouts/workout_detail.html", {"workout": workout})
+
+import datetime
+from django.http import Http404
+
+@login_required(login_url="login")
+def progress_day_detail(request, day):
+    # day comes like "2026-02-14"
+    try:
+        d = datetime.date.fromisoformat(day)
+    except ValueError:
+        raise Http404("Invalid date")
+
+    record = SessionRecord.objects.filter(user=request.user, date=d).first()
+    if not record:
+        raise Http404("No session for this date")
+
+    return render(request, "tracker/progress/day_detail.html", {"record": record})
