@@ -9,6 +9,9 @@ from django.utils import timezone
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.core.serializers.json import DjangoJSONEncoder
+from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import PointsTransaction
 
 from .models import UserProfile, ExercisePlan, PlanItem, SessionRecord
 
@@ -128,41 +131,91 @@ def home(request):
 
 # ---------------- AUTH ----------------
 def signup(request):
+    error = None
+    
     if request.method == "POST":
-        first_name = request.POST["first_name"]
-        last_name = request.POST["last_name"]
-        email = request.POST["email"]
-        password = request.POST["password"]
-        dob = request.POST["dob"]  # ignore for now / store later
+        first_name = request.POST.get("first_name", "").strip()
+        last_name = request.POST.get("last_name", "").strip()
+        email = request.POST.get("email", "").strip()
+        password = request.POST.get("password", "")
+        dob = request.POST.get("dob", "")
+        
+        # Server-side validation
+        import re
+        name_pattern = re.compile(r'^[A-Za-z\s]+$')
+        password_pattern = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{6,}$')
+        
+        if not first_name:
+            error = "First name is required"
+        elif not name_pattern.match(first_name):
+            error = "First name should only contain letters and spaces"
+        elif not last_name:
+            error = "Last name is required"
+        elif not name_pattern.match(last_name):
+            error = "Last name should only contain letters and spaces"
+        elif not email:
+            error = "Email is required"
+        elif not password:
+            error = "Password is required"
+        elif not password_pattern.match(password):
+            error = "Password must be at least 6 characters with uppercase, lowercase, number and special character"
+        elif not dob:
+            error = "Date of birth is required"
+        elif User.objects.filter(email=email).exists():
+            error = "An account with this email already exists"
+        else:
+            # Validate date of birth
+            try:
+                from datetime import datetime
+                dob_date = datetime.strptime(dob, "%Y-%m-%d").date()
+                today = datetime.now().date()
+                
+                if dob_date >= today:
+                    error = "Date of birth cannot be today or in the future"
+                elif dob_date.year < (today.year - 120):
+                    error = "Please enter a valid date of birth"
+            except ValueError:
+                error = "Invalid date format"
+        
+        if not error:
+            try:
+                user = User.objects.create_user(
+                    username=email,
+                    email=email,
+                    password=password
+                )
+                user.first_name = first_name
+                user.last_name = last_name
+                user.save()
+                messages.success(request, "Account created successfully! Please log in.")
+                return redirect("login")
+            except Exception as e:
+                error = "An error occurred while creating your account"
 
-        user = User.objects.create_user(
-            username=email,
-            email=email,
-            password=password
-        )
-        user.first_name = first_name
-        user.last_name = last_name
-        user.save()
-
-        return redirect("login")
-
-    return render(request, "tracker/auth/signup.html")
+    return render(request, "tracker/auth/signup.html", {"error": error})
 
 
 def login_view(request):
     error = None
 
     if request.method == "POST":
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-
-        user = authenticate(request, username=email, password=password)
-
-        if user is not None:
-            login(request, user)
-            return redirect("profile")
+        email = request.POST.get("email", "").strip()
+        password = request.POST.get("password", "")
+        
+        # Server-side validation
+        if not email:
+            error = "Email is required"
+        elif not password:
+            error = "Password is required"
         else:
-            error = "Invalid email or password"
+            user = authenticate(request, username=email, password=password)
+
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Login successful! Welcome back.")
+                return redirect("profile")
+            else:
+                error = "Invalid email or password. Please check your credentials."
 
     return render(request, "tracker/auth/login.html", {"error": error})
 
@@ -306,60 +359,338 @@ def today_session(request):
     if (not has_physical) and (not has_yoga) and (not has_meditation):
         return redirect("profile")
 
-    def build_list(qs, default_desc, steps):
+    # ✅ Exercise-specific steps dictionary
+    EXERCISE_STEPS = {
+        # Physical Exercises - Beginner
+        "Push Ups": [
+            "Place hands shoulder-width apart on the floor",
+            "Keep your body in a straight line from head to heels",
+            "Lower your chest until elbows reach 90 degrees",
+            "Push back up while keeping core engaged",
+            "Breathe out as you push up, inhale going down"
+        ],
+        "Jumping Jacks": [
+            "Stand with feet together and arms at sides",
+            "Jump while spreading legs shoulder-width apart",
+            "Raise arms overhead simultaneously",
+            "Jump back to starting position",
+            "Maintain a steady rhythm and breathe naturally"
+        ],
+        "Wall Sit": [
+            "Stand with back against a wall",
+            "Slide down until thighs are parallel to ground",
+            "Keep knees directly above ankles",
+            "Hold position while breathing steadily",
+            "Press back firmly against the wall throughout"
+        ],
+        "High Knees": [
+            "Stand with feet hip-width apart",
+            "Lift one knee to hip level quickly",
+            "Alternate legs in a running motion",
+            "Pump arms naturally with the movement",
+            "Keep core tight and maintain quick pace"
+        ],
+        "Arm Circles": [
+            "Stand with arms extended straight out to sides",
+            "Make small circular motions forward",
+            "Gradually increase circle size",
+            "Reverse direction after half the time",
+            "Keep shoulders relaxed and core engaged"
+        ],
+        
+        # Physical Exercises - Intermediate
+        "Squats": [
+            "Stand with feet shoulder-width apart",
+            "Lower hips back and down as if sitting",
+            "Keep knees behind toes and chest up",
+            "Descend until thighs are parallel to floor",
+            "Push through heels to return to standing"
+        ],
+        "Lunges": [
+            "Step forward with one leg",
+            "Lower hips until both knees bend at 90 degrees",
+            "Keep front knee directly above ankle",
+            "Push back to starting position",
+            "Alternate legs and maintain upright posture"
+        ],
+        "Plank": [
+            "Start in push-up position on forearms",
+            "Keep body in straight line from head to heels",
+            "Engage core and squeeze glutes",
+            "Hold position without letting hips sag",
+            "Breathe steadily throughout the hold"
+        ],
+        "Mountain Climbers": [
+            "Start in high plank position",
+            "Drive one knee toward chest quickly",
+            "Quickly switch legs in running motion",
+            "Keep hips level and core tight",
+            "Maintain steady breathing rhythm"
+        ],
+        "Glute Bridges": [
+            "Lie on back with knees bent, feet flat",
+            "Lift hips toward ceiling by squeezing glutes",
+            "Form straight line from shoulders to knees",
+            "Hold at top for a moment",
+            "Lower hips slowly back to starting position"
+        ],
+        
+        # Physical Exercises - Advanced
+        "Burpees": [
+            "Start standing, then drop into squat position",
+            "Place hands on floor and jump feet back to plank",
+            "Perform a push-up",
+            "Jump feet back to squat position",
+            "Explode up into a jump with arms overhead"
+        ],
+        "Pull Ups": [
+            "Hang from bar with hands shoulder-width apart",
+            "Engage core and pull shoulder blades down",
+            "Pull body up until chin clears the bar",
+            "Control descent back to starting position",
+            "Avoid swinging or using momentum"
+        ],
+        "Handstand Push Ups": [
+            "Kick up into handstand against wall",
+            "Position hands shoulder-width apart",
+            "Lower head toward floor with control",
+            "Press back up to full arm extension",
+            "Keep core tight and body straight throughout"
+        ],
+        "Pistol Squats": [
+            "Stand on one leg with other leg extended forward",
+            "Lower down on standing leg into deep squat",
+            "Keep extended leg parallel to ground",
+            "Maintain balance with arms forward",
+            "Push through heel to return to standing"
+        ],
+        "Jump Squats": [
+            "Start in regular squat position",
+            "Explode upward into a jump",
+            "Extend fully through hips and knees",
+            "Land softly back into squat position",
+            "Immediately begin next repetition"
+        ],
+        
+        # Yoga - Beginner
+        "Mountain Pose": [
+            "Stand tall with feet together",
+            "Distribute weight evenly across both feet",
+            "Engage thighs and lift kneecaps",
+            "Lengthen spine and relax shoulders",
+            "Breathe deeply and hold with awareness"
+        ],
+        "Tree Pose": [
+            "Stand on one leg with firm foundation",
+            "Place other foot on inner thigh or calf",
+            "Bring hands to prayer position at chest",
+            "Find a focal point for balance",
+            "Hold steady while breathing calmly"
+        ],
+        "Child's Pose": [
+            "Kneel on floor with big toes touching",
+            "Sit back on heels and separate knees",
+            "Fold forward extending arms ahead",
+            "Rest forehead gently on the floor",
+            "Breathe deeply and relax completely"
+        ],
+        "Cat–Cow Pose": [
+            "Start on hands and knees in tabletop",
+            "Inhale, arch back and lift chest (Cow)",
+            "Exhale, round spine and tuck chin (Cat)",
+            "Flow smoothly between the two poses",
+            "Synchronize movement with breath"
+        ],
+        "Downward Dog": [
+            "Start on hands and knees",
+            "Lift hips up and back forming inverted V",
+            "Press hands firmly into the floor",
+            "Straighten legs and press heels toward floor",
+            "Hold while breathing deeply through nose"
+        ],
+        
+        # Yoga - Intermediate
+        "Warrior II": [
+            "Step feet wide apart, turn front foot out",
+            "Bend front knee to 90 degrees",
+            "Extend arms parallel to floor",
+            "Gaze over front fingertips",
+            "Hold with strength and steady breathing"
+        ],
+        "Triangle Pose": [
+            "Stand with feet wide, turn front foot out",
+            "Extend arms parallel to floor",
+            "Reach forward then lower hand to shin",
+            "Extend top arm toward ceiling",
+            "Gaze up at top hand and breathe deeply"
+        ],
+        "Cobra Pose": [
+            "Lie face down with hands under shoulders",
+            "Press palms down and lift chest off floor",
+            "Keep elbows slightly bent",
+            "Draw shoulders back and down",
+            "Hold while breathing into the chest"
+        ],
+        "Chair Pose": [
+            "Stand with feet together",
+            "Bend knees and lower hips as if sitting",
+            "Raise arms overhead beside ears",
+            "Keep weight in heels",
+            "Hold while engaging core and breathing"
+        ],
+        "Bridge Pose": [
+            "Lie on back with knees bent, feet flat",
+            "Press feet down and lift hips high",
+            "Interlace fingers under back",
+            "Roll shoulders under and lift chest",
+            "Hold while breathing into the chest"
+        ],
+        
+        # Yoga - Advanced
+        "Headstand": [
+            "Kneel and interlace fingers on floor",
+            "Place crown of head on floor in hand cradle",
+            "Straighten legs and walk feet toward head",
+            "Lift legs up slowly with control",
+            "Balance with core engaged, breathe steadily"
+        ],
+        "Crow Pose": [
+            "Squat with hands flat on floor",
+            "Place knees on backs of upper arms",
+            "Lean forward shifting weight to hands",
+            "Lift feet off floor one at a time",
+            "Balance on hands with core engaged"
+        ],
+        "Wheel Pose": [
+            "Lie on back with knees bent, feet flat",
+            "Place hands by ears, fingers toward shoulders",
+            "Press into hands and feet, lift body up",
+            "Straighten arms and create arch",
+            "Hold while breathing deeply and evenly"
+        ],
+        "King Pigeon Pose": [
+            "Start in low lunge position",
+            "Slide front shin forward parallel to mat edge",
+            "Lower back leg to floor",
+            "Bend back knee and reach for foot",
+            "Hold while breathing into the stretch"
+        ],
+        "Scorpion Pose": [
+            "Start in forearm plank position",
+            "Walk feet toward elbows",
+            "Lift one leg then the other overhead",
+            "Arch back and bend knees toward head",
+            "Balance with core strength and steady breath"
+        ],
+        
+        # Meditation - All levels
+        "Mindfulness Meditation": [
+            "Sit comfortably with spine straight",
+            "Close eyes and focus on natural breath",
+            "Notice thoughts without judgment",
+            "Gently return focus to breath when distracted",
+            "Continue for full duration with awareness"
+        ],
+        "Breathing Meditation": [
+            "Sit in comfortable position with eyes closed",
+            "Breathe in slowly through nose for 4 counts",
+            "Hold breath gently for 4 counts",
+            "Exhale slowly through mouth for 6 counts",
+            "Repeat cycle maintaining steady rhythm"
+        ],
+        "Gratitude Meditation": [
+            "Sit comfortably and close your eyes",
+            "Think of three things you're grateful for",
+            "Feel the emotion of gratitude deeply",
+            "Visualize each blessing in detail",
+            "End by sending gratitude to yourself"
+        ],
+        "Loving-Kindness Meditation": [
+            "Sit comfortably with eyes closed",
+            "Silently repeat: May I be happy and healthy",
+            "Extend wishes to loved ones",
+            "Extend to neutral people, then difficult people",
+            "End by sending love to all beings"
+        ],
+        "Visualization Meditation": [
+            "Sit or lie down comfortably",
+            "Close eyes and take deep breaths",
+            "Visualize a peaceful, safe place in detail",
+            "Engage all senses in the visualization",
+            "Stay present in this peaceful scene"
+        ],
+        "Walking Meditation": [
+            "Stand still and become aware of body",
+            "Walk slowly with full attention on each step",
+            "Notice lifting, moving, and placing of feet",
+            "Coordinate breath with steps",
+            "Maintain mindful awareness throughout"
+        ],
+        "Mantra Meditation": [
+            "Sit comfortably with spine straight",
+            "Choose a meaningful word or phrase",
+            "Repeat mantra silently with each breath",
+            "Let mantra flow naturally without force",
+            "Return to mantra when mind wanders"
+        ],
+        "Zen Meditation": [
+            "Sit in lotus or cross-legged position",
+            "Keep spine straight and hands in lap",
+            "Lower gaze to floor about 3 feet ahead",
+            "Count breaths from one to ten",
+            "Start over when reaching ten or losing count"
+        ],
+        "Transcendental Meditation": [
+            "Sit comfortably with eyes closed",
+            "Silently repeat your personal mantra",
+            "Let mantra come effortlessly",
+            "Allow thoughts to pass without engagement",
+            "Continue for full meditation period"
+        ],
+        "Chakra Meditation": [
+            "Sit comfortably with spine aligned",
+            "Visualize energy centers along spine",
+            "Focus on each chakra from root to crown",
+            "Breathe into each center with intention",
+            "Feel energy flowing freely through body"
+        ],
+    }
+
+    def build_list_with_specific_steps(qs, default_desc):
         arr = []
         for item in qs:
+            # Get specific steps for this exercise, or use generic ones
+            specific_steps = EXERCISE_STEPS.get(item.name, [
+                "Prepare your space and body",
+                "Begin with proper form and alignment",
+                "Maintain focus and controlled breathing",
+                "Complete the movement with intention",
+                "Rest and recover appropriately"
+            ])
+            
             arr.append({
                 "name": item.name,
                 "description": default_desc.format(name=item.name),
                 "value": item.value,
                 "unit": item.unit,
-                "steps": steps
+                "steps": specific_steps
             })
         return arr
 
-    physical_steps = [
-        "Maintain correct posture",
-        "Start slow and steady",
-        "Focus on breathing",
-        "Keep movements controlled",
-        "Finish and rest briefly"
-    ]
-    yoga_steps = [
-        "Stand/sit in a comfortable pose",
-        "Breathe slowly and deeply",
-        "Move gently with control",
-        "Hold the posture steadily",
-        "Release slowly and relax"
-    ]
-
-    physical_data = build_list(
+    physical_data = build_list_with_specific_steps(
         physical_items,
-        "Perform {name} safely and with proper form.",
-        physical_steps
+        "Perform {name} safely and with proper form."
     )
 
-    yoga_data = build_list(
+    yoga_data = build_list_with_specific_steps(
         yoga_items,
-        "Relax your body and breathe steadily during {name}.",
-        yoga_steps
+        "Practice {name} with mindful breathing and alignment."
     )
 
-    # ✅ Meditation: Build array of meditations (not just one)
-    meditation_data = []
-    if med_items.exists():
-        meditation_steps = [
-            "Sit comfortably with a straight back",
-            "Close your eyes and relax your shoulders",
-            "Breathe slowly in and out through the nose",
-            "Bring attention back when the mind wanders",
-            "Finish gently and open your eyes slowly"
-        ]
-        meditation_data = build_list(
-            med_items,
-            "{name} helps calm your mind. Sit comfortably and focus on your breath.",
-            meditation_steps
-        )
+    meditation_data = build_list_with_specific_steps(
+        med_items,
+        "{name} helps calm your mind and center your awareness."
+    )
 
     return render(request, "tracker/session/today_session.html", {
         "physical_json": json.dumps(physical_data, cls=DjangoJSONEncoder),
@@ -370,6 +701,7 @@ def today_session(request):
         "has_meditation": has_meditation,
     })
 
+
 import datetime
 from django.http import Http404
 from django.utils import timezone
@@ -377,24 +709,24 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url="login")
 def session_report(request, day=None):
-
     if day:
         try:
-            date_obj = datetime.datetime.strptime(day, "%Y-%m-%d").date()
+            selected_date = datetime.datetime.strptime(day, "%Y-%m-%d").date()
         except ValueError:
             return redirect("show_progress")
     else:
-        date_obj = timezone.localdate()
+        selected_date = timezone.localdate()
 
     record = SessionRecord.objects.filter(
         user=request.user,
-        date=date_obj
+        date=selected_date
     ).first()
 
     return render(request, "tracker/session/session_report.html", {
         "record": record,
-        "viewed_date": date_obj
+        "selected_date": selected_date
     })
+
 
 
 
@@ -468,6 +800,14 @@ def submit_session(request):
     profile.session_saved_today = True
     profile.session_completed_today = (progress == 100)
     profile.save()
+
+    # ✅ Points history entry (SESSION)
+    PointsTransaction.objects.create(
+        user=request.user,
+        points=int(points or 0),
+        source="session",
+        note=f"Session saved • Progress {progress}%"
+    )
 
     # ✅ Store record for report + analytics
     SessionRecord.objects.create(
@@ -1167,11 +1507,16 @@ def meditation_detail(request, meditation_type):
 def workout_plans(request):
     return render(request, "tracker/plans/workout_plans.html")
 
-# ---------------- POINTS PAGE ----------------
+# ---------------- POINTS HISTORY PAGE ----------------
 @login_required(login_url="login")
 def points(request):
+    txns = PointsTransaction.objects.filter(user=request.user).order_by("-date")
     profile = UserProfile.objects.get(user=request.user)
-    return render(request, "tracker/points/points.html", {"profile": profile})
+
+    return render(request, "tracker/points/points_history.html", {
+        "profile": profile,
+        "txns": txns,
+    })
 
 
 # ---------------- WORKOUT DETAILS ----------------
@@ -1388,3 +1733,108 @@ def progress_day_detail(request, day):
         raise Http404("No session for this date")
 
     return render(request, "tracker/progress/day_detail.html", {"record": record})
+
+from django.utils.timezone import now
+
+@login_required
+def daily_challenge(request):
+    completed_ids = UserChallengeProgress.objects.filter(
+        user=request.user,
+        is_completed=True
+    ).values_list('challenge_id', flat=True)
+
+    challenge = Challenge.objects.exclude(id__in=completed_ids).order_by('day_number').first()
+
+    if not challenge:
+        return render(request, "tracker/all_challenges_completed.html")
+
+    return render(request, "tracker/daily_challenge.html", {"challenge": challenge})
+
+from django.contrib.auth.decorators import login_required
+
+@login_required(login_url="login")
+def complete_challenge(request, challenge_id):
+    ch = get_object_or_404(ChallengeMaster, id=challenge_id)
+
+    if UserChallengeLog.objects.filter(user=request.user, challenge=ch).exists():
+        return redirect("challenges")
+
+    UserChallengeLog.objects.create(user=request.user, challenge=ch, status="completed")
+
+    profile = UserProfile.objects.get(user=request.user)
+    profile.points += ch.reward_points
+    profile.save()
+
+    PointsTransaction.objects.create(
+        user=request.user,
+        points=ch.reward_points,
+        source="challenge",
+        note=f"Day {ch.day_number}: {ch.title}"
+    )
+
+
+    messages.success(request, f"🎉 Challenge completed! +{ch.reward_points} points added.")
+    return redirect("challenges")
+
+
+from datetime import date
+from django.utils import timezone
+from .models import ChallengeMaster, UserChallengeLog
+
+def challenges(request):
+    challenges_qs = ChallengeMaster.objects.order_by("day_number")
+
+    if not challenges_qs.exists():
+        return render(request, "tracker/challenges/challenges.html", {
+            "challenge": None,
+            "today_date": timezone.localdate().strftime("%B %d, %Y"),
+            "is_guest": not request.user.is_authenticated,
+        })
+
+    # Calculate today's index (0–9)
+    today = date.today()
+    day_index = today.toordinal() % challenges_qs.count()
+
+    today_challenge = challenges_qs[day_index]
+
+    is_completed = False
+    if request.user.is_authenticated:
+        is_completed = UserChallengeLog.objects.filter(
+            user=request.user,
+            challenge=today_challenge
+        ).exists()
+
+    return render(request, "tracker/challenges/challenges.html", {
+        "challenge": {
+            "id": today_challenge.id,
+            "title": f"Day {today_challenge.day_number}: {today_challenge.title}",
+            "description": today_challenge.description,
+            "points": today_challenge.reward_points,
+            "completed": is_completed,
+        },
+        "today_date": timezone.localdate().strftime("%B %d, %Y"),
+        "is_guest": not request.user.is_authenticated,
+    })
+
+import json
+from django.core.serializers.json import DjangoJSONEncoder
+
+def challenge_session(request, challenge_id):
+    ch = get_object_or_404(ChallengeMaster, id=challenge_id)
+
+    challenge_payload = {
+        "id": ch.id,
+        "name": ch.title,
+        "description": ch.description,
+        "value": ch.value,
+        "unit": ch.unit,
+        "steps": ch.steps,
+        "reward": ch.reward_points,
+    }
+
+    return render(request, "tracker/challenges/challenge_session.html", {
+        "challenge_json": json.dumps(challenge_payload, cls=DjangoJSONEncoder),
+        "complete_url": f"/challenges/{ch.id}/complete/",
+        "end_url": "/challenges/",
+        "is_guest": (not request.user.is_authenticated),
+    })

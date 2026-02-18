@@ -52,4 +52,9 @@ urlpatterns = [
     # Workout Details
     path("workout/<str:workout_type>/", views.workout_detail, name="workout_detail"),
 
+    path("challenges/", views.challenges, name="challenges"),
+    path("challenges/<int:challenge_id>/", views.challenge_session, name="challenge_session"),
+    path("challenges/<int:challenge_id>/complete/", views.complete_challenge, name="complete_challenge"),
+
+    path("points/", views.points, name="points"),
 ]

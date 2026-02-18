@@ -25,3 +25,13 @@ from .models import ExercisePlan, PlanItem
 
 admin.site.register(ExercisePlan)
 admin.site.register(PlanItem)
+
+from .models import DailyExerciseChallenge, DailyExerciseChallengeLog
+
+admin.site.register(DailyExerciseChallenge)
+admin.site.register(DailyExerciseChallengeLog)
+
+from .models import ChallengeMaster, UserChallengeLog
+
+admin.site.register(ChallengeMaster)
+admin.site.register(UserChallengeLog)

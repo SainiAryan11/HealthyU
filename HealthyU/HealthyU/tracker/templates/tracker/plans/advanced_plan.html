@@ -1,0 +1,191 @@
+{% extends "tracker/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'tracker/css/detail_page.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="detail-page">
+    <!-- Back Button -->
+    <a href="{% url 'workout_plans' %}" class="back-button">
+        <span class="back-icon">←</span> Back to Plans
+    </a>
+
+    <!-- Hero Section -->
+    <div class="detail-hero" style="background: linear-gradient(135deg, rgba(245, 87, 108, 0.95), rgba(240, 147, 251, 0.95)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=600&fit=crop') center/cover;">
+        <div class="detail-hero-content">
+            <span class="detail-badge">💪 Advanced Plan</span>
+            <h1 class="detail-title">Advanced Athletic Program</h1>
+            <div class="detail-meta">
+                <span class="meta-item"><i>⏱️</i> 60-90 min/day</span>
+                <span class="meta-item"><i>📊</i> Advanced</span>
+                <span class="meta-item"><i>🔥</i> 600-800 cal</span>
+            </div>
+            <p class="image-credit">Photo by <a href="https://unsplash.com/@johnarano" target="_blank">John Arano</a> on <a href="https://unsplash.com" target="_blank">Unsplash</a></p>
+        </div>
+    </div>
+
+    <!-- Overview -->
+    <div class="detail-section">
+        <h2 class="section-title">Program Overview</h2>
+        <p class="section-text">
+            For experienced athletes ready to push their limits! This intense 8-week program combines strength, power, endurance, and agility training. Designed for those with a solid fitness foundation looking to achieve peak performance and maximum results.
+        </p>
+    </div>
+
+    <!-- Weekly Breakdown -->
+    <div class="detail-section">
+        <h2 class="section-title">8-Week Elite Program</h2>
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3 class="step-title">Weeks 1-2: Strength Foundation</h3>
+                    <p class="step-description">
+                        Heavy compound lifts and progressive overload. Build maximum strength.
+                    </p>
+                    <ul>
+                        <li>Monday: Heavy Squats & Deadlifts (5x5)</li>
+                        <li>Tuesday: Upper Body Power (Bench, Rows)</li>
+                        <li>Wednesday: HIIT Cardio + Core</li>
+                        <li>Thursday: Olympic Lifts (Cleans, Snatches)</li>
+                        <li>Friday: Hypertrophy Day (High Volume)</li>
+                        <li>Saturday: Endurance Training (60 min)</li>
+                        <li>Sunday: Active Recovery + Mobility</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3 class="step-title">Weeks 3-4: Power Development</h3>
+                    <p class="step-description">
+                        Explosive movements and plyometrics. Increase power output.
+                    </p>
+                    <ul>
+                        <li>Monday: Plyometric Training + Sprints</li>
+                        <li>Tuesday: Max Effort Upper Body</li>
+                        <li>Wednesday: Metabolic Conditioning</li>
+                        <li>Thursday: Dynamic Lower Body</li>
+                        <li>Friday: Full Body Power Circuit</li>
+                        <li>Saturday: Long Distance Run/Bike</li>
+                        <li>Sunday: Yoga + Stretching</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3 class="step-title">Weeks 5-6: Hypertrophy Phase</h3>
+                    <p class="step-description">
+                        High volume training for muscle growth and definition.
+                    </p>
+                    <ul>
+                        <li>Monday: Chest & Triceps (4x12)</li>
+                        <li>Tuesday: Back & Biceps (4x12)</li>
+                        <li>Wednesday: Legs (High Volume)</li>
+                        <li>Thursday: Shoulders & Core</li>
+                        <li>Friday: Full Body Pump</li>
+                        <li>Saturday: CrossFit Style WOD</li>
+                        <li>Sunday: Recovery + Sauna</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3 class="step-title">Weeks 7-8: Peak Performance</h3>
+                    <p class="step-description">
+                        Combine all elements for maximum athletic performance.
+                    </p>
+                    <ul>
+                        <li>Monday: Total Body Strength</li>
+                        <li>Tuesday: Speed & Agility Training</li>
+                        <li>Wednesday: Endurance Challenge</li>
+                        <li>Thursday: Power & Explosiveness</li>
+                        <li>Friday: Competition Simulation</li>
+                        <li>Saturday: Beast Mode Workout</li>
+                        <li>Sunday: Complete Rest</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- What You'll Need -->
+    <div class="detail-section">
+        <h2 class="section-title">Equipment Required</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <span class="benefit-icon">🏋️</span>
+                <p class="benefit-text">Full gym access or home gym setup</p>
+            </div>
+            <div class="benefit-card">
+                <span class="benefit-icon">⚡</span>
+                <p class="benefit-text">Resistance bands and plyometric box</p>
+            </div>
+            <div class="benefit-card">
+                <span class="benefit-icon">🎯</span>
+                <p class="benefit-text">Heart rate monitor</p>
+            </div>
+            <div class="benefit-card">
+                <span class="benefit-icon">💪</span>
+                <p class="benefit-text">Lifting belt and wrist wraps</p>
+            </div>
+            <div class="benefit-card">
+                <span class="benefit-icon">🥤</span>
+                <p class="benefit-text">Pre/post workout nutrition</p>
+            </div>
+            <div class="benefit-card">
+                <span class="benefit-icon">📱</span>
+                <p class="benefit-text">Workout tracking app</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Expected Results -->
+    <div class="detail-section">
+        <h2 class="section-title">Expected Results</h2>
+        <div class="tips-container">
+            <div class="tip-card">
+                <span class="tip-icon">💪</span>
+                <p class="tip-text">Significant strength gains (20-30% increase)</p>
+            </div>
+            <div class="tip-card">
+                <span class="tip-icon">🔥</span>
+                <p class="tip-text">Dramatic body composition changes</p>
+            </div>
+            <div class="tip-card">
+                <span class="tip-icon">⚡</span>
+                <p class="tip-text">Enhanced athletic performance</p>
+            </div>
+            <div class="tip-card">
+                <span class="tip-icon">🎯</span>
+                <p class="tip-text">Improved power and explosiveness</p>
+            </div>
+            <div class="tip-card">
+                <span class="tip-icon">❤️</span>
+                <p class="tip-text">Superior cardiovascular endurance</p>
+            </div>
+            <div class="tip-card">
+                <span class="tip-icon">🧠</span>
+                <p class="tip-text">Mental toughness and discipline</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Button -->
+    <div class="detail-action">
+        <a href="{% url 'today_session' %}" class="start-practice-btn">
+            <span>Start Advanced Plan</span>
+            <span class="btn-icon">→</span>
+        </a>
+    </div>
+</div>
+
+{% endblock %}

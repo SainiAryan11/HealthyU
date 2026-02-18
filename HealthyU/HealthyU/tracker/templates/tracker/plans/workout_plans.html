@@ -1,0 +1,121 @@
+{% extends "tracker/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'tracker/css/plans.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="plans-page">
+    <!-- Back Button -->
+    <a href="{% url 'home' %}" class="back-button">
+        <span class="back-icon">←</span> Back to Home
+    </a>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="page-header-icon plans-header-icon"></div>
+        <h1 class="page-title">Workout Plans</h1>
+        <p class="page-subtitle">Choose a plan that fits your fitness level and goals</p>
+    </div>
+
+    <!-- Plans Grid -->
+    <div class="plans-grid">
+        <!-- Beginner Plan -->
+        <div class="plan-card beginner">
+            <div class="plan-badge">🌱 Beginner</div>
+            <h2 class="plan-title">Beginner Plan</h2>
+            <p class="plan-description">Perfect for those starting their fitness journey. Build foundation and consistency.</p>
+            <div class="plan-features">
+                <div class="feature-item">
+                    <span class="feature-icon">⏱️</span>
+                    <span>20-30 min/day</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📅</span>
+                    <span>4 weeks program</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">💪</span>
+                    <span>Low intensity</span>
+                </div>
+            </div>
+            <a href="{% url 'beginner_plan' %}" class="plan-btn">View Details</a>
+        </div>
+
+        <!-- 6-Week Plan -->
+        <div class="plan-card intermediate featured">
+            <div class="featured-badge">⭐ Most Popular</div>
+            <div class="plan-badge">📅 6-Week</div>
+            <h2 class="plan-title">6-Week Transformation</h2>
+            <p class="plan-description">Comprehensive program to transform your body and build lasting habits.</p>
+            <div class="plan-features">
+                <div class="feature-item">
+                    <span class="feature-icon">⏱️</span>
+                    <span>45-60 min/day</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📅</span>
+                    <span>6 weeks program</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">💪</span>
+                    <span>Medium intensity</span>
+                </div>
+            </div>
+            <a href="{% url 'six_week_plan' %}" class="plan-btn featured-btn">View Details</a>
+        </div>
+
+        <!-- Advanced Plan -->
+        <div class="plan-card advanced">
+            <div class="plan-badge">💪 Advanced</div>
+            <h2 class="plan-title">Advanced Plan</h2>
+            <p class="plan-description">For experienced athletes looking to push their limits and achieve peak performance.</p>
+            <div class="plan-features">
+                <div class="feature-item">
+                    <span class="feature-icon">⏱️</span>
+                    <span>60-90 min/day</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📅</span>
+                    <span>8 weeks program</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">💪</span>
+                    <span>High intensity</span>
+                </div>
+            </div>
+            <a href="{% url 'advanced_plan' %}" class="plan-btn">View Details</a>
+        </div>
+    </div>
+
+    <!-- Why Choose Our Plans -->
+    <div class="why-section">
+        <h2 class="section-title">Why Choose Our Plans?</h2>
+        <div class="why-grid">
+            <div class="why-card">
+                <div class="why-icon">🎯</div>
+                <h3 class="why-title">Goal-Oriented</h3>
+                <p class="why-text">Each plan is designed with specific fitness goals in mind</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">📊</div>
+                <h3 class="why-title">Progress Tracking</h3>
+                <p class="why-text">Monitor your improvements with detailed analytics</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">🔄</div>
+                <h3 class="why-title">Flexible Schedule</h3>
+                <p class="why-text">Adapt workouts to fit your daily routine</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">👥</div>
+                <h3 class="why-title">Expert Guidance</h3>
+                <p class="why-text">Follow professionally designed workout routines</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

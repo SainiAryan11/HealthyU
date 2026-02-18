@@ -1,0 +1,171 @@
+{% extends "tracker/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'tracker/css/detail_page.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="detail-page">
+    <!-- Back Button -->
+    <a href="{% url 'workout_plans' %}" class="back-button">
+        <span class="back-icon">←</span> Back to Plans
+    </a>
+
+    <!-- Hero Section -->
+    <div class="detail-hero" style="background: linear-gradient(135deg, rgba(17, 153, 142, 0.95), rgba(56, 239, 125, 0.95)), url('https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=1200&h=600&fit=crop') center/cover;">
+        <div class="detail-hero-content">
+            <span class="detail-badge">🌱 Beginner Plan</span>
+            <h1 class="detail-title">Beginner Fitness Plan</h1>
+            <div class="detail-meta">
+                <span class="meta-item"><i>⏱️</i> 20-30 min/day</span>
+                <span class="meta-item"><i>📊</i> Beginner</span>
+                <span class="meta-item"><i>🔥</i> 200-300 cal</span>
+            </div>
+            <p class="image-credit">Photo by <a href="https://unsplash.com/@brucemars" target="_blank">bruce mars</a> on <a href="https://unsplash.com" target="_blank">Unsplash</a></p>
+        </div>
+    </div>
+
+    <!-- Overview -->
+    <div class="detail-section">
+        <h2 class="section-title">Program Overview</h2>
+        <p class="section-text">
+            Perfect for those just starting their fitness journey! This 4-week beginner program focuses on building a solid foundation, establishing healthy habits, and gradually increasing your fitness level. No prior experience needed - we'll guide you every step of the way.
+        </p>
+    </div>
+
+    <!-- Weekly Breakdown -->
+    <div class="detail-section">
+        <h2 class="section-title">4-Week Program</h2>
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3 class="step-title">Week 1: Getting Started</h3>
+                    <p class="step-description">
+                        Introduction to basic movements and building consistency. Focus on proper form and breathing.
+                    </p>
+                    <ul>
+                        <li>Monday: 15-min Walk + Light Stretching</li>
+                        <li>Tuesday: Basic Bodyweight Exercises (10 reps each)</li>
+                        <li>Wednesday: Rest or Gentle Yoga</li>
+                        <li>Thursday: 20-min Walk</li>
+                        <li>Friday: Bodyweight Circuit (2 rounds)</li>
+                        <li>Weekend: Active Recovery (Walking, Stretching)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3 class="step-title">Week 2: Building Momentum</h3>
+                    <p class="step-description">
+                        Increase duration and add variety. Start feeling more comfortable with exercises.
+                    </p>
+                    <ul>
+                        <li>Monday: 20-min Walk + Stretching</li>
+                        <li>Tuesday: Bodyweight Exercises (12 reps each)</li>
+                        <li>Wednesday: Yoga or Pilates (20 min)</li>
+                        <li>Thursday: 25-min Walk or Light Jog</li>
+                        <li>Friday: Full Body Circuit (3 rounds)</li>
+                        <li>Weekend: Fun Activity (Dancing, Swimming)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3 class="step-title">Week 3: Increasing Intensity</h3>
+                    <p class="step-description">
+                        Add more challenging variations and increase workout time.
+                    </p>
+                    <ul>
+                        <li>Monday: 25-min Brisk Walk</li>
+                        <li>Tuesday: Strength Training (15 reps, 3 sets)</li>
+                        <li>Wednesday: Yoga Flow (25 min)</li>
+                        <li>Thursday: Interval Walking (30 min)</li>
+                        <li>Friday: Total Body Workout</li>
+                        <li>Weekend: Active Rest + Stretching</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3 class="step-title">Week 4: Establishing Routine</h3>
+                    <p class="step-description">
+                        Solidify your routine and prepare for the next level.
+                    </p>
+                    <ul>
+                        <li>Monday: 30-min Walk/Jog</li>
+                        <li>Tuesday: Full Body Strength (3 sets)</li>
+                        <li>Wednesday: Power Yoga (30 min)</li>
+                        <li>Thursday: Cardio Mix (30 min)</li>
+                        <li>Friday: Complete Workout Routine</li>
+                        <li>Weekend: Celebration Activity!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- What You'll Need -->
+    <div class="detail-section">
+        <h2 class="section-title">What You'll Need</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <span class="benefit-icon">👟</span>
+                <p class="benefit-text">Comfortable workout shoes</p>
+            </div>
+            <div class="benefit-card">
+                <span class="benefit-icon">🧘</span>
+                <p class="benefit-text">Yoga mat (optional but recommended)</p>
+            </div>
+            <div class="benefit-card">
+                <span class="benefit-icon">💧</span>
+                <p class="benefit-text">Water bottle</p>
+            </div>
+            <div class="benefit-card">
+                <span class="benefit-icon">👕</span>
+                <p class="benefit-text">Comfortable workout clothes</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tips -->
+    <div class="detail-section">
+        <h2 class="section-title">Important Tips</h2>
+        <div class="tips-container">
+            <div class="tip-card">
+                <span class="tip-icon">💡</span>
+                <p class="tip-text">Start slow - consistency is more important than intensity</p>
+            </div>
+            <div class="tip-card">
+                <span class="tip-icon">💡</span>
+                <p class="tip-text">Listen to your body and rest when needed</p>
+            </div>
+            <div class="tip-card">
+                <span class="tip-icon">💡</span>
+                <p class="tip-text">Stay hydrated throughout the day</p>
+            </div>
+            <div class="tip-card">
+                <span class="tip-icon">💡</span>
+                <p class="tip-text">Celebrate small victories along the way</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Button -->
+    <div class="detail-action">
+        <a href="{% url 'today_session' %}" class="start-practice-btn">
+            <span>Start Beginner Plan</span>
+            <span class="btn-icon">→</span>
+        </a>
+    </div>
+</div>
+
+{% endblock %}
