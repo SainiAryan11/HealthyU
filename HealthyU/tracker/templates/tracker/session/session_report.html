@@ -2,102 +2,84 @@
 {% load static %}
 
 {% block extra_css %}
-<style>
-@keyframes bg-shift { 0% { background: linear-gradient(135deg, #fff 0%, rgba(37,99,235,0.03) 50%, #fff 100%); } 50% { background: linear-gradient(135deg, #fff 0%, rgba(220,38,38,0.03) 50%, #fff 100%); } 100% { background: linear-gradient(135deg, #fff 0%, rgba(37,99,235,0.03) 50%, #fff 100%); } }
-.session-report-wrap { background: #fff; position: relative; border-radius: 12px; padding: 2rem; animation: bg-shift 8s ease-in-out infinite; }
-.session-report-wrap h2 { color: #000 !important; }
-.session-report-wrap .stat-card { background: #fff !important; border: 1px solid rgba(0,0,0,0.1) !important; border-radius: 12px !important; box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important; }
-.session-report-wrap .stat-card h5 { color: #333 !important; font-size: 0.95rem; font-weight: 600; }
-.session-report-wrap .stat-card h2 { color: #2563eb !important; margin-top: 0.5rem; }
-.session-report-wrap .category-section h3 { color: #000 !important; border-bottom-color: #2563eb !important; }
-.session-report-wrap .category-section { border-top: 2px solid rgba(37,99,235,0.1); padding-top: 1.5rem; margin-top: 1.5rem; }
-.session-report-wrap .exercise-item { background: #fff !important; border: 1px solid rgba(0,0,0,0.1) !important; border-radius: 12px !important; padding: 1rem !important; margin-bottom: 1rem !important; box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important; transition: all 0.3s ease; }
-.session-report-wrap .exercise-item:hover { box-shadow: 0 4px 16px rgba(37,99,235,0.15) !important; border-color: rgba(37,99,235,0.3) !important; }
-.session-report-wrap .exercise-item h6 { color: #000 !important; font-weight: 600; margin-bottom: 0.5rem; }
-.session-report-wrap .exercise-item small { color: #666 !important; font-size: 0.85rem; }
-.session-report-wrap .meditation-info { background: rgba(37,99,235,0.05) !important; border-left: 4px solid #2563eb !important; border-radius: 8px !important; padding: 1rem !important; margin-bottom: 1rem !important; }
-.session-report-wrap .meditation-info p { color: #333 !important; margin-bottom: 0.5rem; }
-.session-report-wrap .meditation-info strong { color: #000 !important; }
-.session-report-wrap #saveSessionBtn { background: #2563eb !important; border-color: #2563eb !important; color: #fff !important; transition: all 0.2s ease; font-weight: 500; border-radius: 12px !important; }
-.session-report-wrap #saveSessionBtn:hover { background: #1d4ed8 !important; border-color: #1d4ed8 !important; }
-.session-report-wrap #saveSessionBtn:disabled { opacity: 0.65; cursor: not-allowed; }
-.session-report-wrap .back-btn { background: #6b7280 !important; border-color: #000 !important; color: #fff !important; transition: all 0.2s ease; font-weight: 500; border-radius: 12px !important; }
-.session-report-wrap .back-btn:hover { background: #4b5563 !important; }
-</style>
+    <link rel="stylesheet" href="{% static 'tracker/css/pages/session/session_report.css' %}">
 {% endblock %}
 
+
 {% block content %}
-<div class="container my-5 py-4 session-report-wrap">
+    <div class="container my-5 py-4 session-report-wrap">
 
-  <h2 class="mb-5 text-center fw-bold display-5" style="letter-spacing: -0.02em;">Session Report</h2>
+      <h2 class="mb-5 text-center fw-bold display-5" style="letter-spacing: -0.02em;">Session Report</h2>
 
-  <!-- ✅ Message shown when saving is blocked (progress ≤ 50%) -->
-  <div id="saveBlockMsg" class="alert alert-warning d-none mb-4"></div>
+      <!-- ✅ Message shown when saving is blocked (progress ≤ 50%) -->
+      <div id="saveBlockMsg" class="alert alert-warning d-none mb-4"></div>
 
-  <!-- Stats Cards -->
-  <div class="row g-3 mb-5">
-    <div class="col-md-4">
-      <div class="card stat-card h-100">
-        <div class="card-body py-4">
-          <h5>Progress</h5>
-          <h2 id="progressPct" class="fw-bold">0%</h2>
+      <!-- Stats Cards -->
+      <div class="row g-3 mb-5">
+        <div class="col-md-4">
+          <div class="card stat-card h-100">
+            <div class="card-body py-4">
+              <h5>Progress</h5>
+              <h2 id="progressPct" class="fw-bold">0%</h2>
+            </div>
+          </div>
         </div>
+
+        <div class="col-md-4">
+          <div class="card stat-card h-100">
+            <div class="card-body py-4">
+              <h5>Time Taken</h5>
+              <h2 id="timeTaken" class="fw-bold">0 min</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card stat-card h-100">
+            <div class="card-body py-4">
+              <h5>Points Earned</h5>
+              <h2 id="pointsEarned" class="fw-bold">0</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Physical -->
+      <section class="category-section mb-5">
+        <h3 class="mb-4 fw-semibold" style="color: #000; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">Physical Exercises</h3>
+        <div id="physicalList" class="list-group"></div>
+      </section>
+
+      <!-- Yoga -->
+      <section class="category-section mb-5">
+        <h3 class="mb-4 fw-semibold" style="color: #000; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">Yoga</h3>
+        <div id="yogaList" class="list-group"></div>
+      </section>
+
+      <!-- Meditation -->
+      <section class="category-section mb-5">
+        <h3 class="mb-4 fw-semibold" style="color: #000; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">Meditation</h3>
+        <div class="meditation-info">
+          <p class="mb-2"><strong>Planned:</strong> <span id="medPlanned">0</span> min</p>
+          <p class="mb-2"><strong>Spent:</strong> <span id="medSpent">0</span> min</p>
+          <p class="mb-0"><strong>Status:</strong> <span id="medStatusBadge"></span></p>
+        </div>
+        <div id="meditationList" class="list-group mt-3"></div>
+      </section>
+
+      <div id="saveMsg" class="alert alert-info d-none"></div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons d-flex gap-2 flex-wrap">
+        <a href="{% url 'profile' %}" class="btn btn-secondary back-btn px-5 py-2">Back to Profile</a>
+        <button class="btn btn-primary" id="saveSessionBtn" style="flex: 1;" type="button">
+          Save Session
+        </button>
       </div>
     </div>
 
-    <div class="col-md-4">
-      <div class="card stat-card h-100">
-        <div class="card-body py-4">
-          <h5>Time Taken</h5>
-          <h2 id="timeTaken" class="fw-bold">0 min</h2>
-        </div>
-      </div>
-    </div>
+{% endblock %}
 
-    <div class="col-md-4">
-      <div class="card stat-card h-100">
-        <div class="card-body py-4">
-          <h5>Points Earned</h5>
-          <h2 id="pointsEarned" class="fw-bold">0</h2>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Physical -->
-  <section class="category-section mb-5">
-    <h3 class="mb-4 fw-semibold" style="color: #000; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">Physical Exercises</h3>
-    <div id="physicalList" class="list-group"></div>
-  </section>
-
-  <!-- Yoga -->
-  <section class="category-section mb-5">
-    <h3 class="mb-4 fw-semibold" style="color: #000; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">Yoga</h3>
-    <div id="yogaList" class="list-group"></div>
-  </section>
-
-  <!-- Meditation -->
-  <section class="category-section mb-5">
-    <h3 class="mb-4 fw-semibold" style="color: #000; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">Meditation</h3>
-    <div class="meditation-info">
-      <p class="mb-2"><strong>Planned:</strong> <span id="medPlanned">0</span> min</p>
-      <p class="mb-2"><strong>Spent:</strong> <span id="medSpent">0</span> min</p>
-      <p class="mb-0"><strong>Status:</strong> <span id="medStatusBadge"></span></p>
-    </div>
-    <div id="meditationList" class="list-group mt-3"></div>
-  </section>
-
-  <div id="saveMsg" class="alert alert-info d-none"></div>
-
-  <!-- Action Buttons -->
-  <div class="action-buttons d-flex gap-2 flex-wrap">
-    <a href="{% url 'profile' %}" class="btn btn-secondary back-btn px-5 py-2">Back to Profile</a>
-    <button class="btn btn-primary" id="saveSessionBtn" style="flex: 1;" type="button">
-      Save Session
-    </button>
-  </div>
-</div>
-
-<script src="{% static 'tracker/js/session_report.js' %}"></script>
-
+{% block extra_js %}
+    <script src="{% static 'tracker/js/pages/session/session_report.js' %}"></script>
 {% endblock %}

@@ -13,8 +13,9 @@ urlpatterns = [
     # Profile
     path("profile/", views.profile, name="profile"),
 
-    # Streak / Leaderboard
+    # Rewards
     path("streak/", views.streak, name="streak"),
+    path("points/", views.points, name="points"),
 
     # Exercise Plan
     path("create-plan/", views.create_plan, name="create_plan"),
@@ -56,5 +57,5 @@ urlpatterns = [
     path("challenges/<int:challenge_id>/", views.challenge_session, name="challenge_session"),
     path("challenges/<int:challenge_id>/complete/", views.complete_challenge, name="complete_challenge"),
 
-    path("points/", views.points, name="points"),
+    
 ]

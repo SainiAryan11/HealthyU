@@ -1,336 +1,96 @@
 {% extends "tracker/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'tracker/css/pages/auth/signup.css' %}">
+{% endblock %}
+
 
 {% block content %}
 
-<style>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
 
-    body {
-        background: #ffffff;
-        min-height: 100vh;
-        position: relative;
-    }
+                <div class="signup-wrapper row g-0">
 
-    body::before,
-    body::after {
-        content: "";
-        position: fixed;
-        border-radius: 50%;
-        background: rgba(37, 99, 235, 0.12);
-        animation: floatBubble 12s ease-in-out infinite;
-        z-index: 0;
-    }
+                    <div class="col-md-6 d-none d-md-block signup-left">
+                        <div class="signup-brand">
+                            <h1>HealthyU</h1>
+                            <p>Your daily partner for a healthier life</p>
+                        </div>
+                    </div>
 
-    body::before {
-        width: 320px;
-        height: 320px;
-        top: -100px;
-        left: -100px;
-    }
+                    <div class="col-md-6 p-5 signup-right">
 
-    body::after {
-        width: 420px;
-        height: 420px;
-        bottom: -150px;
-        right: -150px;
-        animation-delay: 3s;
-    }
+                        <h3 class="fw-semibold mb-1">
+                            Create your account
+                        </h3>
+                        <p class="text-muted mb-4">
+                            Continue to HealthyU
+                        </p>
 
-    @keyframes floatBubble {
-        0% { transform: translateY(0) scale(1); }
-        50% { transform: translateY(-40px) scale(1.05); }
-        100% { transform: translateY(0) scale(1); }
-    }
+                        <form method="POST" id="signupForm">
+                            {% csrf_token %}
 
-    .signup-wrapper {
-        background: #ffffff;
-        border-radius: 18px;
-        overflow: hidden;
-        box-shadow: 0 25px 60px rgba(0,0,0,0.15);
-        position: relative;
-        z-index: 1;
-    }
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">First Name</label>
+                                    <input type="text" name="first_name" id="firstNameInput" class="form-control" required>
+                                </div>
 
-    .signup-left {
-        background: linear-gradient(160deg, #2563eb, #3b82f6);
-        min-height: 100%;
-        position: relative;
-        overflow: hidden;
-        color: white;
-    }
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Last Name</label>
+                                    <input type="text" name="last_name" id="lastNameInput" class="form-control" required>
+                                </div>
+                            </div>
 
-    .signup-left::before {
-        content: "";
-        position: absolute;
-        width: 150%;
-        height: 150%;
-        background: linear-gradient(160deg, #1d4ed8, #2563eb);
-        border-radius: 50%;
-        top: -25%;
-        left: -65%;
-        z-index: 1;
-    }
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" name="email" id="emailInput" class="form-control" required>
+                            </div>
 
-    .signup-brand {
-        position: absolute;
-        bottom: 42%;
-        left: 50%;
-        transform: translateX(-62%);
-        text-align: center;
-        z-index: 2;
-        max-width: 260px;
-    }
+                            <div class="mb-3">
+                                <label class="form-label">Date of Birth</label>
+                                <input type="date" name="dob" id="dobInput" class="form-control" required>
+                            </div>
 
-    .signup-brand h1 {
-        font-size: 36px;
-        font-weight: 700;
-        margin: 0;
-        line-height: 1.1;
-    }
+                            <div class="mb-4 password-wrapper">
+                                <label class="form-label">Password</label>
+                                <input type="password" name="password" id="passwordInput" class="form-control" required>
+                                <button type="button" class="password-toggle" id="togglePasswordBtn">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="eyeIcon">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                </button>
+                                <small class="text-muted" style="font-size: 11px; display: block; margin-top: 5px;">
+                                    Must be 6+ characters with uppercase, lowercase, number & special character (@$!%*?&#)
+                                </small>
+                            </div>
 
-    .signup-brand p {
-        font-size: 13px;
-        margin-top: 8px;
-        opacity: 0.92;
-    }
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn signup-btn fw-semibold">
+                                    Create Account
+                                </button>
+                            </div>
+                        </form>
 
-    .form-control {
-        border-radius: 50px;
-        padding: 12px 18px;
-        font-size: 14px;
-        border: 1px solid rgba(37, 99, 235, 0.2);
-    }
-
-    .form-control:focus {
-        border-color: #2563eb;
-        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-    }
-
-    .signup-btn {
-        border-radius: 50px;
-        background: linear-gradient(135deg, #2563eb, #3b82f6);
-        border: none;
-        padding: 10px 32px;
-        color: #fff !important;
-        font-weight: 600;
-    }
-
-    .signup-btn:hover {
-        background: linear-gradient(135deg, #1d4ed8, #2563eb);
-        color: #fff !important;
-    }
-
-    .signup-right h3 {
-        color: #000 !important;
-    }
-
-    .signup-right .text-muted {
-        color: #666 !important;
-    }
-
-    .form-label {
-        color: #666 !important;
-        font-size: 13px;
-        font-weight: 500;
-    }
-
-    .password-wrapper {
-        position: relative;
-    }
-
-    .password-toggle {
-        position: absolute;
-        right: 18px;
-        top: 40px;
-        transform: translateY(-50%);
-        background: none;
-        border: none;
-        padding: 0;
-        cursor: pointer;
-        color: #666;
-        z-index: 10;
-    }
-
-</style>
-
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10">
-
-            <div class="signup-wrapper row g-0">
-
-                <div class="col-md-6 d-none d-md-block signup-left">
-                    <div class="signup-brand">
-                        <h1>HealthyU</h1>
-                        <p>Your daily partner for a healthier life</p>
                     </div>
                 </div>
 
-                <div class="col-md-6 p-5 signup-right">
-
-                    <h3 class="fw-semibold mb-1">
-                        Create your account
-                    </h3>
-                    <p class="text-muted mb-4">
-                        Continue to HealthyU
-                    </p>
-
-                    <form method="POST" id="signupForm">
-                        {% csrf_token %}
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">First Name</label>
-                                <input type="text" name="first_name" id="firstNameInput" class="form-control" required>
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Last Name</label>
-                                <input type="text" name="last_name" id="lastNameInput" class="form-control" required>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" name="email" id="emailInput" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Date of Birth</label>
-                            <input type="date" name="dob" id="dobInput" class="form-control" required>
-                        </div>
-
-                        <div class="mb-4 password-wrapper">
-                            <label class="form-label">Password</label>
-                            <input type="password" name="password" id="passwordInput" class="form-control" required>
-                            <button type="button" class="password-toggle" onclick="togglePassword()">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="eyeIcon">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                </svg>
-                            </button>
-                            <small class="text-muted" style="font-size: 11px; display: block; margin-top: 5px;">
-                                Must be 6+ characters with uppercase, lowercase, number & special character (@$!%*?&#)
-                            </small>
-                        </div>
-
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn signup-btn fw-semibold">
-                                Create Account
-                            </button>
-                        </div>
-                    </form>
-
-                    <script>
-                        function togglePassword() {
-                            const input = document.getElementById('passwordInput');
-                            const icon = document.getElementById('eyeIcon');
-
-                            if (input.type === 'password') {
-                                input.type = 'text';
-                                icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
-                            } else {
-                                input.type = 'password';
-                                icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
-                            }
-                        }
-
-                        document.getElementById('signupForm').addEventListener('submit', function (e) {
-                            const firstName = document.getElementById('firstNameInput').value.trim();
-                            const lastName = document.getElementById('lastNameInput').value.trim();
-                            const email = document.getElementById('emailInput').value.trim();
-                            const dob = document.getElementById('dobInput').value;
-                            const password = document.getElementById('passwordInput').value;
-                            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                            const nameRegex = /^[A-Za-z\s]+$/;
-                            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{6,}$/;
-
-                            if (!firstName) {
-                                e.preventDefault();
-                                showToast('First name is required', 'error');
-                                return;
-                            }
-
-                            if (!nameRegex.test(firstName)) {
-                                e.preventDefault();
-                                showToast('First name should only contain letters and spaces', 'error');
-                                return;
-                            }
-
-                            if (!lastName) {
-                                e.preventDefault();
-                                showToast('Last name is required', 'error');
-                                return;
-                            }
-
-                            if (!nameRegex.test(lastName)) {
-                                e.preventDefault();
-                                showToast('Last name should only contain letters and spaces', 'error');
-                                return;
-                            }
-
-                            if (!email) {
-                                e.preventDefault();
-                                showToast('Email is required', 'error');
-                                return;
-                            }
-
-                            if (!emailRegex.test(email)) {
-                                e.preventDefault();
-                                showToast('Please enter a valid email address', 'error');
-                                return;
-                            }
-
-                            if (!dob) {
-                                e.preventDefault();
-                                showToast('Date of birth is required', 'error');
-                                return;
-                            }
-
-                            const selectedDate = new Date(dob);
-                            const today = new Date();
-                            today.setHours(0, 0, 0, 0);
-
-                            if (selectedDate >= today) {
-                                e.preventDefault();
-                                showToast('Date of birth cannot be today or in the future', 'error');
-                                return;
-                            }
-
-                            const minDate = new Date();
-                            minDate.setFullYear(minDate.getFullYear() - 120);
-                            if (selectedDate < minDate) {
-                                e.preventDefault();
-                                showToast('Please enter a valid date of birth', 'error');
-                                return;
-                            }
-
-                            if (!password) {
-                                e.preventDefault();
-                                showToast('Password is required', 'error');
-                                return;
-                            }
-
-                            if (!passwordRegex.test(password)) {
-                                e.preventDefault();
-                                showToast('Password must be at least 6 characters with uppercase, lowercase, number and special character', 'error');
-                                return;
-                            }
-                        });
-
-                        document.addEventListener('DOMContentLoaded', function () {
-                            const errorMsg = "{{ error|escapejs }}";
-                            if (errorMsg && errorMsg !== 'None' && errorMsg.trim() !== '') {
-                                showToast(errorMsg, "error");
-                            }
-                        });
-                    </script>
-
-                </div>
             </div>
-
         </div>
     </div>
-</div>
 
+    {% if error %}
+        {{ error|json_script:"signup-error" }}
+    {% endif %}
+
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'tracker/js/pages/auth/signup.js' %}"></script>
 {% endblock %}

@@ -264,7 +264,7 @@ def streak(request):
         .order_by("-streak", "-points")[:5]   # ✅ primary streak, secondary points
     )
 
-    return render(request, "tracker/home/streak.html", {
+    return render(request, "tracker/rewards/streak.html", {
         "top_users": top_users
     })
 
@@ -1513,7 +1513,7 @@ def points(request):
     txns = PointsTransaction.objects.filter(user=request.user).order_by("-date")
     profile = UserProfile.objects.get(user=request.user)
 
-    return render(request, "tracker/points/points_history.html", {
+    return render(request, "tracker/rewards/points.html", {
         "profile": profile,
         "txns": txns,
     })

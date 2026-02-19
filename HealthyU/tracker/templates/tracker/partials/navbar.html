@@ -1,0 +1,91 @@
+{% load static %}
+
+<!-- Two-Row Navbar -->
+<nav class="navbar-custom">
+  <div class="container">
+    <!-- First Row -->
+    <div class="navbar-row-1">
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <span class="brand-logo">🌿</span>
+        <span class="brand-text">HealthyU</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" id="navbarToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="navbar-links" id="navbarLinks">
+
+        <a href="{% url 'home' %}" class="nav-link-custom session-nav-link">Home</a>
+
+        {% if user.is_authenticated %}
+
+          <a href="{% url 'points' %}">
+            🏆 <span class="badge bg-warning text-dark">{{ nav_points }}</span>
+          </a>
+
+          <a href="{% url 'streak' %}" class="nav-link-custom session-nav-link">
+            🔥 <span class="badge bg-danger">{{ nav_streak }}</span>
+          </a>
+
+          <a href="{% url 'profile' %}" class="nav-link-custom session-nav-link">Profile</a>
+
+        {% else %}
+
+          <a href="{% url 'login' %}" class="nav-link-custom session-nav-link">Login</a>
+          <a href="{% url 'signup' %}" class="nav-link-custom signup-btn session-nav-link">Sign Up</a>
+
+        {% endif %}
+
+      </div>
+    </div>
+
+    <!-- Second Row -->
+    <div class="navbar-row-2">
+      <div class="navbar-secondary-links">
+        <a href="{% url 'challenges' %}" class="nav-secondary-link session-nav-link">Challenges</a>
+
+        <div class="nav-dropdown">
+          <a href="#" class="nav-secondary-link session-nav-link">
+            Workout Plans <span class="dropdown-arrow">▼</span>
+          </a>
+          <div class="dropdown-menu-custom">
+            <a href="{% url 'workout_detail' 'burpees' %}" class="dropdown-item-custom session-nav-link">Burpees</a>
+            <a href="{% url 'workout_detail' 'lunges' %}" class="dropdown-item-custom session-nav-link">Lunges</a>
+            <a href="{% url 'workout_detail' 'mountain-climbers' %}" class="dropdown-item-custom session-nav-link">Mountain Climbers</a>
+            <a href="{% url 'workout_detail' 'squats' %}" class="dropdown-item-custom session-nav-link">Squats</a>
+            <a href="{% url 'workout_detail' 'push-ups' %}" class="dropdown-item-custom session-nav-link">Push-ups</a>
+            <a href="{% url 'workout_detail' 'plank' %}" class="dropdown-item-custom session-nav-link">Plank</a>
+          </div>
+        </div>
+
+        <div class="nav-dropdown">
+          <a href="#" class="nav-secondary-link">
+            Yoga <span class="dropdown-arrow">▼</span>
+          </a>
+          <div class="dropdown-menu-custom">
+            <a href="{% url 'yoga_detail' 'surya-namaskar' %}" class="dropdown-item-custom session-nav-link">Surya Namaskar</a>
+            <a href="{% url 'yoga_detail' 'hatha-yoga' %}" class="dropdown-item-custom session-nav-link">Hatha Yoga</a>
+            <a href="{% url 'yoga_detail' 'power-yoga' %}" class="dropdown-item-custom session-nav-link">Power Yoga</a>
+            <a href="{% url 'yoga_detail' 'yin-yoga' %}" class="dropdown-item-custom session-nav-link">Yin Yoga</a>
+          </div>
+        </div>
+
+        <div class="nav-dropdown">
+          <a href="#" class="nav-secondary-link">
+            Meditation <span class="dropdown-arrow">▼</span>
+          </a>
+          <div class="dropdown-menu-custom">
+            <a href="{% url 'meditation_detail' 'mindfulness' %}" class="dropdown-item-custom session-nav-link">Mindfulness</a>
+            <a href="{% url 'meditation_detail' 'breathing' %}" class="dropdown-item-custom session-nav-link">Breathing Exercise</a>
+            <a href="{% url 'meditation_detail' 'body-scan' %}" class="dropdown-item-custom session-nav-link">Body Scan</a>
+            <a href="{% url 'meditation_detail' 'guided' %}" class="dropdown-item-custom session-nav-link">Guided Meditation</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</nav>

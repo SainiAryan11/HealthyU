@@ -1,0 +1,20 @@
+
+@keyframes bg-shift { 0% { background: linear-gradient(135deg, #fff 0%, rgba(37,99,235,0.03) 50%, #fff 100%); } 50% { background: linear-gradient(135deg, #fff 0%, rgba(220,38,38,0.03) 50%, #fff 100%); } 100% { background: linear-gradient(135deg, #fff 0%, rgba(37,99,235,0.03) 50%, #fff 100%); } }
+.view-plan-wrap { background: #fff; position: relative; border-radius: 12px; padding: 2rem; animation: bg-shift 8s ease-in-out infinite; }
+.view-plan-wrap h2 { color: #000 !important; }
+.view-plan-wrap .category-section h3 { color: #000 !important; border-bottom-color: #2563eb !important; }
+.view-plan-wrap .level-section h4 { color: #000 !important; background: rgba(37,99,235,0.08) !important; }
+.view-plan-wrap .exercise-card { border-color: rgba(0,0,0,0.1) !important; transition: box-shadow 0.3s ease, border-color 0.3s ease; }
+.view-plan-wrap .exercise-card:hover { box-shadow: 0 4px 20px rgba(37,99,235,0.15) !important; border-color: rgba(37,99,235,0.3) !important; }
+.view-plan-wrap .exercise-card h6 { color: #000 !important; }
+.view-plan-wrap .exercise-card small { color: #333 !important; }
+.view-plan-wrap .plan-info { background: rgba(37,99,235,0.05) !important; border-left: 4px solid #2563eb !important; }
+.view-plan-wrap .plan-info p { color: #333 !important; }
+.view-plan-wrap #deletePlanBtn { background: #dc2626 !important; border-color: #dc2626 !important; color: #fff !important; transition: all 0.2s ease; font-weight: 500; }
+.view-plan-wrap #deletePlanBtn:hover { background: #b91c1c !important; border-color: #b91c1c !important; }
+.view-plan-wrap #backBtn { background: #6b7280 !important; border-color: #000 !important; color: #fff !important; transition: all 0.2s ease; font-weight: 500; }
+.view-plan-wrap #backBtn:hover { background: #4b5563 !important; }
+.view-plan-wrap .no-plan-container { text-align: center; padding: 2rem; }
+.view-plan-wrap .no-plan-container p { color: #666 !important; font-size: 1.1rem; }
+.view-plan-wrap .no-plan-container .btn-primary { background: #2563eb !important; border-color: #2563eb !important; transition: all 0.2s ease; }
+.view-plan-wrap .no-plan-container .btn-primary:hover { background: #1d4ed8 !important; border-color: #1d4ed8 !important; }

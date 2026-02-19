@@ -2,274 +2,276 @@
 {% load static %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'tracker/css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'tracker/css/pages/home/home.css' %}">
+    <link rel="stylesheet" href="{% static 'tracker/css/style.css' %}">
 {% endblock %}
 
 {% block content %}
 
-<!-- HERO CAROUSEL -->
-<div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <div class="carousel-slide" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9)), url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&h=600&fit=crop') center/cover;">
-                <div class="carousel-content">
-                    <h1 class="carousel-title">Transform Your Body & Mind</h1>
-                    <p class="carousel-subtitle">Join thousands achieving their fitness goals with HealthyU</p>
+    <!-- HERO CAROUSEL -->
+    <div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="carousel-slide" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9)), url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&h=600&fit=crop') center/cover;">
+                    <div class="carousel-content">
+                        <h1 class="carousel-title">Transform Your Body & Mind</h1>
+                        <p class="carousel-subtitle">Join thousands achieving their fitness goals with HealthyU</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="carousel-slide" style="background: linear-gradient(135deg, rgba(17, 153, 142, 0.9), rgba(56, 239, 125, 0.9)), url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200&h=600&fit=crop') center/cover;">
+                    <div class="carousel-content">
+                        <h1 class="carousel-title">Build Healthy Habits</h1>
+                        <p class="carousel-subtitle">Track your progress, earn points, and maintain your streak</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="carousel-slide" style="background: linear-gradient(135deg, rgba(168, 237, 234, 0.9), rgba(254, 214, 227, 0.9)), url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&h=600&fit=crop') center/cover;">
+                    <div class="carousel-content">
+                        <h1 class="carousel-title">Find Your Inner Peace</h1>
+                        <p class="carousel-subtitle">Explore yoga and meditation for mental wellness</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="carousel-slide" style="background: linear-gradient(135deg, rgba(240, 147, 251, 0.9), rgba(245, 87, 108, 0.9)), url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1200&h=600&fit=crop') center/cover;">
+                    <div class="carousel-content">
+                        <h1 class="carousel-title">Achieve Your Goals</h1>
+                        <p class="carousel-subtitle">Personalized workout plans designed for your success</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="carousel-item">
-            <div class="carousel-slide" style="background: linear-gradient(135deg, rgba(17, 153, 142, 0.9), rgba(56, 239, 125, 0.9)), url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200&h=600&fit=crop') center/cover;">
-                <div class="carousel-content">
-                    <h1 class="carousel-title">Build Healthy Habits</h1>
-                    <p class="carousel-subtitle">Track your progress, earn points, and maintain your streak</p>
-                </div>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <div class="carousel-slide" style="background: linear-gradient(135deg, rgba(168, 237, 234, 0.9), rgba(254, 214, 227, 0.9)), url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&h=600&fit=crop') center/cover;">
-                <div class="carousel-content">
-                    <h1 class="carousel-title">Find Your Inner Peace</h1>
-                    <p class="carousel-subtitle">Explore yoga and meditation for mental wellness</p>
-                </div>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <div class="carousel-slide" style="background: linear-gradient(135deg, rgba(240, 147, 251, 0.9), rgba(245, 87, 108, 0.9)), url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1200&h=600&fit=crop') center/cover;">
-                <div class="carousel-content">
-                    <h1 class="carousel-title">Achieve Your Goals</h1>
-                    <p class="carousel-subtitle">Personalized workout plans designed for your success</p>
-                </div>
-            </div>
-        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-    </button>
-</div>
 
-{% if user.is_authenticated %}
-<div class="home-action-section mt-5">
+    {% if user.is_authenticated %}
+    <div class="home-action-section mt-5">
 
-    {% if not plan %}
-        <div class="action-card create-plan">
-            <h4>📋 No Plan Found</h4>
-            <p>Create your personalized fitness plan to begin your journey.</p>
-            <a href="{% url 'create_plan' %}" class="btn action-btn btn-success">
-                Create Plan
-            </a>
-        </div>
-        
-    {% elif session_done_today %}
-        <div class="action-card view-report">
-            <h4>📊 Session Completed Today</h4>
-            <p>Great job! View your session report and track your progress.</p>
-            <a href="{% url 'session_report' %}" class="btn action-btn btn-primary">
-                View Session Report
-            </a>
-        </div>
+        {% if not plan %}
+            <div class="action-card create-plan">
+                <h4>📋 No Plan Found</h4>
+                <p>Create your personalized fitness plan to begin your journey.</p>
+                <a href="{% url 'create_plan' %}" class="btn action-btn btn-success">
+                    Create Plan
+                </a>
+            </div>
+            
+        {% elif session_done_today %}
+            <div class="action-card view-report">
+                <h4>📊 Session Completed Today</h4>
+                <p>Great job! View your session report and track your progress.</p>
+                <a href="{% url 'session_report' %}" class="btn action-btn btn-primary">
+                    View Session Report
+                </a>
+            </div>
 
-    {% else %}
-        <div class="action-card start-session">
-            <h4>💪 Ready for Today?</h4>
-            <p>Your plan is ready. Let’s complete today’s session.</p>
-            <a href="{% url 'today_session' %}" class="btn action-btn btn-info">
-                Start Today’s Session
-            </a>
-        </div>
+        {% else %}
+            <div class="action-card start-session">
+                <h4>💪 Ready for Today?</h4>
+                <p>Your plan is ready. Let’s complete today’s session.</p>
+                <a href="{% url 'today_session' %}" class="btn action-btn btn-info">
+                    Start Today’s Session
+                </a>
+            </div>
 
+        {% endif %}
+
+    </div>
     {% endif %}
 
-</div>
-{% endif %}
 
-
-<!-- TRENDING WORKOUTS -->
-<section class="workout-section">
-    <div class="section-header">
-        <h2 class="section-title">
-            <span class="title-icon trending-icon"></span>
-            Trending Workouts
-        </h2>
-        <p class="section-subtitle">Popular exercises this week</p>
-    </div>
-    <div class="workout-grid">
-        <div class="workout-card" data-workout="pushups">
-            <div class="workout-icon icon-strength"></div>
-            <h4 class="workout-name">Push-ups</h4>
-            <p class="workout-desc">Upper body strength</p>
-            <div class="workout-stats">
-                <span class="workout-stat">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M8 0L10.5 5.5L16 6.5L12 10.5L13 16L8 13.5L3 16L4 10.5L0 6.5L5.5 5.5L8 0Z"/>
-                    </svg>
-                    4.8
-                </span>
-                <span class="workout-stat">1.2k users</span>
+    <!-- TRENDING WORKOUTS -->
+    <section class="workout-section">
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="title-icon trending-icon"></span>
+                Trending Workouts
+            </h2>
+            <p class="section-subtitle">Popular exercises this week</p>
+        </div>
+        <div class="workout-grid">
+            <div class="workout-card" data-workout="pushups">
+                <div class="workout-icon icon-strength"></div>
+                <h4 class="workout-name">Push-ups</h4>
+                <p class="workout-desc">Upper body strength</p>
+                <div class="workout-stats">
+                    <span class="workout-stat">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 0L10.5 5.5L16 6.5L12 10.5L13 16L8 13.5L3 16L4 10.5L0 6.5L5.5 5.5L8 0Z"/>
+                        </svg>
+                        4.8
+                    </span>
+                    <span class="workout-stat">1.2k users</span>
+                </div>
+            </div>
+            <div class="workout-card" data-workout="jumpingjacks">
+                <div class="workout-icon icon-cardio"></div>
+                <h4 class="workout-name">Jumping Jacks</h4>
+                <p class="workout-desc">Cardio warmup</p>
+                <div class="workout-stats">
+                    <span class="workout-stat">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 0L10.5 5.5L16 6.5L12 10.5L13 16L8 13.5L3 16L4 10.5L0 6.5L5.5 5.5L8 0Z"/>
+                        </svg>
+                        4.9
+                    </span>
+                    <span class="workout-stat">980 users</span>
+                </div>
+            </div>
+            <div class="workout-card" data-workout="plank">
+                <div class="workout-icon icon-core"></div>
+                <h4 class="workout-name">Plank</h4>
+                <p class="workout-desc">Core stability</p>
+                <div class="workout-stats">
+                    <span class="workout-stat">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 0L10.5 5.5L16 6.5L12 10.5L13 16L8 13.5L3 16L4 10.5L0 6.5L5.5 5.5L8 0Z"/>
+                        </svg>
+                        4.7
+                    </span>
+                    <span class="workout-stat">850 users</span>
+                </div>
             </div>
         </div>
-        <div class="workout-card" data-workout="jumpingjacks">
-            <div class="workout-icon icon-cardio"></div>
-            <h4 class="workout-name">Jumping Jacks</h4>
-            <p class="workout-desc">Cardio warmup</p>
-            <div class="workout-stats">
-                <span class="workout-stat">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M8 0L10.5 5.5L16 6.5L12 10.5L13 16L8 13.5L3 16L4 10.5L0 6.5L5.5 5.5L8 0Z"/>
-                    </svg>
-                    4.9
-                </span>
-                <span class="workout-stat">980 users</span>
+    </section>
+
+    <!-- DAILY CHALLENGE -->
+    <section class="challenge-section">
+        <div class="challenge-card">
+            <div class="challenge-badge trophy-icon"></div>
+            <div class="challenge-content">
+                <h3 class="challenge-title">Daily Challenges</h3>
+                <p class="challenge-desc">Complete Today's Challenge to earn 50 bonus points!</p>
+                <div class="challenge-reward">
+                    <span class="reward-badge">+50 Points</span>
+                </div>
             </div>
+            <a href="{% url 'challenges' %}" class="nav-secondary-link session-nav-link btn-challenge">
+                Accept Challenge
+            </a>
         </div>
-        <div class="workout-card" data-workout="plank">
-            <div class="workout-icon icon-core"></div>
-            <h4 class="workout-name">Plank</h4>
-            <p class="workout-desc">Core stability</p>
-            <div class="workout-stats">
-                <span class="workout-stat">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M8 0L10.5 5.5L16 6.5L12 10.5L13 16L8 13.5L3 16L4 10.5L0 6.5L5.5 5.5L8 0Z"/>
-                    </svg>
-                    4.7
-                </span>
-                <span class="workout-stat">850 users</span>
-            </div>
+    </section>
+
+    <!-- WORKOUT PLANS -->
+    <section class="workout-section">
+        <div class="section-header">
+            <h2 class="section-title workout-plans-title">
+                <span class="title-icon plans-icon"></span>
+                Workout Plans
+            </h2>
+            <p class="section-subtitle">Complete workout routines</p>
         </div>
-    </div>
-</section>
-
-<!-- DAILY CHALLENGE -->
-<section class="challenge-section">
-    <div class="challenge-card">
-        <div class="challenge-badge trophy-icon"></div>
-        <div class="challenge-content">
-            <h3 class="challenge-title">Daily Challenge</h3>
-            <p class="challenge-desc">Complete 50 Squats and earn 20 bonus points!</p>
-            <div class="challenge-reward">
-                <span class="reward-badge">+20 Points</span>
-                <span class="reward-badge">+5 XP</span>
-            </div>
+        <div class="exercise-grid">
+            <a href="{% url 'workout_detail' 'burpees' %}" class="exercise-card-link">
+                <div class="exercise-card">
+                    <div class="exercise-image icon-burpees"></div>
+                    <h4 class="exercise-name">Burpees</h4>
+                    <p class="exercise-info">Full body • High intensity</p>
+                </div>
+            </a>
+            <a href="{% url 'workout_detail' 'lunges' %}" class="exercise-card-link">
+                <div class="exercise-card">
+                    <div class="exercise-image icon-lunges"></div>
+                    <h4 class="exercise-name">Lunges</h4>
+                    <p class="exercise-info">Legs • Medium intensity</p>
+                </div>
+            </a>
+            <a href="{% url 'workout_detail' 'mountain-climbers' %}" class="exercise-card-link">
+                <div class="exercise-card">
+                    <div class="exercise-image icon-mountain"></div>
+                    <h4 class="exercise-name">Mountain Climbers</h4>
+                    <p class="exercise-info">Cardio • High intensity</p>
+                </div>
+            </a>
+            <a href="{% url 'workout_detail' 'squats' %}" class="exercise-card-link">
+                <div class="exercise-card">
+                    <div class="exercise-image icon-squats"></div>
+                    <h4 class="exercise-name">Squats</h4>
+                    <p class="exercise-info">Legs • Medium intensity</p>
+                </div>
+            </a>
+            <a href="{% url 'workout_detail' 'push-ups' %}" class="exercise-card-link">
+                <div class="exercise-card">
+                    <div class="exercise-image icon-pushups"></div>
+                    <h4 class="exercise-name">Push-ups</h4>
+                    <p class="exercise-info">Upper body • Medium intensity</p>
+                </div>
+            </a>
+            <a href="{% url 'workout_detail' 'plank' %}" class="exercise-card-link">
+                <div class="exercise-card">
+                    <div class="exercise-image icon-plank"></div>
+                    <h4 class="exercise-name">Plank</h4>
+                    <p class="exercise-info">Core • Medium intensity</p>
+                </div>
+            </a>
         </div>
-        <button class="btn-challenge">Accept Challenge</button>
-    </div>
-</section>
+    </section>
 
-<!-- WORKOUT PLANS -->
-<section class="workout-section">
-    <div class="section-header">
-        <h2 class="section-title workout-plans-title">
-            <span class="title-icon plans-icon"></span>
-            Workout Plans
-        </h2>
-        <p class="section-subtitle">Complete workout routines</p>
-    </div>
-    <div class="exercise-grid">
-        <a href="{% url 'workout_detail' 'burpees' %}" class="exercise-card-link">
-            <div class="exercise-card">
-                <div class="exercise-image icon-burpees"></div>
-                <h4 class="exercise-name">Burpees</h4>
-                <p class="exercise-info">Full body • High intensity</p>
-            </div>
-        </a>
-        <a href="{% url 'workout_detail' 'lunges' %}" class="exercise-card-link">
-            <div class="exercise-card">
-                <div class="exercise-image icon-lunges"></div>
-                <h4 class="exercise-name">Lunges</h4>
-                <p class="exercise-info">Legs • Medium intensity</p>
-            </div>
-        </a>
-        <a href="{% url 'workout_detail' 'mountain-climbers' %}" class="exercise-card-link">
-            <div class="exercise-card">
-                <div class="exercise-image icon-mountain"></div>
-                <h4 class="exercise-name">Mountain Climbers</h4>
-                <p class="exercise-info">Cardio • High intensity</p>
-            </div>
-        </a>
-        <a href="{% url 'workout_detail' 'squats' %}" class="exercise-card-link">
-            <div class="exercise-card">
-                <div class="exercise-image icon-squats"></div>
-                <h4 class="exercise-name">Squats</h4>
-                <p class="exercise-info">Legs • Medium intensity</p>
-            </div>
-        </a>
-        <a href="{% url 'workout_detail' 'push-ups' %}" class="exercise-card-link">
-            <div class="exercise-card">
-                <div class="exercise-image icon-pushups"></div>
-                <h4 class="exercise-name">Push-ups</h4>
-                <p class="exercise-info">Upper body • Medium intensity</p>
-            </div>
-        </a>
-        <a href="{% url 'workout_detail' 'plank' %}" class="exercise-card-link">
-            <div class="exercise-card">
-                <div class="exercise-image icon-plank"></div>
-                <h4 class="exercise-name">Plank</h4>
-                <p class="exercise-info">Core • Medium intensity</p>
-            </div>
-        </a>
-    </div>
-</section>
+    <!-- YOGA & MEDITATION -->
+    <section class="workout-section yoga-section">
+        <div class="section-header">
+            <h2 class="section-title yoga-meditation-title">
+                <span class="title-icon yoga-icon"></span>
+                Yoga & Meditation
+            </h2>
+            <p class="section-subtitle">Relax your mind and body</p>
+        </div>
+        <div class="yoga-grid">
+            <a href="{% url 'yoga_detail' 'surya-namaskar' %}" class="yoga-card-link">
+                <div class="yoga-card yoga-card-gradient-1">
+                    <div class="yoga-icon-large">
+                        <div class="yoga-pose-icon"></div>
+                    </div>
+                    <div class="yoga-content">
+                        <h4 class="yoga-name">Surya Namaskar</h4>
+                        <p class="yoga-duration">15 min</p>
+                    </div>
+                </div>
+            </a>
+            <a href="{% url 'meditation_detail' 'breathing' %}" class="yoga-card-link">
+                <div class="yoga-card yoga-card-gradient-2">
+                    <div class="yoga-icon-large">
+                        <div class="breathing-icon"></div>
+                    </div>
+                    <div class="yoga-content">
+                        <h4 class="yoga-name">Breathing Exercise</h4>
+                        <p class="yoga-duration">10 min</p>
+                    </div>
+                </div>
+            </a>
+            <a href="{% url 'meditation_detail' 'mindfulness' %}" class="yoga-card-link">
+                <div class="yoga-card yoga-card-gradient-3">
+                    <div class="yoga-icon-large">
+                        <div class="mindfulness-icon"></div>
+                    </div>
+                    <div class="yoga-content">
+                        <h4 class="yoga-name">Mindfulness Meditation</h4>
+                        <p class="yoga-duration">20 min</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
 
-<!-- YOGA & MEDITATION -->
-<section class="workout-section yoga-section">
-    <div class="section-header">
-        <h2 class="section-title yoga-meditation-title">
-            <span class="title-icon yoga-icon"></span>
-            Yoga & Meditation
-        </h2>
-        <p class="section-subtitle">Relax your mind and body</p>
-    </div>
-    <div class="yoga-grid">
-        <a href="{% url 'yoga_detail' 'surya-namaskar' %}" class="yoga-card-link">
-            <div class="yoga-card yoga-card-gradient-1">
-                <div class="yoga-icon-large">
-                    <div class="yoga-pose-icon"></div>
-                </div>
-                <div class="yoga-content">
-                    <h4 class="yoga-name">Surya Namaskar</h4>
-                    <p class="yoga-duration">15 min</p>
-                </div>
-            </div>
-        </a>
-        <a href="{% url 'meditation_detail' 'breathing' %}" class="yoga-card-link">
-            <div class="yoga-card yoga-card-gradient-2">
-                <div class="yoga-icon-large">
-                    <div class="breathing-icon"></div>
-                </div>
-                <div class="yoga-content">
-                    <h4 class="yoga-name">Breathing Exercise</h4>
-                    <p class="yoga-duration">10 min</p>
-                </div>
-            </div>
-        </a>
-        <a href="{% url 'meditation_detail' 'mindfulness' %}" class="yoga-card-link">
-            <div class="yoga-card yoga-card-gradient-3">
-                <div class="yoga-icon-large">
-                    <div class="mindfulness-icon"></div>
-                </div>
-                <div class="yoga-content">
-                    <h4 class="yoga-name">Mindfulness Meditation</h4>
-                    <p class="yoga-duration">20 min</p>
-                </div>
-            </div>
-        </a>
-    </div>
-</section>
-
-<!-- MOTIVATIONAL QUOTE -->
-<section class="quote-section">
-    <div class="quote-card">
-        <div class="quote-icon quote-bubble"></div>
-        <p class="quote-text" id="motivationalQuote">Loading...</p>
-        <p class="quote-author" id="quoteAuthor"></p>
-    </div>
-</section>
+    <!-- MOTIVATIONAL QUOTE -->
+    <section class="quote-section">
+        <div class="quote-card">
+            <div class="quote-icon quote-bubble"></div>
+            <p class="quote-text" id="motivationalQuote">Loading...</p>
+            <p class="quote-author" id="quoteAuthor"></p>
+        </div>
+    </section>
 
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'tracker/js/home.js' %}"></script>
+    <script src="{% static 'tracker/js/pages/home/home.js' %}"></script>
 {% endblock %}
