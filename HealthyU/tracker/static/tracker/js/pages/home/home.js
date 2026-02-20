@@ -17,7 +17,7 @@ function displayRandomQuote() {
     const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
     const quoteText = document.getElementById('motivationalQuote');
     const quoteAuthor = document.getElementById('quoteAuthor');
-    
+
     if (quoteText && quoteAuthor) {
         quoteText.textContent = `"${randomQuote.text}"`;
         quoteAuthor.textContent = `— ${randomQuote.author}`;
@@ -27,9 +27,9 @@ function displayRandomQuote() {
 // ==================== WORKOUT CARD INTERACTIONS ====================
 function initWorkoutCards() {
     const workoutCards = document.querySelectorAll('.workout-card');
-    
+
     workoutCards.forEach(card => {
-        card.addEventListener('click', function() {
+        card.addEventListener('click', function () {
             const workoutName = this.querySelector('.workout-name').textContent;
             showWorkoutInfo(workoutName);
         });
@@ -43,7 +43,7 @@ function showWorkoutInfo(workoutName) {
     setTimeout(() => {
         card.style.transform = '';
     }, 200);
-    
+
     console.log(`Clicked on: ${workoutName}`);
     // You can add modal or redirect logic here
 }
@@ -51,9 +51,9 @@ function showWorkoutInfo(workoutName) {
 // ==================== EXERCISE CARD BUTTONS ====================
 function initExerciseButtons() {
     const exerciseButtons = document.querySelectorAll('.btn-exercise');
-    
+
     exerciseButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+        button.addEventListener('click', function (e) {
             e.stopPropagation();
             const exerciseName = this.closest('.exercise-card').querySelector('.exercise-name').textContent;
             showExerciseDetails(exerciseName);
@@ -68,7 +68,7 @@ function showExerciseDetails(exerciseName) {
     setTimeout(() => {
         button.style.transform = '';
     }, 200);
-    
+
     console.log(`View details for: ${exerciseName}`);
     // You can add modal or redirect logic here
 }
@@ -76,9 +76,9 @@ function showExerciseDetails(exerciseName) {
 // ==================== CHALLENGE BUTTON ====================
 function initChallengeButton() {
     const challengeBtn = document.querySelector('.btn-challenge');
-    
+
     if (challengeBtn) {
-        challengeBtn.addEventListener('click', function() {
+        challengeBtn.addEventListener('click', function () {
             acceptChallenge();
         });
     }
@@ -87,18 +87,18 @@ function initChallengeButton() {
 function acceptChallenge() {
     const button = event.currentTarget;
     const originalText = button.textContent;
-    
+
     // Visual feedback
     button.textContent = 'Challenge Accepted! 🎉';
     button.style.background = '#38ef7d';
     button.style.color = 'white';
-    
+
     setTimeout(() => {
         button.textContent = originalText;
         button.style.background = '';
         button.style.color = '';
     }, 2000);
-    
+
     console.log('Challenge accepted!');
     // You can add logic to save challenge acceptance
 }
@@ -106,9 +106,9 @@ function acceptChallenge() {
 // ==================== YOGA SESSION BUTTONS ====================
 function initYogaButtons() {
     const yogaButtons = document.querySelectorAll('.btn-yoga');
-    
+
     yogaButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+        button.addEventListener('click', function (e) {
             e.stopPropagation();
             const yogaName = this.closest('.yoga-card').querySelector('.yoga-name').textContent;
             startYogaSession(yogaName);
@@ -127,8 +127,8 @@ function initScrollAnimations() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
-    
-    const observer = new IntersectionObserver(function(entries) {
+
+    const observer = new IntersectionObserver(function (entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
@@ -136,7 +136,7 @@ function initScrollAnimations() {
             }
         });
     }, observerOptions);
-    
+
     // Observe all sections
     const sections = document.querySelectorAll('.workout-section, .challenge-section, .quote-section');
     sections.forEach(section => {
@@ -150,11 +150,11 @@ function initScrollAnimations() {
 // ==================== PROGRESS BAR ANIMATION ====================
 function animateProgressBar() {
     const progressFill = document.querySelector('.progress-fill');
-    
+
     if (progressFill) {
         const targetWidth = progressFill.style.width;
         progressFill.style.width = '0%';
-        
+
         setTimeout(() => {
             progressFill.style.width = targetWidth;
         }, 500);
@@ -164,13 +164,13 @@ function animateProgressBar() {
 // ==================== STAT CARDS COUNTER ANIMATION ====================
 function animateStatCounters() {
     const statValues = document.querySelectorAll('.stat-value');
-    
+
     statValues.forEach(stat => {
         const target = parseInt(stat.textContent) || 0;
         const duration = 1500;
         const increment = target / (duration / 16);
         let current = 0;
-        
+
         const timer = setInterval(() => {
             current += increment;
             if (current >= target) {
@@ -187,35 +187,35 @@ function animateStatCounters() {
 function initHoverEffects() {
     // Add subtle tilt effect on workout cards
     const cards = document.querySelectorAll('.workout-card, .exercise-card');
-    
+
     cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
+        card.addEventListener('mouseenter', function () {
             this.style.transition = 'all 0.3s ease';
         });
-        
-        card.addEventListener('mouseleave', function() {
+
+        card.addEventListener('mouseleave', function () {
             this.style.transform = '';
         });
     });
 }
 
 // ==================== INITIALIZE ALL FEATURES ====================
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Display random motivational quote
     displayRandomQuote();
-    
+
     // Initialize interactive elements
     initWorkoutCards();
     initExerciseButtons();
     initChallengeButton();
     initYogaButtons();
-    
+
     // Initialize animations
     initScrollAnimations();
     animateProgressBar();
     animateStatCounters();
     initHoverEffects();
-    
+
     console.log('HealthyU Home Page Initialized! 💪');
 });
 

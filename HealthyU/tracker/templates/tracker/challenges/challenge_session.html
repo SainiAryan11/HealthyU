@@ -2,51 +2,50 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'tracker/css/pages/challenges/challenge_session.css' %}">
+<link rel="stylesheet" href="{% static 'tracker/css/pages/challenges/challenge_session.css' %}">
 {% endblock %}
 
 
 {% block content %}
 
-  <div class="container sess-wrap">
-    <div class="sess-card">
-      <div class="sess-header">
-        <div class="sess-title">
-          <h2 id="exName">Loading…</h2>
-          <p id="exDesc"></p>
-        </div>
-        <div class="progress-pill" id="progressText">0%</div>
+<div class="container sess-wrap">
+  <div class="sess-card">
+    <div class="sess-header">
+      <div class="sess-title">
+        <h2 id="exName">Loading…</h2>
+        <p id="exDesc"></p>
       </div>
+      <div class="progress-pill" id="progressText">0%</div>
+    </div>
 
-      <div class="steps-head">
-        <h4>Steps</h4>
-        <div class="reward-pill">⭐ +<span id="rewardPoints">50</span> points</div>
-      </div>
+    <div class="steps-head">
+      <h4>Steps</h4>
+      <div class="reward-pill">⭐ +<span id="rewardPoints">50</span> points</div>
+    </div>
 
-      <div class="steps-grid" id="stepsGrid"></div>
+    <div class="steps-grid" id="stepsGrid"></div>
 
-      {% if is_guest %}
-        <div class="hint">
-          Login to complete this challenge and earn points.
-        </div>
-      {% endif %}
+    {% if is_guest %}
+    <div class="hint">
+      Login to complete this challenge and earn points.
+    </div>
+    {% endif %}
 
-      <div class="sess-actions">
-        <button class="btn btn-primary" id="finishBtn">Finish →</button>
-        <button class="btn btn-secondary" id="endBtn">End</button>
-      </div>
+    <div class="sess-actions">
+      <button class="btn btn-primary" id="finishBtn">Finish →</button>
+      <button class="btn btn-secondary" id="endBtn">Back</button>
     </div>
   </div>
+</div>
 
-  <script>
-    const CHALLENGE = JSON.parse('{{ challenge_json|escapejs }}');
-    const COMPLETE_URL = "{{ complete_url }}";
-    const END_URL = "{{ end_url }}";
-    const IS_GUEST = {{ is_guest|yesno:"true,false" }};
-  </script>
+<script>
+  const CHALLENGE = JSON.parse('{{ challenge_json|escapejs }}');
+  const COMPLETE_URL = "{{ complete_url }}";
+  const END_URL = "{{ end_url }}";
+</script>
 
 {% endblock %}
 
 {% block extra_js %}
-    <script src="{% static 'tracker/js/pages/challenges/challenge_session.js' %}"></script>
+<script src="{% static 'tracker/js/pages/challenges/challenge_session.js' %}"></script>
 {% endblock %}

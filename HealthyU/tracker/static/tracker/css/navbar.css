@@ -284,6 +284,7 @@
         transform: translateY(-100%);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;
@@ -291,9 +292,12 @@
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.1);
     }
@@ -379,6 +383,7 @@
 }
 
 @media (max-width: 480px) {
+
     .navbar-row-1,
     .navbar-row-2 {
         padding: 10px 0;
@@ -472,7 +477,7 @@
         grid-template-columns: 1fr;
         gap: 30px;
     }
-    
+
     .footer {
         padding: 40px 0 20px;
     }

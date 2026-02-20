@@ -14,12 +14,12 @@ function showToast(message, type = 'success') {
 
   toast.innerHTML =
     '<div style="display:flex; align-items:center; gap:10px;">' +
-      '<span style="font-size:18px;">' + icon + '</span>' +
-      '<span>' + message + '</span>' +
+    '<span style="font-size:18px;">' + icon + '</span>' +
+    '<span>' + message + '</span>' +
     '</div>' +
     '<button aria-label="Close" ' +
-      'style="background:none;border:none;color:white;cursor:pointer;opacity:0.8;font-size:18px;line-height:1;">' +
-      '&times;' +
+    'style="background:none;border:none;color:white;cursor:pointer;opacity:0.8;font-size:18px;line-height:1;">' +
+    '&times;' +
     '</button>';
 
   // Close handler

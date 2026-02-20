@@ -453,8 +453,17 @@
 }
 
 @keyframes breathe {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.7; }
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.7;
+    }
 }
 
 .mindfulness-icon {
@@ -557,6 +566,7 @@
         opacity: 0;
         transform: translateY(-30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -568,6 +578,7 @@
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -578,24 +589,31 @@
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.02);
     }
 }
 
 @keyframes bounce {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-10px);
     }
@@ -606,39 +624,39 @@
     .hero-title {
         font-size: 2rem;
     }
-    
+
     .hero-subtitle {
         font-size: 1.1rem;
     }
-    
+
     .hero-stats {
         gap: 15px;
     }
-    
+
     .stat-card {
         padding: 20px 25px;
         min-width: 120px;
     }
-    
+
     .session-content {
         flex-direction: column;
         align-items: flex-start;
     }
-    
+
     .btn-start-session {
         width: 100%;
         justify-content: center;
     }
-    
+
     .challenge-card {
         flex-direction: column;
         text-align: center;
     }
-    
+
     .btn-challenge {
         width: 100%;
     }
-    
+
     .workout-grid,
     .exercise-grid,
     .yoga-grid {
@@ -650,11 +668,11 @@
     .hero-section {
         padding: 30px 20px;
     }
-    
+
     .session-card {
         padding: 20px;
     }
-    
+
     .section-title {
         font-size: 1.5rem;
     }
@@ -758,15 +776,15 @@
     .carousel-slide {
         height: 400px;
     }
-    
+
     .carousel-title {
         font-size: 2rem;
     }
-    
+
     .carousel-subtitle {
         font-size: 1.1rem;
     }
-    
+
     .carousel-btn {
         padding: 12px 30px;
         font-size: 1rem;
@@ -777,11 +795,11 @@
     .carousel-slide {
         height: 350px;
     }
-    
+
     .carousel-title {
         font-size: 1.5rem;
     }
-    
+
     .carousel-subtitle {
         font-size: 0.95rem;
     }

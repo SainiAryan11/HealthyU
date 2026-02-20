@@ -2,95 +2,95 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'tracker/css/pages/auth/signup.css' %}">
+<link rel="stylesheet" href="{% static 'tracker/css/pages/auth/signup.css' %}">
 {% endblock %}
 
 
 {% block content %}
 
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 col-md-10">
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
 
-                <div class="signup-wrapper row g-0">
+            <div class="signup-wrapper row g-0">
 
-                    <div class="col-md-6 d-none d-md-block signup-left">
-                        <div class="signup-brand">
-                            <h1>HealthyU</h1>
-                            <p>Your daily partner for a healthier life</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 p-5 signup-right">
-
-                        <h3 class="fw-semibold mb-1">
-                            Create your account
-                        </h3>
-                        <p class="text-muted mb-4">
-                            Continue to HealthyU
-                        </p>
-
-                        <form method="POST" id="signupForm">
-                            {% csrf_token %}
-
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">First Name</label>
-                                    <input type="text" name="first_name" id="firstNameInput" class="form-control" required>
-                                </div>
-
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Last Name</label>
-                                    <input type="text" name="last_name" id="lastNameInput" class="form-control" required>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Email</label>
-                                <input type="email" name="email" id="emailInput" class="form-control" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Date of Birth</label>
-                                <input type="date" name="dob" id="dobInput" class="form-control" required>
-                            </div>
-
-                            <div class="mb-4 password-wrapper">
-                                <label class="form-label">Password</label>
-                                <input type="password" name="password" id="passwordInput" class="form-control" required>
-                                <button type="button" class="password-toggle" id="togglePasswordBtn">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="eyeIcon">
-                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                        <circle cx="12" cy="12" r="3"></circle>
-                                    </svg>
-                                </button>
-                                <small class="text-muted" style="font-size: 11px; display: block; margin-top: 5px;">
-                                    Must be 6+ characters with uppercase, lowercase, number & special character (@$!%*?&#)
-                                </small>
-                            </div>
-
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn signup-btn fw-semibold">
-                                    Create Account
-                                </button>
-                            </div>
-                        </form>
-
+                <div class="col-md-6 d-none d-md-block signup-left">
+                    <div class="signup-brand">
+                        <h1>HealthyU</h1>
+                        <p>Your daily partner for a healthier life</p>
                     </div>
                 </div>
 
+                <div class="col-md-6 p-5 signup-right">
+
+                    <h3 class="fw-semibold mb-1">
+                        Create your account
+                    </h3>
+                    <p class="text-muted mb-4">
+                        Continue to HealthyU
+                    </p>
+
+                    <form method="POST" id="signupForm">
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">First Name</label>
+                                <input type="text" name="first_name" id="firstNameInput" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" name="last_name" id="lastNameInput" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" id="emailInput" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Date of Birth</label>
+                            <input type="date" name="dob" id="dobInput" class="form-control" required>
+                        </div>
+
+                        <div class="mb-4 password-wrapper">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" id="passwordInput" class="form-control" required>
+                            <button type="button" class="password-toggle" id="togglePasswordBtn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="eyeIcon">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                            <small class="text-muted" style="font-size: 11px; display: block; margin-top: 5px;">
+                                Must be 6+ characters with uppercase, lowercase, number & special character (@$!%*?&#)
+                            </small>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn signup-btn fw-semibold">
+                                Create Account
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
             </div>
+
         </div>
     </div>
+</div>
 
-    {% if error %}
-        {{ error|json_script:"signup-error" }}
-    {% endif %}
+{% if error %}
+{{ error|json_script:"signup-error" }}
+{% endif %}
 
 
 {% endblock %}
 
 {% block extra_js %}
-    <script src="{% static 'tracker/js/pages/auth/signup.js' %}"></script>
+<script src="{% static 'tracker/js/pages/auth/signup.js' %}"></script>
 {% endblock %}

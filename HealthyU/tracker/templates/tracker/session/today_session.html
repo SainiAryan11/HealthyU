@@ -2,86 +2,85 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'tracker/css/pages/session/today_session.css' %}">
+<link rel="stylesheet" href="{% static 'tracker/css/pages/session/today_session.css' %}">
 {% endblock %}
 
 {% block content %}
-    <div class="container my-5 py-4 today-session-wrap" data-session-active="true">
+<div class="container my-5 py-4 today-session-wrap" data-session-active="true">
 
-      <!-- Exercise Header -->
-      <div class="exercise-header">
-        <div class="exercise-title">
-          <h2 id="exName">Loading...</h2>
-          <p id="exDesc" class="mb-1"></p>
-          <div class="phase-text" id="phaseText"></div>
+  <!-- Exercise Header -->
+  <div class="exercise-header">
+    <div class="exercise-title">
+      <h2 id="exName">Loading...</h2>
+      <p id="exDesc" class="mb-1"></p>
+      <div class="phase-text" id="phaseText"></div>
 
-          <!-- ✅ Meditation timer text (shown only during meditation) -->
-          <div class="phase-text" id="medTimerText" style="display:none;"></div>
-        </div>
-
-        <div class="progress-circle">
-          <span id="progressText">0%</span>
-        </div>
-      </div>
-
-      <!-- Steps Section -->
-      <div class="steps-section">
-        <h4>Steps to Perform</h4>
-        <div class="steps-grid" id="stepsGrid"></div>
-      </div>
-
-      <!-- Action Buttons -->
-      <div class="session-actions">
-        <div>
-          <button class="btn btn-secondary" id="prevBtn">← Previous</button>
-        </div>
-
-        <div>
-          <div id="doBtn" class="do-action">✓ Do this exercise</div>
-        </div>
-
-        <div class="d-flex gap-2 flex-wrap justify-content-end">
-          <button class="btn btn-primary" id="nextBtn">Next →</button>
-          <button class="btn btn-secondary" id="skipBtn">Skip</button>
-          <button class="btn btn-danger" id="endBtn">End Session</button>
-        </div>
-      </div>
-
+      <!-- ✅ Meditation timer text (shown only during meditation) -->
+      <div class="phase-text" id="medTimerText" style="display:none;"></div>
     </div>
 
-    <!-- Completion Modal -->
-    <div id="phaseModal" class="modal-overlay">
-      <div class="modal-box">
-        <h3 id="modalTitle">Completed 🎉</h3>
-        <p id="modalText" class="mb-2">Good job!</p>
-        <p class="small-note mb-0" id="modalSubText"></p>
+    <div class="progress-circle">
+      <span id="progressText">0%</span>
+    </div>
+  </div>
 
-        <div class="modal-actions mt-3">
-          <button class="btn btn-secondary" id="modalBackBtn">Back</button>
-          <button class="btn btn-danger" id="modalEndBtn">End Session</button>
-          <button class="btn btn-success" id="modalNextPhaseBtn">Continue</button>
-          <button class="btn btn-primary" id="modalFinishBtn" style="display:none;">Finish Session</button>
-        </div>
-      </div>
+  <!-- Steps Section -->
+  <div class="steps-section">
+    <h4>Steps to Perform</h4>
+    <div class="steps-grid" id="stepsGrid"></div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="session-actions">
+    <div>
+      <button class="btn btn-secondary" id="prevBtn">← Previous</button>
     </div>
 
-    <!-- DATA FROM DJANGO -->
-    <script>
-      const PHYSICAL = JSON.parse('{{ physical_json|default:"[]"|escapejs }}');
-      const YOGA = JSON.parse('{{ yoga_json|default:"[]"|escapejs }}');
-      const MEDITATION_LIST = JSON.parse('{{ meditation_json|default:"[]"|escapejs }}');
+    <div>
+      <div id="doBtn" class="do-action">✓ Do this exercise</div>
+    </div>
 
-      const HAS_PHYSICAL = {{ has_physical|yesno:"true,false" }};
-      const HAS_YOGA = {{ has_yoga|yesno:"true,false" }};
-      const HAS_MEDITATION = {{ has_meditation|yesno:"true,false" }};
+    <div class="d-flex gap-2 flex-wrap justify-content-end">
+      <button class="btn btn-primary" id="nextBtn">Next →</button>
+      <button class="btn btn-secondary" id="skipBtn">Skip</button>
+      <button class="btn btn-danger" id="endBtn">End Session</button>
+    </div>
+  </div>
 
-      const SESSION_REPORT_URL = "{% url 'session_report' %}";
-      const PROFILE_URL = "{% url 'profile' %}";
-    </script>
+</div>
+
+<!-- Completion Modal -->
+<div id="phaseModal" class="modal-overlay">
+  <div class="modal-box">
+    <h3 id="modalTitle">Completed 🎉</h3>
+    <p id="modalText" class="mb-2">Good job!</p>
+    <p class="small-note mb-0" id="modalSubText"></p>
+
+    <div class="modal-actions mt-3">
+      <button class="btn btn-secondary" id="modalBackBtn">Back</button>
+      <button class="btn btn-danger" id="modalEndBtn">End Session</button>
+      <button class="btn btn-success" id="modalNextPhaseBtn">Continue</button>
+      <button class="btn btn-primary" id="modalFinishBtn" style="display:none;">Finish Session</button>
+    </div>
+  </div>
+</div>
+
+<!-- DATA FROM DJANGO -->
+<script>
+  const PHYSICAL = JSON.parse('{{ physical_json|default:"[]"|escapejs }}');
+  const YOGA = JSON.parse('{{ yoga_json|default:"[]"|escapejs }}');
+  const MEDITATION_LIST = JSON.parse('{{ meditation_json|default:"[]"|escapejs }}');
+
+  const HAS_PHYSICAL = {{ has_physical| yesno: "true,false" }};
+  const HAS_YOGA = {{ has_yoga| yesno: "true,false" }};
+  const HAS_MEDITATION = {{ has_meditation| yesno: "true,false" }};
+
+  const SESSION_REPORT_URL = "{% url 'session_report' %}";
+  const PROFILE_URL = "{% url 'profile' %}";
+</script>
 
 {% endblock %}
 
 {% block extra_js %}
-    <script src="{% static 'tracker/js/pages/session/today_session.js' %}"></script>
+<script src="{% static 'tracker/js/pages/session/today_session.js' %}"></script>
 {% endblock %}
-

@@ -45,9 +45,12 @@
 }
 
 @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-10px);
     }
@@ -90,6 +93,7 @@
 .green-btn {
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
 }
+
 .green-btn:hover {
     background: linear-gradient(135deg, #059669 0%, #047857 100%);
 }
@@ -97,6 +101,7 @@
 .blue-btn {
     background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
 }
+
 .blue-btn:hover {
     background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
 }
@@ -104,6 +109,7 @@
 .orange-btn {
     background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
 }
+
 .orange-btn:hover {
     background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
 }
@@ -113,19 +119,19 @@
     .home-action-section {
         margin: 30px auto;
     }
-    
+
     .action-card {
         padding: 35px 25px;
     }
-    
+
     .action-card-icon {
         font-size: 3rem;
     }
-    
+
     .action-card h4 {
         font-size: 1.5rem;
     }
-    
+
     .action-card p {
         font-size: 1rem;
     }

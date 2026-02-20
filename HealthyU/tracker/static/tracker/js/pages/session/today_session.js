@@ -10,21 +10,21 @@ const progressText = document.getElementById("progressText");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const skipBtn = document.getElementById("skipBtn");
-const endBtn  = document.getElementById("endBtn");
-const doBtn   = document.getElementById("doBtn");
+const endBtn = document.getElementById("endBtn");
+const doBtn = document.getElementById("doBtn");
 
 // modal
 const phaseModal = document.getElementById("phaseModal");
 const modalTitle = document.getElementById("modalTitle");
-const modalText  = document.getElementById("modalText");
+const modalText = document.getElementById("modalText");
 const modalSubText = document.getElementById("modalSubText");
 const modalBackBtn = document.getElementById("modalBackBtn");
-const modalEndBtn  = document.getElementById("modalEndBtn");
+const modalEndBtn = document.getElementById("modalEndBtn");
 const modalNextPhaseBtn = document.getElementById("modalNextPhaseBtn");
 const modalFinishBtn = document.getElementById("modalFinishBtn");
 
 let totalMedSpentSec = 0;
-let totalMedPlannedSec = 0;     
+let totalMedPlannedSec = 0;
 
 
 // -------------------- SESSION STATE --------------------
@@ -57,10 +57,10 @@ const meditationStatus = new Array(MEDITATION_LIST.length).fill("pending");
 
 function recalcCounts() {
   completedPhysical = physicalStatus.filter(s => s === "completed").length;
-  skippedPhysical   = physicalStatus.filter(s => s === "skipped").length;
+  skippedPhysical = physicalStatus.filter(s => s === "skipped").length;
 
   completedYoga = yogaStatus.filter(s => s === "completed").length;
-  skippedYoga   = yogaStatus.filter(s => s === "skipped").length;
+  skippedYoga = yogaStatus.filter(s => s === "skipped").length;
 }
 
 // meditation timer
@@ -450,7 +450,7 @@ function renderMeditation() {
 
   const plannedMinutes = getMeditationMinutes(currentMed);
   const timerRow = document.createElement("div");
-  
+
   timerRow.className = "step-box";
   timerRow.style.gridColumn = "span 5";
   timerRow.innerHTML = `

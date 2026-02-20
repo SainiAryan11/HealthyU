@@ -17,38 +17,205 @@ body {
 }
 
 
-@keyframes bg-shift { 0% { background: linear-gradient(135deg, #fff 0%, rgba(37,99,235,0.03) 50%, #fff 100%); } 50% { background: linear-gradient(135deg, #fff 0%, rgba(220,38,38,0.03) 50%, #fff 100%); } 100% { background: linear-gradient(135deg, #fff 0%, rgba(37,99,235,0.03) 50%, #fff 100%); } }
-.create-plan-wrap { background: #fff; position: relative; border-radius: 12px; padding: 2rem; animation: bg-shift 8s ease-in-out infinite; }
-.create-plan-wrap .category-section h3 { color: #000 !important; border-bottom-color: #2563eb !important; }
-.create-plan-wrap .level-section h4 { color: #000 !important; background: rgba(37,99,235,0.08) !important; }
-.create-plan-wrap .exercise-card { border-color: rgba(0,0,0,0.1) !important; transition: box-shadow 0.3s ease, border-color 0.3s ease; }
-.create-plan-wrap .exercise-card:hover { box-shadow: 0 4px 20px rgba(37,99,235,0.15) !important; border-color: rgba(37,99,235,0.3) !important; }
-.create-plan-wrap .exercise-card h6 { color: #000 !important; }
-.create-plan-wrap .exercise-card small { color: #333 !important; }
-.create-plan-wrap .view-details { color: #2563eb !important; border-color: #2563eb !important; background: transparent !important; transition: all 0.2s ease; }
-.create-plan-wrap .view-details:hover { background: rgba(37,99,235,0.1) !important; color: #1d4ed8 !important; }
-.create-plan-wrap .view-details.btn-expanded { background: #2563eb !important; color: #fff !important; }
-.create-plan-wrap .add-btn.btn-success { background: #2563eb !important; border-color: #2563eb !important; color: #fff !important; transition: all 0.2s ease; }
-.create-plan-wrap .add-btn.btn-success:hover { background: #1d4ed8 !important; border-color: #1d4ed8 !important; }
-.create-plan-wrap .add-btn.btn-danger { background: #dc2626 !important; border-color: #dc2626 !important; color: #fff !important; }
-.create-plan-wrap .add-btn.btn-danger:hover { background: #b91c1c !important; border-color: #b91c1c !important; }
-.create-plan-wrap .minus, .create-plan-wrap .plus { color: #2563eb !important; border-color: #2563eb !important; background: transparent !important; transition: all 0.2s ease; }
-.create-plan-wrap .minus:hover, .create-plan-wrap .plus:hover { background: rgba(37,99,235,0.1) !important; }
-.create-plan-wrap .minus.btn-clicked, .create-plan-wrap .plus.btn-clicked { background: #dc2626 !important; border-color: #dc2626 !important; color: #fff !important; }
-.create-plan-wrap .view-more-btn { color: #2563eb !important; border-color: #2563eb !important; background: transparent !important; transition: all 0.2s ease; }
-.create-plan-wrap .view-more-btn:hover { background: rgba(37,99,235,0.1) !important; }
-.create-plan-wrap .view-more-btn.btn-expanded { background: #2563eb !important; color: #fff !important; }
-.create-plan-wrap #resetPlan { background: #dc2626 !important; border-color: #000 !important; color: #fff !important; transition: all 0.2s ease; }
-.create-plan-wrap #resetPlan:hover { background: #b91c1c !important; }
-.create-plan-wrap #resetPlan.btn-clicked { background: #dc2626 !important; border-color: #dc2626 !important; }
-.create-plan-wrap #savePlan { background: #6b7280 !important; border-color: #2563eb !important; transition: all 0.2s ease; }
-.create-plan-wrap #savePlan:hover { background: #4b5563 !important; border-color: #1d4ed8 !important; }
-#planModal .modal-content { border: 2px solid #2563eb; }
-#planModal .modal-title { color: #000 !important; }
-#planModal .modal-header, #planModal .modal-footer { border-color: rgba(37,99,235,0.2) !important; }
-#planModal #confirmPlanBtn { background: #2563eb !important; border-color: #2563eb !important; color: #fff !important; transition: all 0.2s ease; font-weight: 500; }
-#planModal #confirmPlanBtn:hover { background: #1d4ed8 !important; border-color: #1d4ed8 !important; }
-#planModal #confirmPlanBtn.btn-clicked { background: #dc2626 !important; border-color: #dc2626 !important; }
-#planModal .btn-outline-secondary[data-bs-dismiss="modal"] { background: #dc2626 !important; border-color: #dc2626 !important; color: #fff !important; transition: all 0.2s ease; font-weight: 500; }
-#planModal .btn-outline-secondary[data-bs-dismiss="modal"]:hover { background: #b91c1c !important; border-color: #b91c1c !important; }
-#planModal .btn-outline-secondary[data-bs-dismiss="modal"].btn-clicked { background: #6b7280 !important; border-color: #6b7280 !important; color: #fff !important; }
+@keyframes bg-shift {
+    0% {
+        background: linear-gradient(135deg, #fff 0%, rgba(37, 99, 235, 0.03) 50%, #fff 100%);
+    }
+
+    50% {
+        background: linear-gradient(135deg, #fff 0%, rgba(220, 38, 38, 0.03) 50%, #fff 100%);
+    }
+
+    100% {
+        background: linear-gradient(135deg, #fff 0%, rgba(37, 99, 235, 0.03) 50%, #fff 100%);
+    }
+}
+
+.create-plan-wrap {
+    background: #fff;
+    position: relative;
+    border-radius: 12px;
+    padding: 2rem;
+    animation: bg-shift 8s ease-in-out infinite;
+}
+
+.create-plan-wrap .category-section h3 {
+    color: #000 !important;
+    border-bottom-color: #2563eb !important;
+}
+
+.create-plan-wrap .level-section h4 {
+    color: #000 !important;
+    background: rgba(37, 99, 235, 0.08) !important;
+}
+
+.create-plan-wrap .exercise-card {
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.create-plan-wrap .exercise-card:hover {
+    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15) !important;
+    border-color: rgba(37, 99, 235, 0.3) !important;
+}
+
+.create-plan-wrap .exercise-card h6 {
+    color: #000 !important;
+}
+
+.create-plan-wrap .exercise-card small {
+    color: #333 !important;
+}
+
+.create-plan-wrap .view-details {
+    color: #2563eb !important;
+    border-color: #2563eb !important;
+    background: transparent !important;
+    transition: all 0.2s ease;
+}
+
+.create-plan-wrap .view-details:hover {
+    background: rgba(37, 99, 235, 0.1) !important;
+    color: #1d4ed8 !important;
+}
+
+.create-plan-wrap .view-details.btn-expanded {
+    background: #2563eb !important;
+    color: #fff !important;
+}
+
+.create-plan-wrap .add-btn.btn-success {
+    background: #2563eb !important;
+    border-color: #2563eb !important;
+    color: #fff !important;
+    transition: all 0.2s ease;
+}
+
+.create-plan-wrap .add-btn.btn-success:hover {
+    background: #1d4ed8 !important;
+    border-color: #1d4ed8 !important;
+}
+
+.create-plan-wrap .add-btn.btn-danger {
+    background: #dc2626 !important;
+    border-color: #dc2626 !important;
+    color: #fff !important;
+}
+
+.create-plan-wrap .add-btn.btn-danger:hover {
+    background: #b91c1c !important;
+    border-color: #b91c1c !important;
+}
+
+.create-plan-wrap .minus,
+.create-plan-wrap .plus {
+    color: #2563eb !important;
+    border-color: #2563eb !important;
+    background: transparent !important;
+    transition: all 0.2s ease;
+}
+
+.create-plan-wrap .minus:hover,
+.create-plan-wrap .plus:hover {
+    background: rgba(37, 99, 235, 0.1) !important;
+}
+
+.create-plan-wrap .minus.btn-clicked,
+.create-plan-wrap .plus.btn-clicked {
+    background: #dc2626 !important;
+    border-color: #dc2626 !important;
+    color: #fff !important;
+}
+
+.create-plan-wrap .view-more-btn {
+    color: #2563eb !important;
+    border-color: #2563eb !important;
+    background: transparent !important;
+    transition: all 0.2s ease;
+}
+
+.create-plan-wrap .view-more-btn:hover {
+    background: rgba(37, 99, 235, 0.1) !important;
+}
+
+.create-plan-wrap .view-more-btn.btn-expanded {
+    background: #2563eb !important;
+    color: #fff !important;
+}
+
+.create-plan-wrap #resetPlan {
+    background: #dc2626 !important;
+    border-color: #000 !important;
+    color: #fff !important;
+    transition: all 0.2s ease;
+}
+
+.create-plan-wrap #resetPlan:hover {
+    background: #b91c1c !important;
+}
+
+.create-plan-wrap #resetPlan.btn-clicked {
+    background: #dc2626 !important;
+    border-color: #dc2626 !important;
+}
+
+.create-plan-wrap #savePlan {
+    background: #6b7280 !important;
+    border-color: #2563eb !important;
+    transition: all 0.2s ease;
+}
+
+.create-plan-wrap #savePlan:hover {
+    background: #4b5563 !important;
+    border-color: #1d4ed8 !important;
+}
+
+#planModal .modal-content {
+    border: 2px solid #2563eb;
+}
+
+#planModal .modal-title {
+    color: #000 !important;
+}
+
+#planModal .modal-header,
+#planModal .modal-footer {
+    border-color: rgba(37, 99, 235, 0.2) !important;
+}
+
+#planModal #confirmPlanBtn {
+    background: #2563eb !important;
+    border-color: #2563eb !important;
+    color: #fff !important;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+#planModal #confirmPlanBtn:hover {
+    background: #1d4ed8 !important;
+    border-color: #1d4ed8 !important;
+}
+
+#planModal #confirmPlanBtn.btn-clicked {
+    background: #dc2626 !important;
+    border-color: #dc2626 !important;
+}
+
+#planModal .btn-outline-secondary[data-bs-dismiss="modal"] {
+    background: #dc2626 !important;
+    border-color: #dc2626 !important;
+    color: #fff !important;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+#planModal .btn-outline-secondary[data-bs-dismiss="modal"]:hover {
+    background: #b91c1c !important;
+    border-color: #b91c1c !important;
+}
+
+#planModal .btn-outline-secondary[data-bs-dismiss="modal"].btn-clicked {
+    background: #6b7280 !important;
+    border-color: #6b7280 !important;
+    color: #fff !important;
+}

@@ -2,57 +2,54 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'tracker/css/pages/rewards/streak.css' %}">
+<link rel="stylesheet" href="{% static 'tracker/css/components/detail_page.css' %}">
+<link rel="stylesheet" href="{% static 'tracker/css/pages/rewards/streak.css' %}">
 {% endblock %}
 
 
 {% block content %}
-    <div class="leaderboard-container">
-      <div class="leaderboard-header">
-        <div class="trophy-icon-large">🏆</div>
-        <h1 class="leaderboard-title">Top 5 Streak Leaderboard</h1>
-        <p class="leaderboard-subtitle">Champions who never miss a day!</p>
+    <a href="{% url 'home' %}" class="back-button">
+        <span class="back-icon">←</span> Back to Home
+    </a>
+<div class="leaderboard-container">
+  <div class="leaderboard-header">
+    <div class="trophy-icon-large">🏆</div>
+    <h1 class="leaderboard-title">Top 5 Streak Leaderboard</h1>
+    <p class="leaderboard-subtitle">Champions who never miss a day!</p>
+  </div>
+
+  {% if top_users %}
+  <div class="leaderboard-list">
+    {% for p in top_users %}
+    <div class="leaderboard-item rank-{{ forloop.counter }}">
+      <div class="rank-badge {% if forloop.counter > 3 %}default{% endif %}">
+        {{ forloop.counter }}
       </div>
 
-      {% if top_users %}
-        <div class="leaderboard-list">
-          {% for p in top_users %}
-            <div class="leaderboard-item rank-{{ forloop.counter }}">
-              <div class="rank-badge {% if forloop.counter > 3 %}default{% endif %}">
-                {{ forloop.counter }}
-              </div>
-              
-              <div class="user-info">
-                <div class="user-name">
-                  {{ p.user.first_name }} {{ p.user.last_name }}
-                </div>
-                <div class="user-email">{{ p.user.email }}</div>
-              </div>
-
-              <div class="streak-badge">
-                <span class="streak-icon">🔥</span>
-                <span>{{ p.streak }}</span>
-              </div>
-            </div>
-          {% endfor %}
+      <div class="user-info">
+        <div class="user-name">
+          {{ p.user.first_name }} {{ p.user.last_name }}
         </div>
-      {% else %}
-        <div class="empty-state">
-          <div class="empty-icon">🏃</div>
-          <p class="empty-text">No users found. Be the first to start your streak!</p>
-        </div>
-      {% endif %}
+        <div class="user-email">{{ p.user.email }}</div>
+      </div>
 
-      <div class="leaderboard-actions">
-        <a href="{% url 'profile' %}" class="btn-leaderboard btn-back">
-          <span>←</span>
-          <span>Back to Profile</span>
-        </a>
+      <div class="streak-badge">
+        <span class="streak-icon">🔥</span>
+        <span>{{ p.streak }}</span>
       </div>
     </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-icon">🏃</div>
+    <p class="empty-text">No users found. Be the first to start your streak!</p>
+  </div>
+  {% endif %}
+</div>
 
 {% endblock %}
 
 {% block extra_js %}
-    <script src="{% static 'tracker/js/pages/rewards/streak.js' %}"></script>
+<script src="{% static 'tracker/js/pages/rewards/streak.js' %}"></script>
 {% endblock %}

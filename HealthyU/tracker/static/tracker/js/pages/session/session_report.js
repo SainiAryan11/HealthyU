@@ -1,4 +1,4 @@
-function getCookie(name){
+function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== "") {
     const cookies = document.cookie.split(";");
@@ -13,20 +13,20 @@ function getCookie(name){
   return cookieValue;
 }
 
-function badge(status){
-  if(status === "completed") return `<span class="badge bg-success">Completed</span>`;
-  if(status === "partial") return `<span class="badge bg-info">Partial</span>`;
-  if(status === "skipped") return `<span class="badge bg-warning text-dark">Skipped</span>`;
-  if(status === "not_planned") return `<span class="badge bg-light text-dark border">Not in plan</span>`;
-    return `<span class="badge bg-secondary">Pending</span>`;
+function badge(status) {
+  if (status === "completed") return `<span class="badge bg-success">Completed</span>`;
+  if (status === "partial") return `<span class="badge bg-info">Partial</span>`;
+  if (status === "skipped") return `<span class="badge bg-warning text-dark">Skipped</span>`;
+  if (status === "not_planned") return `<span class="badge bg-light text-dark border">Not in plan</span>`;
+  return `<span class="badge bg-secondary">Pending</span>`;
 
 }
 
-function addItems(containerId, items){
+function addItems(containerId, items) {
   const box = document.getElementById(containerId);
   box.innerHTML = "";
 
-  if(!items || items.length === 0){
+  if (!items || items.length === 0) {
     box.innerHTML = `<div class="text-muted">No items</div>`;
     return;
   }
@@ -50,39 +50,39 @@ function addItems(containerId, items){
 const raw = sessionStorage.getItem("sessionReport");
 let report = null;
 
-if(!raw){
+if (!raw) {
   document.getElementById("progressPct").innerText = "0%";
   document.getElementById("saveSessionBtn").disabled = true;
 } else {
   try {
     report = JSON.parse(raw);
-  } catch(e) {
+  } catch (e) {
     report = null;
     document.getElementById("progressPct").innerText = "0%";
     document.getElementById("saveSessionBtn").disabled = true;
   }
 }
 
-if(report){
+if (report) {
   // HARD CAPS
   const cappedProgress = Math.min(parseInt(report.progress || 0), 100);
-  const cappedPoints   = Math.min(parseInt(report.points || 0), 100);
-  const cappedTime     = Math.max(parseInt(report.time_minutes || 0), 0);
+  const cappedPoints = Math.min(parseInt(report.points || 0), 100);
+  const cappedTime = Math.max(parseInt(report.time_minutes || 0), 0);
 
   const saveBtn = document.getElementById("saveSessionBtn");
 
-    if (cappedProgress < 50) {
-      saveBtn.disabled = true;
-      const msg = document.getElementById("saveBlockMsg");
-      if (msg) {
-        msg.innerText = "Saving is blocked because progress must be at least 50%. You can still view the report.";
-        msg.style.display = "block";
-      }
-    } else {
-      saveBtn.disabled = false;
-      const msg = document.getElementById("saveBlockMsg");
-      if (msg) msg.style.display = "none";
+  if (cappedProgress < 50) {
+    saveBtn.disabled = true;
+    const msg = document.getElementById("saveBlockMsg");
+    if (msg) {
+      msg.innerText = "Saving is blocked because progress must be at least 50%. You can still view the report.";
+      msg.style.display = "block";
     }
+  } else {
+    saveBtn.disabled = false;
+    const msg = document.getElementById("saveBlockMsg");
+    if (msg) msg.style.display = "none";
+  }
 
 
   // DISPLAY
@@ -91,7 +91,7 @@ if(report){
   document.getElementById("timeTaken").innerText = cappedTime + " min";
 
   // Handle meditation data
-  
+
   const completedMedCount = report.meditation_completed_count || 0;
   const totalMedCount = report.meditation_total_count || 0;
 
@@ -112,7 +112,7 @@ if(report){
 
 // ------------------ SAVE SESSION ------------------
 document.getElementById("saveSessionBtn").onclick = async () => {
-  if(!report){
+  if (!report) {
     alert("No report found to save.");
     return;
   }
@@ -129,7 +129,7 @@ document.getElementById("saveSessionBtn").onclick = async () => {
 
     const data = await res.json().catch(() => ({}));
 
-    if(!res.ok){
+    if (!res.ok) {
       alert(data.message || "Unable to save session.");
       return;
     }
@@ -143,7 +143,7 @@ document.getElementById("saveSessionBtn").onclick = async () => {
     // ✅ optional: redirect to profile after ok
     window.location.replace("/profile/");
 
-  } catch(err){
+  } catch (err) {
     console.error(err);
     alert("Network/JS error saving session.");
   }

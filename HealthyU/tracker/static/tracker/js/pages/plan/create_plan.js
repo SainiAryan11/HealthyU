@@ -334,31 +334,31 @@ function getCookie(name) {
   return cookieValue;
 }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('view-details')) {
-                var card = e.target.closest('.exercise-card');
-                if (card) {
-                    var details = card.querySelector('.exercise-details');
-                    setTimeout(function() {
-                    if (details && !details.classList.contains('d-none')) e.target.classList.add('btn-expanded');
-                    else e.target.classList.remove('btn-expanded');
-                    }, 0);
-                }
-                }
-            });
-            document.querySelectorAll('.view-more-btn').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                var self = this;
-                setTimeout(function() {
-                    self.classList.toggle('btn-expanded', self.textContent.trim() === 'View Less');
-                }, 0);
-                });
-            });
-            document.querySelectorAll('.minus, .plus, #resetPlan, #confirmPlanBtn').forEach(function(btn) {
-                btn.addEventListener('click', function() { this.classList.add('btn-clicked'); });
-            });
-            document.querySelectorAll('#planModal .modal-footer [data-bs-dismiss="modal"]').forEach(function(btn) {
-                btn.addEventListener('click', function() { this.classList.add('btn-clicked'); });
-            });
-        });
+document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('view-details')) {
+      var card = e.target.closest('.exercise-card');
+      if (card) {
+        var details = card.querySelector('.exercise-details');
+        setTimeout(function () {
+          if (details && !details.classList.contains('d-none')) e.target.classList.add('btn-expanded');
+          else e.target.classList.remove('btn-expanded');
+        }, 0);
+      }
+    }
+  });
+  document.querySelectorAll('.view-more-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var self = this;
+      setTimeout(function () {
+        self.classList.toggle('btn-expanded', self.textContent.trim() === 'View Less');
+      }, 0);
+    });
+  });
+  document.querySelectorAll('.minus, .plus, #resetPlan, #confirmPlanBtn').forEach(function (btn) {
+    btn.addEventListener('click', function () { this.classList.add('btn-clicked'); });
+  });
+  document.querySelectorAll('#planModal .modal-footer [data-bs-dismiss="modal"]').forEach(function (btn) {
+    btn.addEventListener('click', function () { this.classList.add('btn-clicked'); });
+  });
+});

@@ -2,36 +2,36 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'tracker/css/pages/profile/profile.css' %}">
+<link rel="stylesheet" href="{% static 'tracker/css/pages/profile/profile.css' %}">
 {% endblock %}
 
 {% block content %}
-    <div class="profile-container container my-5 py-4">
+<div class="profile-container container my-5 py-4">
 
     <!-- PROFILE HEADER -->
     <div class="profile-header">
         <h2>Welcome, {{ user.first_name }}</h2>
 
         <div class="profile-info">
-        <div class="info-item">
-            <p>Name</p>
-            <strong>{{ user.first_name }} {{ user.last_name }}</strong>
-        </div>
-        <div class="info-item">
-            <p>Email</p>
-            <strong style="font-size: 1rem; word-break: break-all;">{{ user.email }}</strong>
-        </div>
+            <div class="info-item">
+                <p>Name</p>
+                <strong>{{ user.first_name }} {{ user.last_name }}</strong>
+            </div>
+            <div class="info-item">
+                <p>Email</p>
+                <strong style="font-size: 1rem; word-break: break-all;">{{ user.email }}</strong>
+            </div>
         </div>
 
         <div class="stats-container">
-        <div class="stat-badge">
-            <div class="stat-label">🔥 Streak</div>
-            <div class="stat-value">{{ user.userprofile.streak }}</div>
-        </div>
-        <div class="stat-badge">
-            <div class="stat-label">⭐ Points</div>
-            <div class="stat-value">{{ user.userprofile.points }}</div>
-        </div>
+            <div class="stat-badge">
+                <div class="stat-label">🔥 Streak</div>
+                <div class="stat-value">{{ user.userprofile.streak }}</div>
+            </div>
+            <div class="stat-badge">
+                <div class="stat-label">⭐ Points</div>
+                <div class="stat-value">{{ user.userprofile.points }}</div>
+            </div>
         </div>
     </div>
 
@@ -40,43 +40,43 @@
 
         <!-- PLAN CARD -->
         <div class="action-card">
-        <h5>📋 Exercise Plan</h5>
-        <p>Once your plan is created, it cannot be edited. You can only view or delete it.</p>
+            <h5>📋 Exercise Plan</h5>
+            <p>Once your plan is created, it cannot be edited. You can only view or delete it.</p>
 
-        {% if plan %}
+            {% if plan %}
             <div class="d-flex justify-content-center">
-            <a href="{% url 'view_plan' %}" class="btn btn-primary px-4 py-2">View Plan</a>
+                <a href="{% url 'view_plan' %}" class="btn btn-primary px-4 py-2">View Plan</a>
             </div>
-        {% else %}
-        <div class="d-flex justify-content-center">
-            <a href="{% url 'create_plan' %}" class="btn btn-success px-4 py-2">Create Plan</a>
-        </div>
-        {% endif %}
+            {% else %}
+            <div class="d-flex justify-content-center">
+                <a href="{% url 'create_plan' %}" class="btn btn-success px-4 py-2">Create Plan</a>
+            </div>
+            {% endif %}
         </div>
 
         <!-- TODAY SESSION CARD -->
         <div class="action-card">
-        <h5>💪 Today's Session</h5>
-        <p>Only one session can be saved per day.</p>
+            <h5>💪 Today's Session</h5>
+            <p>Only one session can be saved per day.</p>
 
-        {% if not plan %}
+            {% if not plan %}
             <div class="status-badge pending">⏳ No Plan</div>
             <a href="{% url 'create_plan' %}" class="btn btn-primary">
-            Create Plan
+                Create Plan
             </a>
 
-        {% elif session_done_today %}
+            {% elif session_done_today %}
             <div class="status-badge completed">✅ Session Saved Today</div>
             <a href="{% url 'session_report' %}" class="btn btn-primary">
-            View Session Report
+                View Session Report
             </a>
 
-        {% else %}
+            {% else %}
             <div class="status-badge pending">⏳ Not Started</div>
             <a href="{% url 'today_session' %}" class="btn btn-success">
-            Start Today’s Session
+                Start Today’s Session
             </a>
-        {% endif %}
+            {% endif %}
         </div>
 
 
@@ -96,9 +96,9 @@
         </a>
     </div>
 
-    </div>
+</div>
 {% endblock %}
 
 {% block extra_js %}
-    <script src="{% static 'tracker/js/pages/profile/profile.js' %}"></script>
+<script src="{% static 'tracker/js/pages/profile/profile.js' %}"></script>
 {% endblock %}

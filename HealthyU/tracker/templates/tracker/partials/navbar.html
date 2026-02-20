@@ -22,20 +22,20 @@
 
         {% if user.is_authenticated %}
 
-          <a href="{% url 'points' %}">
-            🏆 <span class="badge bg-warning text-dark">{{ nav_points }}</span>
-          </a>
+        <a href="{% url 'points' %}" class="nav-link-custom session-nav-link">
+          🏆 <span class="badge bg-warning text-dark">{{ nav_points }}</span>
+        </a>
 
-          <a href="{% url 'streak' %}" class="nav-link-custom session-nav-link">
-            🔥 <span class="badge bg-danger">{{ nav_streak }}</span>
-          </a>
+        <a href="{% url 'streak' %}" class="nav-link-custom session-nav-link">
+          🔥 <span class="badge bg-danger">{{ nav_streak }}</span>
+        </a>
 
-          <a href="{% url 'profile' %}" class="nav-link-custom session-nav-link">Profile</a>
+        <a href="{% url 'profile' %}" class="nav-link-custom session-nav-link">Profile</a>
 
         {% else %}
 
-          <a href="{% url 'login' %}" class="nav-link-custom session-nav-link">Login</a>
-          <a href="{% url 'signup' %}" class="nav-link-custom signup-btn session-nav-link">Sign Up</a>
+        <a href="{% url 'login' %}" class="nav-link-custom session-nav-link">Login</a>
+        <a href="{% url 'signup' %}" class="nav-link-custom signup-btn session-nav-link">Sign Up</a>
 
         {% endif %}
 
@@ -54,7 +54,8 @@
           <div class="dropdown-menu-custom">
             <a href="{% url 'workout_detail' 'burpees' %}" class="dropdown-item-custom session-nav-link">Burpees</a>
             <a href="{% url 'workout_detail' 'lunges' %}" class="dropdown-item-custom session-nav-link">Lunges</a>
-            <a href="{% url 'workout_detail' 'mountain-climbers' %}" class="dropdown-item-custom session-nav-link">Mountain Climbers</a>
+            <a href="{% url 'workout_detail' 'mountain-climbers' %}"
+              class="dropdown-item-custom session-nav-link">Mountain Climbers</a>
             <a href="{% url 'workout_detail' 'squats' %}" class="dropdown-item-custom session-nav-link">Squats</a>
             <a href="{% url 'workout_detail' 'push-ups' %}" class="dropdown-item-custom session-nav-link">Push-ups</a>
             <a href="{% url 'workout_detail' 'plank' %}" class="dropdown-item-custom session-nav-link">Plank</a>
@@ -66,7 +67,8 @@
             Yoga <span class="dropdown-arrow">▼</span>
           </a>
           <div class="dropdown-menu-custom">
-            <a href="{% url 'yoga_detail' 'surya-namaskar' %}" class="dropdown-item-custom session-nav-link">Surya Namaskar</a>
+            <a href="{% url 'yoga_detail' 'surya-namaskar' %}" class="dropdown-item-custom session-nav-link">Surya
+              Namaskar</a>
             <a href="{% url 'yoga_detail' 'hatha-yoga' %}" class="dropdown-item-custom session-nav-link">Hatha Yoga</a>
             <a href="{% url 'yoga_detail' 'power-yoga' %}" class="dropdown-item-custom session-nav-link">Power Yoga</a>
             <a href="{% url 'yoga_detail' 'yin-yoga' %}" class="dropdown-item-custom session-nav-link">Yin Yoga</a>
@@ -78,10 +80,14 @@
             Meditation <span class="dropdown-arrow">▼</span>
           </a>
           <div class="dropdown-menu-custom">
-            <a href="{% url 'meditation_detail' 'mindfulness' %}" class="dropdown-item-custom session-nav-link">Mindfulness</a>
-            <a href="{% url 'meditation_detail' 'breathing' %}" class="dropdown-item-custom session-nav-link">Breathing Exercise</a>
-            <a href="{% url 'meditation_detail' 'body-scan' %}" class="dropdown-item-custom session-nav-link">Body Scan</a>
-            <a href="{% url 'meditation_detail' 'guided' %}" class="dropdown-item-custom session-nav-link">Guided Meditation</a>
+            <a href="{% url 'meditation_detail' 'mindfulness' %}"
+              class="dropdown-item-custom session-nav-link">Mindfulness</a>
+            <a href="{% url 'meditation_detail' 'breathing' %}" class="dropdown-item-custom session-nav-link">Breathing
+              Exercise</a>
+            <a href="{% url 'meditation_detail' 'body-scan' %}" class="dropdown-item-custom session-nav-link">Body
+              Scan</a>
+            <a href="{% url 'meditation_detail' 'guided' %}" class="dropdown-item-custom session-nav-link">Guided
+              Meditation</a>
           </div>
         </div>
 

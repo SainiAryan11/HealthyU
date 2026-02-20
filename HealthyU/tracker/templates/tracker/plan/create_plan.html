@@ -2,622 +2,718 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'tracker/css/pages/plan/create_plan.css' %}">
+<link rel="stylesheet" href="{% static 'tracker/css/pages/plan/create_plan.css' %}">
 {% endblock %}
 
 {% block content %}
-    <div class="container my-5 py-4 create-plan-wrap">
+<div class="container my-5 py-4 create-plan-wrap">
 
-        <h2 class="mb-5 text-center fw-bold display-5" style="letter-spacing: -0.02em; color: #000;">Create Your Own Exercise Plan</h2>
+    <h2 class="mb-5 text-center fw-bold display-5" style="letter-spacing: -0.02em; color: #000;">Create Your Own
+        Exercise Plan</h2>
 
-        <!-- ================= PHYSICAL EXERCISES ================= -->
-        <section class="category-section mb-5" style="padding: 1.5rem 0;">
-            <h3 class="mb-4 fw-semibold" style="color: #000 !important; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">Physical Exercises</h3>
+    <!-- ================= PHYSICAL EXERCISES ================= -->
+    <section class="category-section mb-5" style="padding: 1.5rem 0;">
+        <h3 class="mb-4 fw-semibold"
+            style="color: #000 !important; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">Physical
+            Exercises</h3>
 
-            <!-- Beginner -->
-            <div class="level-section mb-4">
-                <h4 class="fw-semibold" style="color: #000; font-size: 1.1rem; margin-bottom: 1rem; padding: 0.4rem 0.75rem; background: rgba(37,99,235,0.08); border-radius: 8px; display: inline-block;">Beginner</h4>
-
-                <div class="exercise-list">
-
-                    <!-- Exercise Card 1 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body d-flex flex-column py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Push Ups</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical Exercise</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Push ups strengthen chest, shoulders and arms.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Exercise Card 2 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body d-flex flex-column py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Jumping Jacks</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical Exercise</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Improves cardiovascular fitness and agility.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Exercise Card 3 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body d-flex flex-column py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Wall Sit</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical Exercise</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Strengthens thighs, calves, and core muscles.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="extra-exercises d-none">
-                        <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                            <div class="card-body d-flex flex-column py-3 px-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h6 class="fw-semibold mb-1" style="color: #000;">High Knees</h6>
-                                        <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical Exercise</small>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                        <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-                                        <div class="d-flex align-items-center">
-                                            <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                            <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
-                                            <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="exercise-details mt-3 d-none">
-                                    <p><strong>Description:</strong> Boosts cardio and leg strength.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                            <div class="card-body d-flex flex-column py-3 px-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h6 class="fw-semibold mb-1" style="color: #000;">Arm Circles</h6>
-                                        <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical Exercise</small>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                        <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-                                        <div class="d-flex align-items-center">
-                                            <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                            <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
-                                            <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="exercise-details mt-3 d-none">
-                                    <p><strong>Description:</strong> Warms up shoulders and arms.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <button class="btn btn-info view-more-btn rounded-pill px-4 py-2" style="font-weight: 500;">View More</button>
-            </div>
-
-            <!-- Intermediate -->
-            <div class="level-section mb-4">
-                <h4 class="fw-semibold" style="color: #000; font-size: 1.1rem; margin-bottom: 1rem; padding: 0.4rem 0.75rem; background: rgba(37,99,235,0.08); border-radius: 8px; display: inline-block;">Intermediate</h4>
-
-                <div class="exercise-list">
-
-                    <!-- Exercise Card 1 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body d-flex flex-column py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Squats</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical Exercise</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm frequency-input mx-1" value="5">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Squats strengthen legs and glutes.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Exercise Card 2 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body d-flex flex-column py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Lunges</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical Exercise</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm frequency-input mx-1" value="5">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Enhances leg strength and balance.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Exercise Card 3 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body d-flex flex-column py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Plank</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical Exercise</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm frequency-input mx-1" value="30">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Strengthens core, arms, and shoulders.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="extra-exercises d-none">
-                        <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                            <div class="card-body d-flex flex-column py-3 px-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h6 class="fw-semibold mb-1" style="color: #000;">Mountain Climbers</h6>
-                                        <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical Exercise</small>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                        <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-                                        <div class="d-flex align-items-center">
-                                            <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                            <input type="number" class="form-control form-control-sm frequency-input mx-1" value="20">
-                                            <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="exercise-details mt-3 d-none">
-                                    <p><strong>Description:</strong> Strengthens core and improves endurance.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                            <div class="card-body d-flex flex-column py-3 px-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h6 class="fw-semibold mb-1" style="color: #000;">Glute Bridges</h6>
-                                        <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical Exercise</small>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                        <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-                                        <div class="d-flex align-items-center">
-                                            <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                            <input type="number" class="form-control form-control-sm frequency-input mx-1" value="10">
-                                            <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="exercise-details mt-3 d-none">
-                                    <p><strong>Description:</strong> Strengthens glutes and lower back.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <button class="btn btn-info view-more-btn rounded-pill px-4 py-2" style="font-weight: 500;">View More</button>
-            </div>
-
-            <!-- Advanced -->
-            <div class="level-section">
-                <h4 class="fw-semibold" style="color: #000; font-size: 1.1rem; margin-bottom: 1rem; padding: 0.4rem 0.75rem; background: rgba(37,99,235,0.08); border-radius: 8px; display: inline-block;">Advanced</h4>
-
-                <div class="exercise-list">
-
-                    <!-- Exercise Card 1 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body d-flex flex-column py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Burpees</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical Exercise</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm frequency-input mx-1" value="10">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Burpees are a full body high intensity exercise.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Exercise Card 2 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body d-flex flex-column py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Pull Ups</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical Exercise</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm frequency-input mx-1" value="5">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Builds upper body and back strength.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Exercise Card 3 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body d-flex flex-column py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Handstand Push Ups</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical Exercise</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm frequency-input mx-1" value="3">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Advanced push up variation to build shoulder and arm strength.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="extra-exercises d-none">
-                        <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                            <div class="card-body d-flex flex-column py-3 px-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h6 class="fw-semibold mb-1" style="color: #000;">Pistol Squats</h6>
-                                        <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical Exercise</small>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                        <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-                                        <div class="d-flex align-items-center">
-                                            <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                            <input type="number" class="form-control form-control-sm frequency-input mx-1" value="5">
-                                            <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="exercise-details mt-3 d-none">
-                                    <p><strong>Description:</strong> Single-leg squat for strength and balance.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                            <div class="card-body d-flex flex-column py-3 px-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h6 class="fw-semibold mb-1" style="color: #000;">Jump Squats</h6>
-                                        <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical Exercise</small>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                        <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-                                        <div class="d-flex align-items-center">
-                                            <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                            <input type="number" class="form-control form-control-sm frequency-input mx-1" value="10">
-                                            <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="exercise-details mt-3 d-none">
-                                    <p><strong>Description:</strong> Explosive leg exercise for power and cardio.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <button class="btn btn-info view-more-btn rounded-pill px-4 py-2" style="font-weight: 500;">View More</button>
-            </div>
-
-        </section>
-
-
-        <!-- ================= YOGA ================= -->
-        <section class="category-section mb-5" style="padding: 1.5rem 0;">
-            <h3 class="mb-4 fw-semibold" style="color: #000 !important; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">Yoga</h3>
-
-            <!-- Beginner -->
-            <div class="level-section mb-4">
-                <h4 class="fw-semibold" style="color: #000; font-size: 1.1rem; margin-bottom: 1rem; padding: 0.4rem 0.75rem; background: rgba(37,99,235,0.08); border-radius: 8px; display: inline-block;">Beginner</h4>
-
-                <div class="exercise-list">
-
-                    <!-- Yoga Card 1 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Mountain Pose</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">
-                                        View Details
-                                    </button>
-
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">
-                                        Add
-                                    </button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Improves posture and balance.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Yoga Card 2 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Tree Pose</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Enhances focus and stability.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Yoga Card 3 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Child's Pose</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Relaxes body and reduces stress.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="extra-exercises d-none">
-
-                        <!-- Extra Yoga Card 4 -->
-                        <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                            <div class="card-body py-3 px-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h6 class="fw-semibold mb-1" style="color: #000;">Cat–Cow Pose</h6>
-                                        <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
-                                    </div>
-
-                                    <div class="d-flex align-items-center gap-2">
-                                        <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                        <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                        <div class="d-flex align-items-center">
-                                            <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                            <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
-                                            <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="exercise-details mt-3 d-none">
-                                    <p><strong>Description:</strong> Improves spinal flexibility and relieves tension.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Extra Yoga Card 5 -->
-                        <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                            <div class="card-body py-3 px-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h6 class="fw-semibold mb-1" style="color: #000;">Downward Dog</h6>
-                                        <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
-                                    </div>
-
-                                    <div class="d-flex align-items-center gap-2">
-                                        <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                        <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                        <div class="d-flex align-items-center">
-                                            <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                            <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
-                                            <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="exercise-details mt-3 d-none">
-                                    <p><strong>Description:</strong> Strengthens arms and stretches the whole body.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <button class="btn btn-info view-more-btn rounded-pill px-4 py-2" style="font-weight: 500;">View More</button>
-            </div>
-
-        <!-- Intermediate -->
+        <!-- Beginner -->
         <div class="level-section mb-4">
-            <h4 class="fw-semibold" style="color: #000; font-size: 1.1rem; margin-bottom: 1rem; padding: 0.4rem 0.75rem; background: rgba(37,99,235,0.08); border-radius: 8px; display: inline-block;">Intermediate</h4>
+            <h4 class="fw-semibold"
+                style="color: #000; font-size: 1.1rem; margin-bottom: 1rem; padding: 0.4rem 0.75rem; background: rgba(37,99,235,0.08); border-radius: 8px; display: inline-block;">
+                Beginner</h4>
 
             <div class="exercise-list">
 
-                <!-- Yoga Card 1 -->
-                <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                    <div class="card-body py-3 px-4">
+                <!-- Exercise Card 1 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body d-flex flex-column py-3 px-4">
                         <div class="d-flex justify-content-between align-items-center">
-        <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Warrior II</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
-                                </div>
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Push Ups</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical
+                                    Exercise</small>
+                            </div>
 
                             <div class="d-flex align-items-center gap-2">
-                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
                                 <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
 
                                 <div class="d-flex align-items-center">
                                     <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                    <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
+                                    <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                        value="1">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Push ups strengthen chest, shoulders and arms.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercise Card 2 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body d-flex flex-column py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Jumping Jacks</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical
+                                    Exercise</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                        value="1">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Improves cardiovascular fitness and agility.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercise Card 3 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body d-flex flex-column py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Wall Sit</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical
+                                    Exercise</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                        value="1">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Strengthens thighs, calves, and core muscles.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="extra-exercises d-none">
+                    <div class="card exercise-card mb-3 shadow-sm border-0"
+                        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                        <div class="card-body d-flex flex-column py-3 px-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="fw-semibold mb-1" style="color: #000;">High Knees</h6>
+                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical
+                                        Exercise</small>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                        Details</button>
+                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                        <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                            value="1">
+                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-details mt-3 d-none">
+                                <p><strong>Description:</strong> Boosts cardio and leg strength.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card exercise-card mb-3 shadow-sm border-0"
+                        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                        <div class="card-body d-flex flex-column py-3 px-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="fw-semibold mb-1" style="color: #000;">Arm Circles</h6>
+                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical
+                                        Exercise</small>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                        Details</button>
+                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                        <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                            value="1">
+                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-details mt-3 d-none">
+                                <p><strong>Description:</strong> Warms up shoulders and arms.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="btn btn-info view-more-btn rounded-pill px-4 py-2" style="font-weight: 500;">View
+                More</button>
+        </div>
+
+        <!-- Intermediate -->
+        <div class="level-section mb-4">
+            <h4 class="fw-semibold"
+                style="color: #000; font-size: 1.1rem; margin-bottom: 1rem; padding: 0.4rem 0.75rem; background: rgba(37,99,235,0.08); border-radius: 8px; display: inline-block;">
+                Intermediate</h4>
+
+            <div class="exercise-list">
+
+                <!-- Exercise Card 1 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body d-flex flex-column py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Squats</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical
+                                    Exercise</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                        value="5">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Squats strengthen legs and glutes.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercise Card 2 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body d-flex flex-column py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Lunges</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical
+                                    Exercise</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                        value="5">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Enhances leg strength and balance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercise Card 3 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body d-flex flex-column py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Plank</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical
+                                    Exercise</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                        value="30">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Strengthens core, arms, and shoulders.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="extra-exercises d-none">
+                    <div class="card exercise-card mb-3 shadow-sm border-0"
+                        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                        <div class="card-body d-flex flex-column py-3 px-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="fw-semibold mb-1" style="color: #000;">Mountain Climbers</h6>
+                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical
+                                        Exercise</small>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                        Details</button>
+                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                        <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                            value="20">
+                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-details mt-3 d-none">
+                                <p><strong>Description:</strong> Strengthens core and improves endurance.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card exercise-card mb-3 shadow-sm border-0"
+                        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                        <div class="card-body d-flex flex-column py-3 px-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="fw-semibold mb-1" style="color: #000;">Glute Bridges</h6>
+                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical
+                                        Exercise</small>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                        Details</button>
+                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                        <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                            value="10">
+                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-details mt-3 d-none">
+                                <p><strong>Description:</strong> Strengthens glutes and lower back.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="btn btn-info view-more-btn rounded-pill px-4 py-2" style="font-weight: 500;">View
+                More</button>
+        </div>
+
+        <!-- Advanced -->
+        <div class="level-section">
+            <h4 class="fw-semibold"
+                style="color: #000; font-size: 1.1rem; margin-bottom: 1rem; padding: 0.4rem 0.75rem; background: rgba(37,99,235,0.08); border-radius: 8px; display: inline-block;">
+                Advanced</h4>
+
+            <div class="exercise-list">
+
+                <!-- Exercise Card 1 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body d-flex flex-column py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Burpees</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical
+                                    Exercise</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                        value="10">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Burpees are a full body high intensity exercise.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercise Card 2 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body d-flex flex-column py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Pull Ups</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical
+                                    Exercise</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                        value="5">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Builds upper body and back strength.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercise Card 3 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body d-flex flex-column py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Handstand Push Ups</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical
+                                    Exercise</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                        value="3">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Advanced push up variation to build shoulder and arm
+                                strength.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="extra-exercises d-none">
+                    <div class="card exercise-card mb-3 shadow-sm border-0"
+                        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                        <div class="card-body d-flex flex-column py-3 px-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="fw-semibold mb-1" style="color: #000;">Pistol Squats</h6>
+                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical
+                                        Exercise</small>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                        Details</button>
+                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                        <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                            value="5">
+                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-details mt-3 d-none">
+                                <p><strong>Description:</strong> Single-leg squat for strength and balance.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card exercise-card mb-3 shadow-sm border-0"
+                        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                        <div class="card-body d-flex flex-column py-3 px-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="fw-semibold mb-1" style="color: #000;">Jump Squats</h6>
+                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Physical
+                                        Exercise</small>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                        Details</button>
+                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                        <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                            value="10">
+                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-details mt-3 d-none">
+                                <p><strong>Description:</strong> Explosive leg exercise for power and cardio.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="btn btn-info view-more-btn rounded-pill px-4 py-2" style="font-weight: 500;">View
+                More</button>
+        </div>
+
+    </section>
+
+
+    <!-- ================= YOGA ================= -->
+    <section class="category-section mb-5" style="padding: 1.5rem 0;">
+        <h3 class="mb-4 fw-semibold"
+            style="color: #000 !important; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">Yoga</h3>
+
+        <!-- Beginner -->
+        <div class="level-section mb-4">
+            <h4 class="fw-semibold"
+                style="color: #000; font-size: 1.1rem; margin-bottom: 1rem; padding: 0.4rem 0.75rem; background: rgba(37,99,235,0.08); border-radius: 8px; display: inline-block;">
+                Beginner</h4>
+
+            <div class="exercise-list">
+
+                <!-- Yoga Card 1 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Mountain Pose</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">
+                                    View Details
+                                </button>
+
+                                <button class="btn btn-success btn-sm add-btn rounded-2">
+                                    Add
+                                </button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                        value="1">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Improves posture and balance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Yoga Card 2 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Tree Pose</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                        value="1">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Enhances focus and stability.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Yoga Card 3 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Child's Pose</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                        value="1">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Relaxes body and reduces stress.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="extra-exercises d-none">
+
+                    <!-- Extra Yoga Card 4 -->
+                    <div class="card exercise-card mb-3 shadow-sm border-0"
+                        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                        <div class="card-body py-3 px-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="fw-semibold mb-1" style="color: #000;">Cat–Cow Pose</h6>
+                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                        Details</button>
+                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                        <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                            value="1">
+                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="exercise-details mt-3 d-none">
+                                <p><strong>Description:</strong> Improves spinal flexibility and relieves tension.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Extra Yoga Card 5 -->
+                    <div class="card exercise-card mb-3 shadow-sm border-0"
+                        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                        <div class="card-body py-3 px-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="fw-semibold mb-1" style="color: #000;">Downward Dog</h6>
+                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                        Details</button>
+                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                        <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                            value="1">
+                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="exercise-details mt-3 d-none">
+                                <p><strong>Description:</strong> Strengthens arms and stretches the whole body.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button class="btn btn-info view-more-btn rounded-pill px-4 py-2" style="font-weight: 500;">View
+                More</button>
+        </div>
+
+        <!-- Intermediate -->
+        <div class="level-section mb-4">
+            <h4 class="fw-semibold"
+                style="color: #000; font-size: 1.1rem; margin-bottom: 1rem; padding: 0.4rem 0.75rem; background: rgba(37,99,235,0.08); border-radius: 8px; display: inline-block;">
+                Intermediate</h4>
+
+            <div class="exercise-list">
+
+                <!-- Yoga Card 1 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Warrior II</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                        value="1">
                                     <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
                                 </div>
                             </div>
@@ -630,21 +726,24 @@
                 </div>
 
                 <!-- Yoga Card 2 -->
-                <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
                     <div class="card-body py-3 px-4">
                         <div class="d-flex justify-content-between align-items-center">
-        <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Triangle Pose</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
-                                </div>
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Triangle Pose</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
+                            </div>
 
                             <div class="d-flex align-items-center gap-2">
-                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
                                 <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
 
                                 <div class="d-flex align-items-center">
                                     <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                    <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
+                                    <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                        value="1">
                                     <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
                                 </div>
                             </div>
@@ -657,21 +756,24 @@
                 </div>
 
                 <!-- Yoga Card 3 -->
-                <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
                     <div class="card-body py-3 px-4">
                         <div class="d-flex justify-content-between align-items-center">
-        <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Cobra Pose</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
-                                </div>
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Cobra Pose</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
+                            </div>
 
                             <div class="d-flex align-items-center gap-2">
-                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
                                 <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
 
                                 <div class="d-flex align-items-center">
                                     <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                    <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
+                                    <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                        value="1">
                                     <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
                                 </div>
                             </div>
@@ -686,7 +788,8 @@
                 <div class="extra-exercises d-none">
 
                     <!-- Extra Yoga Card 4 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card exercise-card mb-3 shadow-sm border-0"
+                        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
                         <div class="card-body py-3 px-4">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
@@ -695,12 +798,14 @@
                                 </div>
 
                                 <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
+                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                        Details</button>
                                     <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
 
                                     <div class="d-flex align-items-center">
                                         <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
+                                        <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                            value="1">
                                         <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
                                     </div>
                                 </div>
@@ -713,7 +818,8 @@
                     </div>
 
                     <!-- Extra Yoga Card 5 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card exercise-card mb-3 shadow-sm border-0"
+                        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
                         <div class="card-body py-3 px-4">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
@@ -722,12 +828,14 @@
                                 </div>
 
                                 <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
+                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                        Details</button>
                                     <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
 
                                     <div class="d-flex align-items-center">
                                         <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
+                                        <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                            value="1">
                                         <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
                                     </div>
                                 </div>
@@ -743,32 +851,38 @@
 
             </div>
 
-            <button class="btn btn-info view-more-btn rounded-pill px-4 py-2" style="font-weight: 500;">View More</button>
+            <button class="btn btn-info view-more-btn rounded-pill px-4 py-2" style="font-weight: 500;">View
+                More</button>
         </div>
 
 
         <!-- Advanced -->
         <div class="level-section">
-            <h4 class="fw-semibold" style="color: #000; font-size: 1.1rem; margin-bottom: 1rem; padding: 0.4rem 0.75rem; background: rgba(37,99,235,0.08); border-radius: 8px; display: inline-block;">Advanced</h4>
+            <h4 class="fw-semibold"
+                style="color: #000; font-size: 1.1rem; margin-bottom: 1rem; padding: 0.4rem 0.75rem; background: rgba(37,99,235,0.08); border-radius: 8px; display: inline-block;">
+                Advanced</h4>
 
             <div class="exercise-list">
 
                 <!-- Yoga Card 1 -->
-                <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
                     <div class="card-body py-3 px-4">
                         <div class="d-flex justify-content-between align-items-center">
-        <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Headstand</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
-                                </div>
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Headstand</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
+                            </div>
 
                             <div class="d-flex align-items-center gap-2">
-                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
                                 <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
 
                                 <div class="d-flex align-items-center">
                                     <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                    <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
+                                    <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                        value="1">
                                     <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
                                 </div>
                             </div>
@@ -781,21 +895,24 @@
                 </div>
 
                 <!-- Yoga Card 2 -->
-                <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
                     <div class="card-body py-3 px-4">
                         <div class="d-flex justify-content-between align-items-center">
-        <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Crow Pose</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
-                                </div>
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Crow Pose</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
+                            </div>
 
                             <div class="d-flex align-items-center gap-2">
-                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
                                 <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
 
                                 <div class="d-flex align-items-center">
                                     <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                    <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
+                                    <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                        value="1">
                                     <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
                                 </div>
                             </div>
@@ -808,21 +925,24 @@
                 </div>
 
                 <!-- Yoga Card 3 -->
-                <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
                     <div class="card-body py-3 px-4">
                         <div class="d-flex justify-content-between align-items-center">
-        <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Wheel Pose</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
-                                </div>
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Wheel Pose</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Yoga</small>
+                            </div>
 
                             <div class="d-flex align-items-center gap-2">
-                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
                                 <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
 
                                 <div class="d-flex align-items-center">
                                     <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                    <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
+                                    <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                        value="1">
                                     <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
                                 </div>
                             </div>
@@ -837,7 +957,8 @@
                 <div class="extra-exercises d-none">
 
                     <!-- Extra Yoga Card 4 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card exercise-card mb-3 shadow-sm border-0"
+                        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
                         <div class="card-body py-3 px-4">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
@@ -846,25 +967,29 @@
                                 </div>
 
                                 <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
+                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                        Details</button>
                                     <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
 
                                     <div class="d-flex align-items-center">
                                         <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
+                                        <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                            value="1">
                                         <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Advanced backbend requiring balance and flexibility.</p>
+                                <p><strong>Description:</strong> Advanced backbend requiring balance and flexibility.
+                                </p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Extra Yoga Card 5 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card exercise-card mb-3 shadow-sm border-0"
+                        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
                         <div class="card-body py-3 px-4">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
@@ -873,12 +998,14 @@
                                 </div>
 
                                 <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
+                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                        Details</button>
                                     <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
 
                                     <div class="d-flex align-items-center">
                                         <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm frequency-input mx-1" value="1">
+                                        <input type="number" class="form-control form-control-sm frequency-input mx-1"
+                                            value="1">
                                         <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
                                     </div>
                                 </div>
@@ -894,38 +1021,140 @@
 
             </div>
 
-            <button class="btn btn-info view-more-btn rounded-pill px-4 py-2" style="font-weight: 500;">View More</button>
+            <button class="btn btn-info view-more-btn rounded-pill px-4 py-2" style="font-weight: 500;">View
+                More</button>
         </div>
 
-        </section>
+    </section>
 
 
-        <!-- ================= MEDITATION ================= -->
-        <section class="category-section mb-5" style="padding: 1.5rem 0;">
-            <h3 class="mb-4 fw-semibold" style="color: #000 !important; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">Meditation</h3>
+    <!-- ================= MEDITATION ================= -->
+    <section class="category-section mb-5" style="padding: 1.5rem 0;">
+        <h3 class="mb-4 fw-semibold"
+            style="color: #000 !important; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">Meditation</h3>
 
-            <!-- Beginner -->
-            <div class="level-section mb-4">
-                <h4 class="fw-semibold" style="color: #000; font-size: 1.1rem; margin-bottom: 1rem; padding: 0.4rem 0.75rem; background: rgba(37,99,235,0.08); border-radius: 8px; display: inline-block;">Beginner</h4>
+        <!-- Beginner -->
+        <div class="level-section mb-4">
+            <h4 class="fw-semibold"
+                style="color: #000; font-size: 1.1rem; margin-bottom: 1rem; padding: 0.4rem 0.75rem; background: rgba(37,99,235,0.08); border-radius: 8px; display: inline-block;">
+                Beginner</h4>
 
-                <div class="exercise-list">
+            <div class="exercise-list">
 
-                    <!-- Meditation Card 1 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                <!-- Meditation Card 1 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body d-flex flex-column py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Mindfulness Meditation</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm time-input mx-1" value="5"
+                                        min="1" max="10">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                    <span class="ms-1">min</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Focus on your breath and presence.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meditation Card 2 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body d-flex flex-column py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Body Scan</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm time-input mx-1" value="5"
+                                        min="1" max="10">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                    <span class="ms-1">min</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Scan your body from head to toe to relax tension.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meditation Card 3 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body d-flex flex-column py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Breathing Meditation</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm time-input mx-1" value="5"
+                                        min="1" max="10">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                    <span class="ms-1">min</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Focus on deep, slow breathing to calm the mind.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="extra-exercises d-none">
+
+                    <!-- Extra Meditation Card 4 -->
+                    <div class="card exercise-card mb-3 shadow-sm border-0"
+                        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
                         <div class="card-body d-flex flex-column py-3 px-4">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Mindfulness Meditation</h6>
+                                    <h6 class="fw-semibold mb-1" style="color: #000;">Box Breathing</h6>
                                     <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
                                 </div>
 
                                 <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
+                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                        Details</button>
                                     <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
 
                                     <div class="d-flex align-items-center">
                                         <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm time-input mx-1" value="5" min="1" max="10">
+                                        <input type="number" class="form-control form-control-sm time-input mx-1"
+                                            value="5" min="1" max="10">
                                         <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
                                         <span class="ms-1">min</span>
                                     </div>
@@ -933,27 +1162,31 @@
                             </div>
 
                             <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Focus on your breath and presence.</p>
+                                <p><strong>Description:</strong> Inhale–hold–exhale–hold in equal counts to calm
+                                    anxiety.</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Meditation Card 2 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <!-- Extra Meditation Card 5 -->
+                    <div class="card exercise-card mb-3 shadow-sm border-0"
+                        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
                         <div class="card-body d-flex flex-column py-3 px-4">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Body Scan</h6>
+                                    <h6 class="fw-semibold mb-1" style="color: #000;">Gratitude Meditation</h6>
                                     <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
                                 </div>
 
                                 <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
+                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                        Details</button>
                                     <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
 
                                     <div class="d-flex align-items-center">
                                         <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm time-input mx-1" value="5" min="1" max="10">
+                                        <input type="number" class="form-control form-control-sm time-input mx-1"
+                                            value="5" min="1" max="10">
                                         <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
                                         <span class="ms-1">min</span>
                                     </div>
@@ -961,490 +1194,444 @@
                             </div>
 
                             <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Scan your body from head to toe to relax tension.</p>
+                                <p><strong>Description:</strong> Reflect on 3 things you’re grateful for to boost mood.
+                                </p>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Meditation Card 3 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body d-flex flex-column py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Breathing Meditation</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm time-input mx-1" value="5" min="1" max="10">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                        <span class="ms-1">min</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Focus on deep, slow breathing to calm the mind.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="extra-exercises d-none">
-
-                        <!-- Extra Meditation Card 4 -->
-                        <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                            <div class="card-body d-flex flex-column py-3 px-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h6 class="fw-semibold mb-1" style="color: #000;">Box Breathing</h6>
-                                        <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
-                                    </div>
-
-                                    <div class="d-flex align-items-center gap-2">
-                                        <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                        <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                        <div class="d-flex align-items-center">
-                                            <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                            <input type="number" class="form-control form-control-sm time-input mx-1"
-                                                value="5" min="1" max="10">
-                                            <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                            <span class="ms-1">min</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="exercise-details mt-3 d-none">
-                                    <p><strong>Description:</strong> Inhale–hold–exhale–hold in equal counts to calm anxiety.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Extra Meditation Card 5 -->
-                        <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                            <div class="card-body d-flex flex-column py-3 px-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h6 class="fw-semibold mb-1" style="color: #000;">Gratitude Meditation</h6>
-                                        <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
-                                    </div>
-
-                                    <div class="d-flex align-items-center gap-2">
-                                        <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                        <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                        <div class="d-flex align-items-center">
-                                            <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                            <input type="number" class="form-control form-control-sm time-input mx-1"
-                                                value="5" min="1" max="10">
-                                            <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                            <span class="ms-1">min</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="exercise-details mt-3 d-none">
-                                    <p><strong>Description:</strong> Reflect on 3 things you’re grateful for to boost mood.</p>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
 
                 </div>
 
-                <button class="btn btn-info view-more-btn rounded-pill px-4 py-2" style="font-weight: 500;">View More</button>
             </div>
 
-            <!-- Intermediate -->
-            <div class="level-section mb-4">
-                <h4 class="fw-semibold" style="color: #000; font-size: 1.1rem; margin-bottom: 1rem; padding: 0.4rem 0.75rem; background: rgba(37,99,235,0.08); border-radius: 8px; display: inline-block;">Intermediate</h4>
-
-                <div class="exercise-list">
-
-                    <!-- Meditation Card 1 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body d-flex flex-column py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Loving-Kindness Meditation</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm time-input mx-1" value="10" min="5" max="15">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                        <span class="ms-1">min</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Cultivate compassion and positive feelings.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Meditation Card 2 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body d-flex flex-column py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Visualization Meditation</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm time-input mx-1" value="10" min="5" max="15">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                        <span class="ms-1">min</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Use mental imagery to achieve a relaxed state.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Meditation Card 3 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body d-flex flex-column py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Walking Meditation</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm time-input mx-1" value="10" min="5" max="15">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                        <span class="ms-1">min</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Focus on each step and breath while walking slowly.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="extra-exercises d-none">
-
-                        <!-- Extra Meditation Card 4 -->
-                        <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                            <div class="card-body d-flex flex-column py-3 px-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h6 class="fw-semibold mb-1" style="color: #000;">Mantra Meditation</h6>
-                                        <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
-                                    </div>
-
-                                    <div class="d-flex align-items-center gap-2">
-                                        <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                        <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                        <div class="d-flex align-items-center">
-                                            <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                            <input type="number" class="form-control form-control-sm time-input mx-1"
-                                                value="10" min="5" max="15">
-                                            <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                            <span class="ms-1">min</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="exercise-details mt-3 d-none">
-                                    <p><strong>Description:</strong> Repeat a calming word/phrase to steady attention.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Extra Meditation Card 5 -->
-                        <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                            <div class="card-body d-flex flex-column py-3 px-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h6 class="fw-semibold mb-1" style="color: #000;">Noting Practice</h6>
-                                        <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
-                                    </div>
-
-                                    <div class="d-flex align-items-center gap-2">
-                                        <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                        <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                        <div class="d-flex align-items-center">
-                                            <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                            <input type="number" class="form-control form-control-sm time-input mx-1"
-                                                value="10" min="5" max="15">
-                                            <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                            <span class="ms-1">min</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="exercise-details mt-3 d-none">
-                                    <p><strong>Description:</strong> Label thoughts/emotions (“thinking”, “worrying”) and return to breath.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <button class="btn btn-info view-more-btn rounded-pill px-4 py-2" style="font-weight: 500;">View More</button>
-            </div>
-
-            <!-- Advanced -->
-            <div class="level-section">
-                <h4 class="fw-semibold" style="color: #000; font-size: 1.1rem; margin-bottom: 1rem; padding: 0.4rem 0.75rem; background: rgba(37,99,235,0.08); border-radius: 8px; display: inline-block;">Advanced</h4>
-
-                <div class="exercise-list">
-
-                    <!-- Meditation Card 1 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body d-flex flex-column py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Zen Meditation</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm time-input mx-1" value="15" min="10" max="20">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                        <span class="ms-1">min</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Sit in silence, focusing on posture and breath.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Meditation Card 2 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body d-flex flex-column py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Transcendental Meditation</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm time-input mx-1" value="15" min="10" max="20">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                        <span class="ms-1">min</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Use a mantra to focus and deepen meditation.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Meditation Card 3 -->
-                    <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                        <div class="card-body d-flex flex-column py-3 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="fw-semibold mb-1" style="color: #000;">Chakra Meditation</h6>
-                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                        <input type="number" class="form-control form-control-sm time-input mx-1" value="15" min="10" max="20">
-                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                        <span class="ms-1">min</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="exercise-details mt-3 d-none">
-                                <p><strong>Description:</strong> Focus on energy centers to balance mind and body.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="extra-exercises d-none">
-
-                        <!-- Extra Meditation Card 4 -->
-                        <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                            <div class="card-body d-flex flex-column py-3 px-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h6 class="fw-semibold mb-1" style="color: #000;">Vipassana (Insight)</h6>
-                                        <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
-                                    </div>
-
-                                    <div class="d-flex align-items-center gap-2">
-                                        <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                        <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                        <div class="d-flex align-items-center">
-                                            <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                            <input type="number" class="form-control form-control-sm time-input mx-1"
-                                                value="15" min="10" max="20">
-                                            <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                            <span class="ms-1">min</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="exercise-details mt-3 d-none">
-                                    <p><strong>Description:</strong> Observe sensations and thoughts to develop deep awareness.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Extra Meditation Card 5 -->
-                        <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
-                            <div class="card-body d-flex flex-column py-3 px-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h6 class="fw-semibold mb-1" style="color: #000;">Deep Silence Sit</h6>
-                                        <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
-                                    </div>
-
-                                    <div class="d-flex align-items-center gap-2">
-                                        <button class="btn btn-outline-primary btn-sm view-details rounded-2">View Details</button>
-                                        <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
-
-                                        <div class="d-flex align-items-center">
-                                            <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
-                                            <input type="number" class="form-control form-control-sm time-input mx-1"
-                                                value="15" min="10" max="20">
-                                            <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
-                                            <span class="ms-1">min</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="exercise-details mt-3 d-none">
-                                    <p><strong>Description:</strong> Sit without guidance—notice breath, sound, and stillness.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <button class="btn btn-info view-more-btn rounded-pill px-4 py-2" style="font-weight: 500;">View More</button>
-            </div>
-
-        </section>
-
-
-        <!-- ACTION BUTTONS -->
-        <div class="text-center mt-5 py-4">
-            <button class="btn btn-secondary me-3 rounded-pill px-4 py-2" id="resetPlan" style="font-weight: 500;">Reset</button>
-            <button class="btn btn-primary rounded-pill px-4 py-2" id="savePlan" style="font-weight: 500;">Save Plan</button>
+            <button class="btn btn-info view-more-btn rounded-pill px-4 py-2" style="font-weight: 500;">View
+                More</button>
         </div>
-        
+
+        <!-- Intermediate -->
+        <div class="level-section mb-4">
+            <h4 class="fw-semibold"
+                style="color: #000; font-size: 1.1rem; margin-bottom: 1rem; padding: 0.4rem 0.75rem; background: rgba(37,99,235,0.08); border-radius: 8px; display: inline-block;">
+                Intermediate</h4>
+
+            <div class="exercise-list">
+
+                <!-- Meditation Card 1 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body d-flex flex-column py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Loving-Kindness Meditation</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm time-input mx-1" value="10"
+                                        min="5" max="15">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                    <span class="ms-1">min</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Cultivate compassion and positive feelings.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meditation Card 2 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body d-flex flex-column py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Visualization Meditation</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm time-input mx-1" value="10"
+                                        min="5" max="15">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                    <span class="ms-1">min</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Use mental imagery to achieve a relaxed state.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meditation Card 3 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body d-flex flex-column py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Walking Meditation</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm time-input mx-1" value="10"
+                                        min="5" max="15">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                    <span class="ms-1">min</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Focus on each step and breath while walking slowly.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="extra-exercises d-none">
+
+                    <!-- Extra Meditation Card 4 -->
+                    <div class="card exercise-card mb-3 shadow-sm border-0"
+                        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                        <div class="card-body d-flex flex-column py-3 px-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="fw-semibold mb-1" style="color: #000;">Mantra Meditation</h6>
+                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                        Details</button>
+                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                        <input type="number" class="form-control form-control-sm time-input mx-1"
+                                            value="10" min="5" max="15">
+                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                        <span class="ms-1">min</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="exercise-details mt-3 d-none">
+                                <p><strong>Description:</strong> Repeat a calming word/phrase to steady attention.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Extra Meditation Card 5 -->
+                    <div class="card exercise-card mb-3 shadow-sm border-0"
+                        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                        <div class="card-body d-flex flex-column py-3 px-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="fw-semibold mb-1" style="color: #000;">Noting Practice</h6>
+                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                        Details</button>
+                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                        <input type="number" class="form-control form-control-sm time-input mx-1"
+                                            value="10" min="5" max="15">
+                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                        <span class="ms-1">min</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="exercise-details mt-3 d-none">
+                                <p><strong>Description:</strong> Label thoughts/emotions (“thinking”, “worrying”) and
+                                    return to breath.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button class="btn btn-info view-more-btn rounded-pill px-4 py-2" style="font-weight: 500;">View
+                More</button>
+        </div>
+
+        <!-- Advanced -->
+        <div class="level-section">
+            <h4 class="fw-semibold"
+                style="color: #000; font-size: 1.1rem; margin-bottom: 1rem; padding: 0.4rem 0.75rem; background: rgba(37,99,235,0.08); border-radius: 8px; display: inline-block;">
+                Advanced</h4>
+
+            <div class="exercise-list">
+
+                <!-- Meditation Card 1 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body d-flex flex-column py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Zen Meditation</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm time-input mx-1" value="15"
+                                        min="10" max="20">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                    <span class="ms-1">min</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Sit in silence, focusing on posture and breath.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meditation Card 2 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body d-flex flex-column py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Transcendental Meditation</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm time-input mx-1" value="15"
+                                        min="10" max="20">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                    <span class="ms-1">min</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Use a mantra to focus and deepen meditation.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meditation Card 3 -->
+                <div class="card exercise-card mb-3 shadow-sm border-0"
+                    style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                    <div class="card-body d-flex flex-column py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-semibold mb-1" style="color: #000;">Chakra Meditation</h6>
+                                <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                    Details</button>
+                                <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                    <input type="number" class="form-control form-control-sm time-input mx-1" value="15"
+                                        min="10" max="20">
+                                    <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                    <span class="ms-1">min</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-details mt-3 d-none">
+                            <p><strong>Description:</strong> Focus on energy centers to balance mind and body.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="extra-exercises d-none">
+
+                    <!-- Extra Meditation Card 4 -->
+                    <div class="card exercise-card mb-3 shadow-sm border-0"
+                        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                        <div class="card-body d-flex flex-column py-3 px-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="fw-semibold mb-1" style="color: #000;">Vipassana (Insight)</h6>
+                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                        Details</button>
+                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                        <input type="number" class="form-control form-control-sm time-input mx-1"
+                                            value="15" min="10" max="20">
+                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                        <span class="ms-1">min</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="exercise-details mt-3 d-none">
+                                <p><strong>Description:</strong> Observe sensations and thoughts to develop deep
+                                    awareness.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Extra Meditation Card 5 -->
+                    <div class="card exercise-card mb-3 shadow-sm border-0"
+                        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1); transition: box-shadow 0.3s ease, border-color 0.3s ease;">
+                        <div class="card-body d-flex flex-column py-3 px-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="fw-semibold mb-1" style="color: #000;">Deep Silence Sit</h6>
+                                    <small class="text-muted" style="font-size: 0.8rem; color: #333;">Meditation</small>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-outline-primary btn-sm view-details rounded-2">View
+                                        Details</button>
+                                    <button class="btn btn-success btn-sm add-btn rounded-2">Add</button>
+
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-outline-secondary btn-sm minus rounded-2">−</button>
+                                        <input type="number" class="form-control form-control-sm time-input mx-1"
+                                            value="15" min="10" max="20">
+                                        <button class="btn btn-outline-secondary btn-sm plus rounded-2">+</button>
+                                        <span class="ms-1">min</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="exercise-details mt-3 d-none">
+                                <p><strong>Description:</strong> Sit without guidance—notice breath, sound, and
+                                    stillness.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button class="btn btn-info view-more-btn rounded-pill px-4 py-2" style="font-weight: 500;">View
+                More</button>
+        </div>
+
+    </section>
+
+
+    <!-- ACTION BUTTONS -->
+    <div class="text-center mt-5 py-4">
+        <button class="btn btn-secondary me-3 rounded-pill px-4 py-2" id="resetPlan"
+            style="font-weight: 500;">Reset</button>
+        <button class="btn btn-primary rounded-pill px-4 py-2" id="savePlan" style="font-weight: 500;">Save
+            Plan</button>
     </div>
 
-    <!-- ===== Save Plan Modal ===== -->
-    <div class="modal fade" id="planModal" tabindex="-1" aria-labelledby="planModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable">
-            <div class="modal-content" style="border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); border: 2px solid #2563eb;">
-                <div class="modal-header" style="border-bottom: 1px solid #e2e8f0; padding: 1.25rem 1.5rem;">
-                    <h5 class="modal-title fw-semibold" id="planModalLabel" style="color: #000;">Confirm Your Plan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+
+<!-- ===== Save Plan Modal ===== -->
+<div class="modal fade" id="planModal" tabindex="-1" aria-labelledby="planModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content"
+            style="border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); border: 2px solid #2563eb;">
+            <div class="modal-header" style="border-bottom: 1px solid #e2e8f0; padding: 1.25rem 1.5rem;">
+                <h5 class="modal-title fw-semibold" id="planModalLabel" style="color: #000;">Confirm Your Plan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body" style="padding: 1.5rem;">
+                <p class="text-muted mb-3">Review and edit your selected exercises.</p>
+
+                <div id="modalPlanList" class="list-group"></div>
+
+                <div id="emptyModalMsg" class="text-center text-muted py-4 d-none">
+                    No exercises selected.
                 </div>
+            </div>
 
-                <div class="modal-body" style="padding: 1.5rem;">
-                    <p class="text-muted mb-3">Review and edit your selected exercises.</p>
-
-                    <div id="modalPlanList" class="list-group"></div>
-
-                    <div id="emptyModalMsg" class="text-center text-muted py-4 d-none">
-                        No exercises selected.
-                    </div>
-                </div>
-
-                <div class="modal-footer" style="border-top: 1px solid #e2e8f0; padding: 1.25rem 1.5rem;">
-                    <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2" data-bs-dismiss="modal" style="font-weight: 500;">Back</button>
-                    <button type="button" class="btn btn-primary rounded-pill px-4 py-2" id="confirmPlanBtn" style="font-weight: 500;">Confirm</button>
-                </div>
+            <div class="modal-footer" style="border-top: 1px solid #e2e8f0; padding: 1.25rem 1.5rem;">
+                <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2" data-bs-dismiss="modal"
+                    style="font-weight: 500;">Back</button>
+                <button type="button" class="btn btn-primary rounded-pill px-4 py-2" id="confirmPlanBtn"
+                    style="font-weight: 500;">Confirm</button>
             </div>
         </div>
     </div>
+</div>
 
 {% endblock %}
 
 {% block extra_js %}
-    <script src="{% static 'tracker/js/pages/plan/create_plan.js' %}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('view-details')) {
+<script src="{% static 'tracker/js/pages/plan/create_plan.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('view-details')) {
                 var card = e.target.closest('.exercise-card');
                 if (card) {
                     var details = card.querySelector('.exercise-details');
-                    setTimeout(function() {
-                    if (details && !details.classList.contains('d-none')) e.target.classList.add('btn-expanded');
-                    else e.target.classList.remove('btn-expanded');
+                    setTimeout(function () {
+                        if (details && !details.classList.contains('d-none')) e.target.classList.add('btn-expanded');
+                        else e.target.classList.remove('btn-expanded');
                     }, 0);
                 }
-                }
-            });
-            document.querySelectorAll('.view-more-btn').forEach(function(btn) {
-                btn.addEventListener('click', function() {
+            }
+        });
+        document.querySelectorAll('.view-more-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
                 var self = this;
-                setTimeout(function() {
+                setTimeout(function () {
                     self.classList.toggle('btn-expanded', self.textContent.trim() === 'View Less');
                 }, 0);
-                });
-            });
-            document.querySelectorAll('.minus, .plus, #resetPlan, #confirmPlanBtn').forEach(function(btn) {
-                btn.addEventListener('click', function() { this.classList.add('btn-clicked'); });
-            });
-            document.querySelectorAll('#planModal .modal-footer [data-bs-dismiss="modal"]').forEach(function(btn) {
-                btn.addEventListener('click', function() { this.classList.add('btn-clicked'); });
             });
         });
-    </script>
+        document.querySelectorAll('.minus, .plus, #resetPlan, #confirmPlanBtn').forEach(function (btn) {
+            btn.addEventListener('click', function () { this.classList.add('btn-clicked'); });
+        });
+        document.querySelectorAll('#planModal .modal-footer [data-bs-dismiss="modal"]').forEach(function (btn) {
+            btn.addEventListener('click', function () { this.classList.add('btn-clicked'); });
+        });
+    });
+</script>
 {% endblock %}

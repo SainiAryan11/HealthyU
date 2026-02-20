@@ -2,84 +2,87 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'tracker/css/pages/session/session_report.css' %}">
+<link rel="stylesheet" href="{% static 'tracker/css/pages/session/session_report.css' %}">
 {% endblock %}
 
 
 {% block content %}
-    <div class="container my-5 py-4 session-report-wrap">
+<div class="container my-5 py-4 session-report-wrap">
 
-      <h2 class="mb-5 text-center fw-bold display-5" style="letter-spacing: -0.02em;">Session Report</h2>
+  <h2 class="mb-5 text-center fw-bold display-5" style="letter-spacing: -0.02em;">Session Report</h2>
 
-      <!-- ✅ Message shown when saving is blocked (progress ≤ 50%) -->
-      <div id="saveBlockMsg" class="alert alert-warning d-none mb-4"></div>
+  <!-- ✅ Message shown when saving is blocked (progress ≤ 50%) -->
+  <div id="saveBlockMsg" class="alert alert-warning d-none mb-4"></div>
 
-      <!-- Stats Cards -->
-      <div class="row g-3 mb-5">
-        <div class="col-md-4">
-          <div class="card stat-card h-100">
-            <div class="card-body py-4">
-              <h5>Progress</h5>
-              <h2 id="progressPct" class="fw-bold">0%</h2>
-            </div>
-          </div>
+  <!-- Stats Cards -->
+  <div class="row g-3 mb-5">
+    <div class="col-md-4">
+      <div class="card stat-card h-100">
+        <div class="card-body py-4">
+          <h5>Progress</h5>
+          <h2 id="progressPct" class="fw-bold">0%</h2>
         </div>
-
-        <div class="col-md-4">
-          <div class="card stat-card h-100">
-            <div class="card-body py-4">
-              <h5>Time Taken</h5>
-              <h2 id="timeTaken" class="fw-bold">0 min</h2>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="card stat-card h-100">
-            <div class="card-body py-4">
-              <h5>Points Earned</h5>
-              <h2 id="pointsEarned" class="fw-bold">0</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Physical -->
-      <section class="category-section mb-5">
-        <h3 class="mb-4 fw-semibold" style="color: #000; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">Physical Exercises</h3>
-        <div id="physicalList" class="list-group"></div>
-      </section>
-
-      <!-- Yoga -->
-      <section class="category-section mb-5">
-        <h3 class="mb-4 fw-semibold" style="color: #000; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">Yoga</h3>
-        <div id="yogaList" class="list-group"></div>
-      </section>
-
-      <!-- Meditation -->
-      <section class="category-section mb-5">
-        <h3 class="mb-4 fw-semibold" style="color: #000; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">Meditation</h3>
-        <div class="meditation-info">
-          <p class="mb-2"><strong>Planned:</strong> <span id="medPlanned">0</span> min</p>
-          <p class="mb-2"><strong>Spent:</strong> <span id="medSpent">0</span> min</p>
-          <p class="mb-0"><strong>Status:</strong> <span id="medStatusBadge"></span></p>
-        </div>
-        <div id="meditationList" class="list-group mt-3"></div>
-      </section>
-
-      <div id="saveMsg" class="alert alert-info d-none"></div>
-
-      <!-- Action Buttons -->
-      <div class="action-buttons d-flex gap-2 flex-wrap">
-        <a href="{% url 'profile' %}" class="btn btn-secondary back-btn px-5 py-2">Back to Profile</a>
-        <button class="btn btn-primary" id="saveSessionBtn" style="flex: 1;" type="button">
-          Save Session
-        </button>
       </div>
     </div>
+
+    <div class="col-md-4">
+      <div class="card stat-card h-100">
+        <div class="card-body py-4">
+          <h5>Time Taken</h5>
+          <h2 id="timeTaken" class="fw-bold">0 min</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card stat-card h-100">
+        <div class="card-body py-4">
+          <h5>Points Earned</h5>
+          <h2 id="pointsEarned" class="fw-bold">0</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Physical -->
+  <section class="category-section mb-5">
+    <h3 class="mb-4 fw-semibold" style="color: #000; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">
+      Physical Exercises</h3>
+    <div id="physicalList" class="list-group"></div>
+  </section>
+
+  <!-- Yoga -->
+  <section class="category-section mb-5">
+    <h3 class="mb-4 fw-semibold" style="color: #000; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">Yoga
+    </h3>
+    <div id="yogaList" class="list-group"></div>
+  </section>
+
+  <!-- Meditation -->
+  <section class="category-section mb-5">
+    <h3 class="mb-4 fw-semibold" style="color: #000; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">
+      Meditation</h3>
+    <div class="meditation-info">
+      <p class="mb-2"><strong>Planned:</strong> <span id="medPlanned">0</span> min</p>
+      <p class="mb-2"><strong>Spent:</strong> <span id="medSpent">0</span> min</p>
+      <p class="mb-0"><strong>Status:</strong> <span id="medStatusBadge"></span></p>
+    </div>
+    <div id="meditationList" class="list-group mt-3"></div>
+  </section>
+
+  <div id="saveMsg" class="alert alert-info d-none"></div>
+
+  <!-- Action Buttons -->
+  <div class="action-buttons d-flex gap-2 flex-wrap">
+    <a href="{% url 'profile' %}" class="btn btn-secondary back-btn px-5 py-2">Back to Profile</a>
+    <button class="btn btn-primary" id="saveSessionBtn" style="flex: 1;" type="button">
+      Save Session
+    </button>
+  </div>
+</div>
 
 {% endblock %}
 
 {% block extra_js %}
-    <script src="{% static 'tracker/js/pages/session/session_report.js' %}"></script>
+<script src="{% static 'tracker/js/pages/session/session_report.js' %}"></script>
 {% endblock %}

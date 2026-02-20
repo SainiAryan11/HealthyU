@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'tracker/css/pages/plan/view_plan.css' %}">
+<link rel="stylesheet" href="{% static 'tracker/css/pages/plan/view_plan.css' %}">
 {% endblock %}
 
 
@@ -10,60 +10,70 @@
 <div class="container my-5 py-4 view-plan-wrap">
 
   {% if not plan %}
-    <div class="no-plan-container">
-      <h2 class="mb-4 fw-bold display-5" style="letter-spacing: -0.02em;">Your Exercise Plan</h2>
-      <p class="text-muted mb-4">No plan created yet. Start by creating your first exercise plan!</p>
-      <a href="{% url 'create_plan' %}" class="btn btn-primary btn-lg rounded-2 px-5">Create Your Plan</a>
-    </div>
+  <div class="no-plan-container">
+    <h2 class="mb-4 fw-bold display-5" style="letter-spacing: -0.02em;">Your Exercise Plan</h2>
+    <p class="text-muted mb-4">No plan created yet. Start by creating your first exercise plan!</p>
+    <a href="{% url 'create_plan' %}" class="btn btn-primary btn-lg rounded-2 px-5">Create Your Plan</a>
+  </div>
   {% else %}
 
-    <h2 class="mb-5 text-center fw-bold display-5" style="letter-spacing: -0.02em;">Your Exercise Plan</h2>
+  <h2 class="mb-5 text-center fw-bold display-5" style="letter-spacing: -0.02em;">Your Exercise Plan</h2>
 
-    <div class="card plan-info mb-4 shadow-sm" style="border: none; border-left: 4px solid #2563eb;">
-      <div class="card-body py-3">
-        <p class="mb-2" style="color: #333;"><strong>Created:</strong> {{ plan.created_at|date:"d M Y, h:i A" }}</p>
-        <p class="mb-0 text-muted" style="color: #666; font-size: 0.95rem;">This plan cannot be edited. You can delete it and create a new one.</p>
-      </div>
+  <div class="card plan-info mb-4 shadow-sm" style="border: none; border-left: 4px solid #2563eb;">
+    <div class="card-body py-3">
+      <p class="mb-2" style="color: #333;"><strong>Created:</strong> {{ plan.created_at|date:"d M Y, h:i A" }}</p>
+      <p class="mb-0 text-muted" style="color: #666; font-size: 0.95rem;">This plan cannot be edited. You can delete it
+        and create a new one.</p>
     </div>
+  </div>
 
-    {% regroup plan.items.all by category as items_by_category %}
+  {% regroup plan.items.all by category as items_by_category %}
 
-    {% for category in items_by_category %}
-    <section class="category-section mb-5" style="padding: 1.5rem 0;">
-      <h3 class="mb-4 fw-semibold" style="color: #000 !important; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">{{ category.grouper }}</h3>
+  {% for category in items_by_category %}
+  <section class="category-section mb-5" style="padding: 1.5rem 0;">
+    <h3 class="mb-4 fw-semibold"
+      style="color: #000 !important; padding-bottom: 0.75rem; border-bottom: 2px solid #2563eb;">{{ category.grouper }}
+    </h3>
 
-      <div class="exercise-list">
-        {% for item in category.list %}
-        <div class="card exercise-card mb-3 shadow-sm border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1);">
-          <div class="card-body py-3 px-4">
-            <div class="d-flex justify-content-between align-items-center">
-              <div>
-                <h6 class="fw-semibold mb-1" style="color: #000;">{{ item.name }}</h6>
-                <small class="text-muted" style="font-size: 0.8rem; color: #333;">{{ item.category }}</small>
-              </div>
+    <div class="exercise-list">
+      {% for item in category.list %}
+      <div class="card exercise-card mb-3 shadow-sm border-0"
+        style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1);">
+        <div class="card-body py-3 px-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h6 class="fw-semibold mb-1" style="color: #000;">{{ item.name }}</h6>
+              <small class="text-muted" style="font-size: 0.8rem; color: #333;">{{ item.category }}</small>
+            </div>
 
-              <div class="d-flex align-items-center gap-2">
-                {% if item.unit == "min" %}
-                  <span class="badge bg-info rounded-pill" style="background: rgba(37,99,235,0.2) !important; color: #2563eb !important; font-size: 0.85rem; padding: 0.4rem 0.8rem;">{{ item.value }} min</span>
-                {% else %}
-                  <span class="badge bg-info rounded-pill" style="background: rgba(37,99,235,0.2) !important; color: #2563eb !important; font-size: 0.85rem; padding: 0.4rem 0.8rem;">{{ item.value }} x</span>
-                {% endif %}
-              </div>
+            <div class="d-flex align-items-center gap-2">
+              {% if item.unit == "min" %}
+              <span class="badge bg-info rounded-pill"
+                style="background: rgba(37,99,235,0.2) !important; color: #2563eb !important; font-size: 0.85rem; padding: 0.4rem 0.8rem;">{{
+                item.value }} min</span>
+              {% else %}
+              <span class="badge bg-info rounded-pill"
+                style="background: rgba(37,99,235,0.2) !important; color: #2563eb !important; font-size: 0.85rem; padding: 0.4rem 0.8rem;">{{
+                item.value }} x</span>
+              {% endif %}
             </div>
           </div>
         </div>
-        {% endfor %}
       </div>
-    </section>
-    {% endfor %}
-
-    <div class="action-buttons mt-5 d-flex gap-2">
-      <form method="POST" action="{% url 'delete_plan' %}" style="flex: 1;">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger btn-lg rounded-pill px-4 py-2" id="deletePlanBtn" style="border: none;">Delete Entire Plan</button>
-      </form>
-      <a href="{% url 'profile' %}" class="btn btn-secondary btn-lg rounded-pill px-4 py-2" id="backBtn" style="border: none;">Back</a>
+      {% endfor %}
     </div>
+  </section>
+  {% endfor %}
+
+  <div class="action-buttons mt-5 d-flex gap-2">
+    <form method="POST" action="{% url 'delete_plan' %}" style="flex: 1;">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger btn-lg rounded-pill px-4 py-2" id="deletePlanBtn"
+        style="border: none;">Delete Entire Plan</button>
+    </form>
+    <a href="{% url 'profile' %}" class="btn btn-secondary btn-lg rounded-pill px-4 py-2" id="backBtn"
+      style="border: none;">Back</a>
+  </div>
 
   {% endif %}
 </div>
@@ -71,5 +81,5 @@
 {% endblock %}
 
 {% block extra_js %}
-    <script src="{% static 'tracker/js/pages/plan/view_plan.js' %}"></script>
+<script src="{% static 'tracker/js/pages/plan/view_plan.js' %}"></script>
 {% endblock %}

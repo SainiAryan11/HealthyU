@@ -2,51 +2,55 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'tracker/css/pages/challenges/challenges.css' %}">
+<link rel="stylesheet" href="{% static 'tracker/css/components/detail_page.css' %}">
+<link rel="stylesheet" href="{% static 'tracker/css/pages/challenges/challenges.css' %}">
 {% endblock %}
 
 {% block content %}
 
-  <div class="container ch-wrap">
-    <h2 class="mb-3">Today's Challenge</h2>
-    <p class="text-muted mb-4">{{ today_date }}</p>
+<div class="container ch-wrap">
+  <a href="{% url 'home' %}" class="back-button">
+        <span class="back-icon">←</span> Back to Home
+  </a>
+  <h2 class="mb-3">Today's Challenge</h2>
+  <p class="text-muted mb-4">{{ today_date }}</p>
 
-    {% if not challenge %}
-      <div class="alert alert-warning">
-        No challenge found. Please add 10 challenges in admin.
-      </div>
-    {% else %}
-      <div class="ch-card">
-
-        <div class="ch-title">{{ challenge.title }}</div>
-        <div class="ch-desc">
-          {{ challenge.description|default:"Complete this daily challenge step-by-step." }}
-        </div>
-
-        <div class="mb-3">
-          <span class="badge-pill badge-blue">
-            ⭐ +{{ challenge.points }} Points
-          </span>
-
-          {% if challenge.completed %}
-            <span class="badge-pill badge-green">✅ Completed</span>
-          {% elif is_guest %}
-            <span class="badge-pill badge-gray">👀 View Only</span>
-          {% else %}
-            <span class="badge-pill badge-blue">🔥 Available</span>
-          {% endif %}
-        </div>
-
-        <a href="{% url 'challenge_session' challenge.id %}" class="btn btn-primary">
-          Accept Challenge →
-        </a>
-
-      </div>
-    {% endif %}
+  {% if not challenge %}
+  <div class="alert alert-warning">
+    No challenge found. Please add 10 challenges in admin.
   </div>
+  {% else %}
+  <div class="ch-card">
+
+    <div class="ch-title">{{ challenge.title }}</div>
+    <div class="ch-desc">
+      {{ challenge.description|default:"Complete this daily challenge step-by-step." }}
+    </div>
+
+    <div class="mb-3">
+      <span class="badge-pill badge-blue">
+        ⭐ +{{ challenge.points }} Points
+      </span>
+
+      {% if challenge.completed %}
+      <span class="badge-pill badge-green">✅ Completed</span>
+      {% elif is_guest %}
+      <span class="badge-pill badge-gray">👀 View Only</span>
+      {% else %}
+      <span class="badge-pill badge-blue">🔥 Available</span>
+      {% endif %}
+    </div>
+
+    <a href="{% url 'challenge_session' challenge.id %}" class="btn btn-primary">
+      Accept Challenge →
+    </a>
+
+  </div>
+  {% endif %}
+</div>
 
 {% endblock %}
 
 {% block extra_js %}
-    <script src="{% static 'tracker/js/pages/challenges/challenges.js' %}"></script>
+<script src="{% static 'tracker/js/pages/challenges/challenges.js' %}"></script>
 {% endblock %}
